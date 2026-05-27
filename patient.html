@@ -25,85 +25,35 @@
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:#f8f7f2;color:var(--txt);overflow-x:hidden;display:flex;min-height:100vh}
 h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--gold3);border-radius:2px}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--gold3);border-radius:2px}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-@keyframes slideIn{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes shimmer{0%{background-position:-200px 0}100%{background-position:calc(200px + 100%) 0}}
-@keyframes notifPop{0%{transform:scale(0) rotate(-10deg);opacity:0}70%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
 @keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes notifPop{0%{transform:scale(0) rotate(-10deg);opacity:0}70%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
 
 /* ── SIDEBAR ── */
-.sidebar{
-  width:var(--sidebar);min-height:100vh;
-  background:var(--navy);
-  position:fixed;top:0;left:0;bottom:0;
-  display:flex;flex-direction:column;
-  z-index:50;
-  transition:transform .3s cubic-bezier(.22,1,.36,1);
-}
-.sidebar-logo{
-  padding:1.5rem 1.5rem 1rem;
-  display:flex;align-items:center;gap:10px;
-  border-bottom:1px solid rgba(255,255,255,.06);
-}
+.sidebar{width:var(--sidebar);min-height:100vh;background:var(--navy);position:fixed;top:0;left:0;bottom:0;display:flex;flex-direction:column;z-index:50;transition:transform .3s cubic-bezier(.22,1,.36,1)}
+.sidebar-logo{padding:1.5rem 1.5rem 1rem;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.06)}
 .logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:10px;display:flex;align-items:center;justify-content:center}
 .logo-icon i{color:#fff;font-size:.9rem}
 .logo-text{font-family:'DM Serif Display',serif;font-size:1.1rem;color:#fff}
 .logo-text span{color:var(--gold)}
-
-.sidebar-user{
-  padding:1.25rem 1.5rem;
-  display:flex;align-items:center;gap:12px;
-  background:rgba(255,255,255,.03);
-  margin:.75rem .75rem;
-  border-radius:var(--radius-sm);
-  border:1px solid rgba(255,255,255,.05);
-}
-.user-ava{
-  width:40px;height:40px;border-radius:50%;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  display:flex;align-items:center;justify-content:center;
-  font-size:.9rem;color:#fff;font-weight:700;flex-shrink:0;
-  position:relative;
-}
-.user-ava .online-badge{
-  width:10px;height:10px;background:var(--green);
-  border-radius:50%;border:2px solid var(--navy);
-  position:absolute;bottom:0;right:0;
-}
-.user-name{font-size:.82rem;font-weight:700;color:#fff}
+.sidebar-user{padding:1.25rem 1.5rem;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.03);margin:.75rem .75rem;border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,.05)}
+.user-ava{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:.85rem;color:#fff;font-weight:700;flex-shrink:0;position:relative}
+.user-ava .online-badge{width:10px;height:10px;background:var(--green);border-radius:50%;border:2px solid var(--navy);position:absolute;bottom:0;right:0}
+.user-name{font-size:.82rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px}
 .user-role{font-size:.68rem;color:var(--gold);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
-
 .sidebar-nav{flex:1;padding:.5rem .75rem;overflow-y:auto}
 .nav-section-title{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:#334155;padding:.75rem .75rem .35rem;margin-top:.5rem}
-.nav-item{
-  display:flex;align-items:center;gap:10px;
-  padding:.7rem .75rem;border-radius:var(--radius-xs);
-  cursor:pointer;transition:all .2s;
-  text-decoration:none;color:#64748b;
-  font-size:.84rem;font-weight:500;
-  position:relative;margin-bottom:2px;
-}
+.nav-item{display:flex;align-items:center;gap:10px;padding:.7rem .75rem;border-radius:var(--radius-xs);cursor:pointer;transition:all .2s;text-decoration:none;color:#64748b;font-size:.84rem;font-weight:500;position:relative;margin-bottom:2px}
 .nav-item:hover{background:rgba(255,255,255,.05);color:#94a3b8}
 .nav-item.active{background:rgba(245,158,11,.12);color:var(--gold);border:1px solid rgba(245,158,11,.15)}
 .nav-item.active i{color:var(--gold)}
 .nav-item i{width:18px;text-align:center;font-size:.85rem;color:#475569;transition:color .2s}
 .nav-item:hover i{color:#64748b}
-.nav-badge{
-  margin-left:auto;background:var(--red);color:#fff;
-  font-size:.6rem;font-weight:800;
-  padding:2px 6px;border-radius:999px;
-  animation:notifPop .3s ease both;
-}
-.nav-badge.gold{background:var(--gold)}
-
+.nav-badge{margin-left:auto;background:var(--red);color:#fff;font-size:.6rem;font-weight:800;padding:2px 6px;border-radius:999px;animation:notifPop .3s ease both}
 .sidebar-footer{padding:1rem .75rem;border-top:1px solid rgba(255,255,255,.06)}
 .sidebar-footer .nav-item{color:#475569}
 
@@ -111,39 +61,16 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
 .main{margin-left:var(--sidebar);flex:1;min-height:100vh;display:flex;flex-direction:column}
 
 /* ── TOPBAR ── */
-.topbar{
-  height:64px;background:#fff;
-  border-bottom:1px solid rgba(245,158,11,.1);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 2rem;
-  position:sticky;top:0;z-index:40;
-  box-shadow:0 2px 16px rgba(26,26,46,.04);
-}
+.topbar{height:64px;background:#fff;border-bottom:1px solid rgba(245,158,11,.1);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;position:sticky;top:0;z-index:40;box-shadow:0 2px 16px rgba(26,26,46,.04)}
 .topbar-left{display:flex;align-items:center;gap:12px}
 .hamburger-btn{display:none;background:none;border:none;cursor:pointer;padding:4px;color:var(--slate)}
 .page-title{font-size:1.1rem;font-weight:700;color:var(--navy)}
 .page-sub{font-size:.75rem;color:var(--slate2);margin-top:1px}
 .topbar-right{display:flex;align-items:center;gap:.75rem}
-.topbar-btn{
-  width:38px;height:38px;border-radius:10px;
-  background:var(--off);border:1px solid var(--off2);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;color:var(--slate);font-size:.85rem;
-  transition:all .2s;position:relative;
-}
+.topbar-btn{width:38px;height:38px;border-radius:10px;background:var(--off);border:1px solid var(--off2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--slate);font-size:.85rem;transition:all .2s;position:relative}
 .topbar-btn:hover{background:var(--gold-light);color:var(--gold2);border-color:rgba(245,158,11,.3)}
-.topbar-btn .notif-dot{
-  position:absolute;top:6px;right:6px;
-  width:8px;height:8px;background:var(--red);border-radius:50%;
-  border:2px solid #fff;
-}
-.topbar-search{
-  display:flex;align-items:center;gap:8px;
-  background:var(--off);border:1px solid var(--off2);
-  border-radius:999px;padding:7px 16px;
-  font-size:.82rem;color:var(--slate2);
-  cursor:text;transition:all .2s;min-width:200px;
-}
+.topbar-btn .notif-dot{position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid #fff}
+.topbar-search{display:flex;align-items:center;gap:8px;background:var(--off);border:1px solid var(--off2);border-radius:999px;padding:7px 16px;font-size:.82rem;color:var(--slate2);cursor:text;transition:all .2s;min-width:200px}
 .topbar-search:hover{border-color:rgba(245,158,11,.3)}
 .topbar-search i{font-size:.75rem}
 
@@ -158,24 +85,14 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
 
 /* ── STAT CARDS ── */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
-.stat-card{
-  background:#fff;border-radius:var(--radius);
-  padding:1.25rem;border:1.5px solid rgba(245,158,11,.08);
-  box-shadow:var(--shadow);
-  position:relative;overflow:hidden;
-  transition:all .25s;
-}
+.stat-card{background:#fff;border-radius:var(--radius);padding:1.25rem;border:1.5px solid rgba(245,158,11,.08);box-shadow:var(--shadow);position:relative;overflow:hidden;transition:all .25s}
 .stat-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
 .stat-card::after{content:'';position:absolute;top:0;right:0;width:80px;height:80px;border-radius:50%;opacity:.07;transform:translate(20px,-20px)}
 .stat-card.gold::after{background:var(--gold)}
 .stat-card.green::after{background:var(--green)}
 .stat-card.blue::after{background:var(--blue)}
 .stat-card.purple::after{background:var(--purple)}
-.stat-icon{
-  width:38px;height:38px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.85rem;margin-bottom:.85rem;
-}
+.stat-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.85rem;margin-bottom:.85rem}
 .stat-icon.gold{background:#fef3c7;color:var(--gold2)}
 .stat-icon.green{background:#dcfce7;color:#16a34a}
 .stat-icon.blue{background:#dbeafe;color:#2563eb}
@@ -184,7 +101,6 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
 .stat-label{font-size:.75rem;color:var(--slate2);margin-top:.25rem}
 .stat-trend{font-size:.7rem;font-weight:700;margin-top:.4rem}
 .stat-trend.up{color:var(--green)}
-.stat-trend.down{color:var(--red)}
 
 /* ── SECTION LABEL ── */
 .section-label{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--gold2);display:flex;align-items:center;gap:6px;margin-bottom:.5rem}
@@ -202,7 +118,6 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
 .btn-danger{background:#fef2f2;color:var(--red);border:1px solid #fecaca}
 .btn-danger:hover{background:#fee2e2}
 .btn-green{background:#dcfce7;color:#16a34a;border:1px solid #bbf7d0}
-.btn-green:hover{background:#bbf7d0}
 
 /* ── BADGE ── */
 .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
@@ -222,57 +137,41 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
 .page-view{display:none;animation:fadeIn .3s ease}
 .page-view.active{display:block}
 
-/* ── HOME PAGE ── */
-.welcome-banner{
-  background:linear-gradient(135deg,var(--navy),var(--navy2));
-  border-radius:var(--radius);padding:2rem;
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:1.5rem;position:relative;overflow:hidden;
-}
+/* ── HOME ── */
+.welcome-banner{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:var(--radius);padding:2rem;display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;position:relative;overflow:hidden}
 .welcome-banner::before{content:'';position:absolute;right:-60px;top:-60px;width:250px;height:250px;background:radial-gradient(circle,rgba(245,158,11,.15),transparent 70%)}
 .welcome-banner::after{content:'';position:absolute;left:-30px;bottom:-30px;width:150px;height:150px;background:radial-gradient(circle,rgba(245,158,11,.08),transparent 70%)}
 .welcome-text h2{font-size:1.4rem;color:#fff;margin-bottom:.4rem}
 .welcome-text p{font-size:.85rem;color:#94a3b8;line-height:1.6}
 .welcome-actions{display:flex;gap:.75rem;margin-top:1.25rem;flex-wrap:wrap}
 .welcome-ilu{font-size:4rem;opacity:.25;position:absolute;right:2rem;top:50%;transform:translateY(-50%)}
-
 .home-grid{display:grid;grid-template-columns:2fr 1fr;gap:1.5rem}
 .home-main{display:flex;flex-direction:column;gap:1.5rem}
 .home-side{display:flex;flex-direction:column;gap:1.5rem}
 
 /* Quick Actions */
 .quick-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
-.qa-card{
-  background:var(--off);border:1.5px solid var(--off2);border-radius:var(--radius-sm);
-  padding:1rem;cursor:pointer;transition:all .22s;display:flex;align-items:center;gap:12px;
-}
+.qa-card{background:var(--off);border:1.5px solid var(--off2);border-radius:var(--radius-sm);padding:1rem;cursor:pointer;transition:all .22s;display:flex;align-items:center;gap:12px}
 .qa-card:hover{border-color:rgba(245,158,11,.35);background:var(--gold-light);transform:translateY(-2px)}
 .qa-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
 .qa-label{font-size:.82rem;font-weight:700;color:var(--navy)}
 .qa-sub{font-size:.7rem;color:var(--slate2);margin-top:1px}
 
-/* Nurse cards */
+/* Nurse list */
 .nurse-list{display:flex;flex-direction:column;gap:.75rem}
-.nurse-item{
-  display:flex;align-items:center;gap:12px;
-  padding:.85rem;background:var(--off);
-  border-radius:var(--radius-sm);border:1.5px solid var(--off2);
-  cursor:pointer;transition:all .22s;
-}
+.nurse-item{display:flex;align-items:center;gap:12px;padding:.85rem;background:var(--off);border-radius:var(--radius-sm);border:1.5px solid var(--off2);cursor:pointer;transition:all .22s}
 .nurse-item:hover{border-color:rgba(245,158,11,.3);background:var(--gold-light)}
 .nurse-ava{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;position:relative}
-.nurse-ava .status-dot{width:10px;height:10px;border-radius:50%;border:2px solid #fff;position:absolute;bottom:1px;right:1px}
+.status-dot{width:10px;height:10px;border-radius:50%;border:2px solid #fff;position:absolute;bottom:1px;right:1px}
 .status-dot.online{background:var(--green)}
 .status-dot.busy{background:var(--gold)}
-.status-dot.offline{background:var(--slate3)}
 .nurse-info{flex:1}
 .nurse-name-sm{font-size:.82rem;font-weight:700;color:var(--navy)}
 .nurse-spec-sm{font-size:.7rem;color:var(--gold2);font-weight:600;margin-top:1px}
 .nurse-rating-sm{display:flex;align-items:center;gap:3px;margin-top:2px}
 .stars-sm{color:var(--gold);font-size:.6rem}
-.nurse-wait{font-size:.65rem;color:var(--slate2);margin-left:auto;text-align:right;flex-shrink:0}
 
-/* Health status */
+/* Health items */
 .health-item{display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid var(--off2)}
 .health-item:last-child{border-bottom:none}
 .health-label{font-size:.8rem;color:var(--slate);display:flex;align-items:center;gap:6px}
@@ -280,23 +179,14 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
 .health-status{font-size:.65rem;padding:2px 8px;border-radius:999px;font-weight:700}
 .health-status.normal{background:#dcfce7;color:#15803d}
 .health-status.warning{background:#fef3c7;color:var(--gold-deep)}
-.health-status.danger{background:#fee2e2;color:#dc2626}
 
-/* ── CONSULTATION PAGE ── */
-.consult-layout{display:grid;grid-template-columns:1fr 340px;gap:1.5rem;align-items:start}
-
-/* Category grid */
+/* ── CONSULTATION ── */
 .category-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1.5rem}
-.cat-card{
-  background:#fff;border-radius:var(--radius-sm);border:1.5px solid var(--off2);
-  padding:1rem;text-align:center;cursor:pointer;transition:all .25s;
-}
-.cat-card:hover,.cat-card.selected{border-color:var(--gold);background:var(--gold-light);transform:translateY(-2px);box-shadow:var(--shadow)}
-.cat-card.selected{box-shadow:0 0 0 3px rgba(245,158,11,.2)}
+.cat-card{background:#fff;border-radius:var(--radius-sm);border:1.5px solid var(--off2);padding:1rem;text-align:center;cursor:pointer;transition:all .25s}
+.cat-card:hover,.cat-card.selected{border-color:var(--gold);background:var(--gold-light);transform:translateY(-2px)}
 .cat-icon{font-size:1.5rem;margin-bottom:.4rem}
 .cat-name{font-size:.75rem;font-weight:700;color:var(--navy)}
-
-/* Consultation form */
+.consult-layout{display:grid;grid-template-columns:1fr 340px;gap:1.5rem;align-items:start}
 .form-group{margin-bottom:1.1rem}
 .form-label{display:block;font-size:.72rem;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.4rem}
 .form-input{width:100%;padding:10px 14px;background:var(--off);border:1.5px solid var(--off2);border-radius:var(--radius-xs);color:var(--navy);font-size:.85rem;outline:none;transition:all .22s;font-family:'DM Sans',sans-serif}
@@ -305,45 +195,25 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
 textarea.form-input{resize:vertical;min-height:80px}
 select.form-input option{background:#fff}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-
-/* Pain scale */
 .pain-scale{display:flex;gap:.4rem}
-.pain-btn{
-  flex:1;padding:8px 4px;border-radius:8px;border:1.5px solid var(--off2);
-  background:var(--off);cursor:pointer;font-size:.75rem;font-weight:700;
-  text-align:center;transition:all .2s;font-family:'DM Sans',sans-serif;color:var(--slate2);
-}
-.pain-btn:hover{border-color:var(--gold)}
+.pain-btn{flex:1;padding:8px 4px;border-radius:8px;border:1.5px solid var(--off2);background:var(--off);cursor:pointer;font-size:.75rem;font-weight:700;text-align:center;transition:all .2s;font-family:'DM Sans',sans-serif;color:var(--slate2)}
 .pain-btn.active{background:var(--gold);border-color:var(--gold);color:#fff}
-
-/* Nurse selector */
-.nurse-selector{display:flex;flex-direction:column;gap:.6rem;max-height:320px;overflow-y:auto;padding-right:4px}
-.nurse-select-item{
-  display:flex;align-items:center;gap:10px;
-  padding:.8rem;border-radius:var(--radius-xs);
-  border:1.5px solid var(--off2);background:var(--off);
-  cursor:pointer;transition:all .2s;
-}
+.nurse-selector{display:flex;flex-direction:column;gap:.6rem;max-height:320px;overflow-y:auto}
+.nurse-select-item{display:flex;align-items:center;gap:10px;padding:.8rem;border-radius:var(--radius-xs);border:1.5px solid var(--off2);background:var(--off);cursor:pointer;transition:all .2s}
 .nurse-select-item:hover,.nurse-select-item.selected{border-color:var(--gold);background:var(--gold-light)}
-.nurse-select-item.selected{box-shadow:0 0 0 2px rgba(245,158,11,.2)}
 .nurse-select-radio{width:16px;height:16px;border-radius:50%;border:2px solid var(--slate3);flex-shrink:0;transition:all .2s;display:flex;align-items:center;justify-content:center}
 .nurse-select-item.selected .nurse-select-radio{border-color:var(--gold);background:var(--gold)}
 .nurse-select-item.selected .nurse-select-radio::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff}
 
 /* ── CHAT ── */
 .chat-layout{display:grid;grid-template-columns:280px 1fr 260px;gap:0;height:calc(100vh - 64px - 4rem);background:#fff;border-radius:var(--radius);border:1.5px solid rgba(245,158,11,.1);overflow:hidden;box-shadow:var(--shadow)}
-
 .chat-sidebar{border-right:1px solid var(--off2);display:flex;flex-direction:column}
 .chat-sidebar-header{padding:1rem;border-bottom:1px solid var(--off2)}
 .chat-sidebar-title{font-size:.85rem;font-weight:700;color:var(--navy);margin-bottom:.6rem}
-.chat-search{display:flex;align-items:center;gap:6px;background:var(--off);border:1px solid var(--off2);border-radius:999px;padding:6px 12px;font-size:.75rem;color:var(--slate2)}
+.chat-search{display:flex;align-items:center;gap:6px;background:var(--off);border:1px solid var(--off2);border-radius:999px;padding:6px 12px}
 .chat-search input{background:none;border:none;outline:none;font-size:.75rem;font-family:'DM Sans',sans-serif;color:var(--navy);width:100%}
 .chat-rooms{flex:1;overflow-y:auto;padding:.5rem}
-.chat-room-item{
-  display:flex;align-items:center;gap:10px;
-  padding:.75rem;border-radius:var(--radius-xs);
-  cursor:pointer;transition:all .2s;
-}
+.chat-room-item{display:flex;align-items:center;gap:10px;padding:.75rem;border-radius:var(--radius-xs);cursor:pointer;transition:all .2s}
 .chat-room-item:hover{background:var(--off)}
 .chat-room-item.active{background:var(--gold-light);border:1px solid rgba(245,158,11,.2)}
 .chat-room-ava{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1rem;position:relative}
@@ -353,13 +223,8 @@ select.form-input option{background:#fff}
 .chat-room-meta{text-align:right;flex-shrink:0}
 .chat-room-time{font-size:.65rem;color:var(--slate3)}
 .chat-room-unread{background:var(--gold);color:#fff;font-size:.6rem;font-weight:800;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:3px;margin-left:auto}
-
 .chat-main{display:flex;flex-direction:column;border-right:1px solid var(--off2)}
-.chat-main-header{
-  padding:.85rem 1.25rem;border-bottom:1px solid var(--off2);
-  display:flex;align-items:center;justify-content:space-between;
-  background:#fff;
-}
+.chat-main-header{padding:.85rem 1.25rem;border-bottom:1px solid var(--off2);display:flex;align-items:center;justify-content:space-between;background:#fff}
 .chat-nurse-info{display:flex;align-items:center;gap:10px}
 .chat-nurse-ava{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;position:relative;flex-shrink:0}
 .chat-nurse-name{font-size:.85rem;font-weight:700;color:var(--navy)}
@@ -367,8 +232,7 @@ select.form-input option{background:#fff}
 .chat-nurse-status::before{content:'';width:6px;height:6px;background:var(--green);border-radius:50%}
 .chat-actions{display:flex;gap:.5rem}
 .chat-action-btn{width:34px;height:34px;border-radius:8px;background:var(--off);border:1px solid var(--off2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--slate);font-size:.8rem;transition:all .2s}
-.chat-action-btn:hover{background:var(--gold-light);color:var(--gold2);border-color:rgba(245,158,11,.3)}
-
+.chat-action-btn:hover{background:var(--gold-light);color:var(--gold2)}
 .chat-messages-area{flex:1;overflow-y:auto;padding:1.25rem;display:flex;flex-direction:column;gap:.85rem;background:#fafaf8}
 .msg-group{display:flex;flex-direction:column;gap:.35rem}
 .msg-date-divider{text-align:center;font-size:.65rem;color:var(--slate3);margin:.5rem 0;display:flex;align-items:center;gap:.5rem}
@@ -376,29 +240,18 @@ select.form-input option{background:#fff}
 .msg-row{display:flex;gap:8px;align-items:flex-end}
 .msg-row.me{flex-direction:row-reverse}
 .msg-ava-sm{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem}
-.msg-bubble{
-  max-width:72%;padding:10px 14px;border-radius:16px;
-  font-size:.82rem;line-height:1.55;animation:msgIn .2s ease both;
-}
+.msg-bubble{max-width:72%;padding:10px 14px;border-radius:16px;font-size:.82rem;line-height:1.55;animation:msgIn .2s ease both}
 .msg-bubble.them{background:#fff;color:var(--navy);border-radius:4px 16px 16px 16px;box-shadow:0 2px 8px rgba(26,26,46,.07);border:1px solid var(--off2)}
 .msg-bubble.me{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;border-radius:16px 4px 16px 16px}
 .msg-time{font-size:.6rem;color:var(--slate3);margin-top:3px}
 .msg-row.me .msg-time{text-align:right}
 .msg-status{font-size:.6rem;color:rgba(255,255,255,.7);margin-top:3px;text-align:right}
-.msg-bubble.them .msg-time{color:var(--slate3)}
-
-/* Typing indicator */
 .typing-indicator{display:flex;align-items:center;gap:8px;padding:.5rem}
 .typing-dots{display:flex;gap:3px}
 .typing-dot{width:7px;height:7px;border-radius:50%;background:var(--slate3);animation:pulse .8s infinite}
-.typing-dot:nth-child(2){animation-delay:.15s}
-.typing-dot:nth-child(3){animation-delay:.3s}
+.typing-dot:nth-child(2){animation-delay:.15s}.typing-dot:nth-child(3){animation-delay:.3s}
 .typing-label{font-size:.7rem;color:var(--slate2)}
-
-.chat-input-area{
-  padding:.85rem 1.25rem;border-top:1px solid var(--off2);
-  background:#fff;
-}
+.chat-input-area{padding:.85rem 1.25rem;border-top:1px solid var(--off2);background:#fff}
 .chat-input-row{display:flex;gap:.75rem;align-items:center}
 .chat-input-attach{width:34px;height:34px;border-radius:8px;background:var(--off);border:1px solid var(--off2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--slate2);font-size:.8rem;flex-shrink:0;transition:all .2s}
 .chat-input-attach:hover{border-color:rgba(245,158,11,.3);color:var(--gold2)}
@@ -407,11 +260,10 @@ select.form-input option{background:#fff}
 .chat-input-box input{flex:1;background:none;border:none;outline:none;font-size:.82rem;font-family:'DM Sans',sans-serif;color:var(--navy)}
 .chat-input-box input::placeholder{color:var(--slate3)}
 .chat-send-btn{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;color:#fff;font-size:.8rem;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(245,158,11,.35);transition:all .2s}
-.chat-send-btn:hover{transform:scale(1.05);box-shadow:0 4px 14px rgba(245,158,11,.45)}
-
+.chat-send-btn:hover{transform:scale(1.05)}
 .chat-detail{display:flex;flex-direction:column;overflow-y:auto}
 .chat-detail-header{padding:1rem;border-bottom:1px solid var(--off2)}
-.chat-detail-title{font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:.1rem}
+.chat-detail-title{font-size:.82rem;font-weight:700;color:var(--navy)}
 .chat-detail-sub{font-size:.7rem;color:var(--slate2)}
 .chat-detail-section{padding:1rem;border-bottom:1px solid var(--off2)}
 .chat-detail-sec-title{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--slate2);margin-bottom:.65rem}
@@ -420,58 +272,34 @@ select.form-input option{background:#fff}
 .detail-info-val{font-weight:600;color:var(--navy);text-align:right;max-width:60%}
 .medical-note{background:var(--off);border-radius:var(--radius-xs);padding:.75rem;font-size:.75rem;color:var(--slate);line-height:1.6;border-left:3px solid var(--gold)}
 
-/* ── EDUCATION PAGE ── */
+/* ── EDUCATION ── */
 .edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
-.edu-card{
-  background:#fff;border-radius:var(--radius);border:1.5px solid var(--off2);
-  overflow:hidden;transition:all .25s;cursor:pointer;
-}
-.edu-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);border-color:rgba(245,158,11,.25)}
+.edu-card{background:#fff;border-radius:var(--radius);border:1.5px solid var(--off2);overflow:hidden;transition:all .25s;cursor:pointer}
+.edu-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
 .edu-img{height:120px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative}
-.edu-img .edu-prog-ring{
-  position:absolute;bottom:8px;right:8px;
-  width:28px;height:28px;border-radius:50%;
-  background:#fff;display:flex;align-items:center;justify-content:center;
-  font-size:.6rem;font-weight:800;color:var(--gold2);
-  box-shadow:0 2px 6px rgba(0,0,0,.1);
-}
+.edu-img .edu-prog-ring{position:absolute;bottom:8px;right:8px;width:28px;height:28px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:800;color:var(--gold2);box-shadow:0 2px 6px rgba(0,0,0,.1)}
 .edu-body{padding:1rem}
-.edu-tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.5rem}
+.edu-tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.6rem;font-weight:800;text-transform:uppercase;margin-bottom:.5rem}
 .edu-title{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:.35rem}
 .edu-desc{font-size:.75rem;color:var(--slate2);line-height:1.55;margin-bottom:.75rem}
 .edu-footer{display:flex;align-items:center;justify-content:space-between;font-size:.7rem;color:var(--slate2)}
 .edu-progress-bar{height:4px;background:var(--off2);border-radius:2px;margin-top:.5rem;overflow:hidden}
 .edu-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:2px;transition:width .4s ease}
 
-/* Quiz / Education detail overlay */
-.edu-overlay{
-  position:fixed;inset:0;background:rgba(26,26,46,.65);backdrop-filter:blur(8px);
-  z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem;
-  opacity:0;pointer-events:none;transition:opacity .3s;
-}
+/* ── EDU MODAL ── */
+.edu-overlay{position:fixed;inset:0;background:rgba(26,26,46,.65);backdrop-filter:blur(8px);z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .3s}
 .edu-overlay.show{opacity:1;pointer-events:all}
-.edu-modal{
-  background:#fff;border-radius:24px;width:100%;max-width:660px;max-height:88vh;overflow-y:auto;
-  transform:scale(.95) translateY(16px);transition:all .32s cubic-bezier(.22,1,.36,1);
-  box-shadow:var(--shadow-lg);
-}
+.edu-modal{background:#fff;border-radius:24px;width:100%;max-width:660px;max-height:88vh;overflow-y:auto;transform:scale(.95) translateY(16px);transition:all .32s cubic-bezier(.22,1,.36,1);box-shadow:var(--shadow-lg)}
 .edu-overlay.show .edu-modal{transform:scale(1) translateY(0)}
 .edu-modal-header{padding:1.5rem 2rem 1.25rem;border-bottom:1px solid var(--off2);display:flex;align-items:flex-start;justify-content:space-between}
 .modal-close-btn{width:32px;height:32px;border-radius:50%;background:var(--off);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--slate);font-size:.8rem;transition:all .2s;flex-shrink:0}
-.modal-close-btn:hover{background:var(--off2)}
 .edu-modal-body{padding:1.5rem 2rem 2rem}
-
-/* Quiz */
 .quiz-progress{height:6px;background:var(--off2);border-radius:3px;margin-bottom:1.5rem;overflow:hidden}
 .quiz-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:3px;transition:width .4s ease}
 .quiz-question{font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:1.25rem;line-height:1.5}
 .quiz-options{display:flex;flex-direction:column;gap:.6rem}
-.quiz-option{
-  padding:.85rem 1.1rem;border-radius:var(--radius-sm);border:1.5px solid var(--off2);
-  background:var(--off);cursor:pointer;transition:all .2s;font-size:.85rem;color:var(--slate);
-  display:flex;align-items:center;gap:10px;
-}
-.quiz-option:hover{border-color:rgba(245,158,11,.3);background:var(--gold-light);color:var(--navy)}
+.quiz-option{padding:.85rem 1.1rem;border-radius:var(--radius-sm);border:1.5px solid var(--off2);background:var(--off);cursor:pointer;transition:all .2s;font-size:.85rem;color:var(--slate);display:flex;align-items:center;gap:10px}
+.quiz-option:hover{border-color:rgba(245,158,11,.3);background:var(--gold-light)}
 .quiz-option.selected{border-color:var(--gold);background:var(--gold-light);color:var(--navy);font-weight:600}
 .quiz-option.correct{border-color:var(--green);background:#dcfce7;color:#15803d}
 .quiz-option.wrong{border-color:var(--red);background:#fee2e2;color:#dc2626}
@@ -479,21 +307,13 @@ select.form-input option{background:#fff}
 .quiz-option.selected .quiz-opt-radio,.quiz-option.correct .quiz-opt-radio{border-color:var(--gold);background:var(--gold)}
 .quiz-option.selected .quiz-opt-radio::after,.quiz-option.correct .quiz-opt-radio::after{content:'';width:7px;height:7px;border-radius:50%;background:#fff}
 .quiz-option.wrong .quiz-opt-radio{border-color:var(--red);background:var(--red)}
-
-/* Education reading */
 .edu-section{margin-bottom:1.5rem}
 .edu-section-title{font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--gold2);margin-bottom:.6rem;display:flex;align-items:center;gap:6px}
-.edu-section-title i{font-size:.7rem}
 .edu-section-content{font-size:.85rem;color:var(--slate);line-height:1.75}
 .edu-tip-card{background:var(--gold-light);border:1.5px solid rgba(245,158,11,.2);border-radius:var(--radius-xs);padding:.85rem 1rem;display:flex;gap:8px;font-size:.82rem;color:var(--gold-deep);line-height:1.6}
-.edu-tip-card i{color:var(--gold2);flex-shrink:0;margin-top:2px}
 
-/* ── HISTORY PAGE ── */
-.history-item{
-  display:flex;align-items:center;gap:14px;
-  padding:1rem 1.25rem;border-bottom:1px solid var(--off2);
-  transition:background .2s;cursor:pointer;
-}
+/* ── HISTORY ── */
+.history-item{display:flex;align-items:center;gap:14px;padding:1rem 1.25rem;border-bottom:1px solid var(--off2);transition:background .2s;cursor:pointer}
 .history-item:last-child{border-bottom:none}
 .history-item:hover{background:var(--off)}
 .history-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
@@ -504,31 +324,11 @@ select.form-input option{background:#fff}
 .history-date{font-size:.7rem;color:var(--slate3)}
 .history-amount{font-size:.82rem;font-weight:700;color:var(--gold2);margin-top:2px}
 
-/* Rating modal */
-.rating-stars-row{display:flex;gap:.5rem;justify-content:center;margin:1rem 0}
-.rating-star-btn{font-size:2rem;cursor:pointer;color:var(--slate3);transition:all .2s;background:none;border:none}
-.rating-star-btn.active{color:var(--gold)}
-.rating-star-btn:hover{transform:scale(1.15)}
-
-/* ── PROFILE PAGE ── */
+/* ── PROFILE ── */
 .profile-layout{display:grid;grid-template-columns:300px 1fr;gap:1.5rem;align-items:start}
 .profile-card-top{text-align:center;padding:2rem}
-.profile-ava-lg{
-  width:80px;height:80px;border-radius:50%;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  display:flex;align-items:center;justify-content:center;
-  font-size:2rem;color:#fff;margin:0 auto 1rem;
-  box-shadow:0 8px 24px rgba(245,158,11,.3);
-  position:relative;
-}
-.profile-ava-edit{
-  position:absolute;bottom:0;right:0;
-  width:26px;height:26px;border-radius:50%;
-  background:#fff;border:2px solid var(--off2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.6rem;color:var(--slate);cursor:pointer;
-  box-shadow:0 2px 6px rgba(0,0,0,.1);
-}
+.profile-ava-lg{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:700;color:#fff;margin:0 auto 1rem;box-shadow:0 8px 24px rgba(245,158,11,.3);position:relative}
+.profile-ava-edit{position:absolute;bottom:0;right:0;width:26px;height:26px;border-radius:50%;background:#fff;border:2px solid var(--off2);display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--slate);cursor:pointer}
 .profile-name-lg{font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:.2rem}
 .profile-sub-lg{font-size:.78rem;color:var(--slate2)}
 .profile-stats-row{display:flex;gap:0;margin-top:1rem;border-top:1px solid var(--off2)}
@@ -537,14 +337,8 @@ select.form-input option{background:#fff}
 .profile-stat-num{font-size:1.1rem;font-weight:800;color:var(--navy)}
 .profile-stat-label{font-size:.65rem;color:var(--slate2);margin-top:2px}
 
-/* ── NOTIFICATION PANEL ── */
-.notif-panel{
-  position:fixed;top:64px;right:0;
-  width:340px;height:calc(100vh - 64px);
-  background:#fff;border-left:1px solid var(--off2);
-  z-index:45;transform:translateX(100%);transition:transform .3s cubic-bezier(.22,1,.36,1);
-  display:flex;flex-direction:column;box-shadow:-4px 0 24px rgba(26,26,46,.07);
-}
+/* ── NOTIF PANEL ── */
+.notif-panel{position:fixed;top:64px;right:0;width:340px;height:calc(100vh - 64px);background:#fff;border-left:1px solid var(--off2);z-index:45;transform:translateX(100%);transition:transform .3s cubic-bezier(.22,1,.36,1);display:flex;flex-direction:column;box-shadow:-4px 0 24px rgba(26,26,46,.07)}
 .notif-panel.show{transform:translateX(0)}
 .notif-header{padding:1rem 1.25rem;border-bottom:1px solid var(--off2);display:flex;align-items:center;justify-content:space-between}
 .notif-title{font-size:.9rem;font-weight:700;color:var(--navy)}
@@ -556,44 +350,19 @@ select.form-input option{background:#fff}
 .notif-text{font-size:.78rem;color:var(--navy);line-height:1.5;flex:1}
 .notif-time{font-size:.65rem;color:var(--slate3);margin-top:3px}
 
-/* ── BOOKING MODAL ── */
-.booking-steps{display:flex;gap:0;margin-bottom:1.5rem}
-.booking-step{flex:1;text-align:center;position:relative}
-.booking-step::after{content:'';position:absolute;top:14px;left:50%;width:100%;height:2px;background:var(--off2);z-index:0}
-.booking-step:last-child::after{display:none}
-.booking-step-dot{width:28px;height:28px;border-radius:50%;background:var(--off2);color:var(--slate2);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;margin:0 auto .35rem;position:relative;z-index:1;transition:all .3s}
-.booking-step.active .booking-step-dot{background:var(--gold);color:#fff}
-.booking-step.done .booking-step-dot{background:var(--green);color:#fff}
-.booking-step-label{font-size:.65rem;color:var(--slate2);font-weight:600}
-.booking-step.active .booking-step-label{color:var(--gold2)}
+/* Rating */
+.rating-stars-row{display:flex;gap:.5rem;justify-content:center;margin:1rem 0}
+.rating-star-btn{font-size:2rem;cursor:pointer;color:var(--slate3);transition:all .2s;background:none;border:none}
+.rating-star-btn.active{color:var(--gold)}
+
+/* Info box */
+.info-box{background:var(--gold-light);border:1.5px solid rgba(245,158,11,.2);border-radius:var(--radius-xs);padding:.85rem 1rem;font-size:.78rem;color:var(--gold-deep);display:flex;align-items:flex-start;gap:8px;margin-bottom:1rem}
+.info-box i{flex-shrink:0;margin-top:2px}
 
 /* ── RESPONSIVE ── */
-@media(max-width:1200px){
-  .chat-layout{grid-template-columns:240px 1fr 220px}
-  .home-grid{grid-template-columns:1fr}
-  .consult-layout{grid-template-columns:1fr}
-  .category-grid{grid-template-columns:repeat(3,1fr)}
-}
-@media(max-width:900px){
-  :root{--sidebar:0px}
-  .sidebar{transform:translateX(-260px);width:260px}
-  .sidebar.open{transform:translateX(0)}
-  .main{margin-left:0}
-  .hamburger-btn{display:flex}
-  .topbar-search{display:none}
-  .chat-layout{grid-template-columns:1fr;height:auto}
-  .chat-sidebar,.chat-detail{display:none}
-  .stats-row{grid-template-columns:repeat(2,1fr)}
-  .edu-grid{grid-template-columns:repeat(2,1fr)}
-  .profile-layout{grid-template-columns:1fr}
-  .category-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:600px){
-  .stats-row{grid-template-columns:1fr 1fr}
-  .edu-grid{grid-template-columns:1fr}
-  .content{padding:1rem}
-  .quick-actions{grid-template-columns:1fr}
-}
+@media(max-width:1200px){.chat-layout{grid-template-columns:240px 1fr 220px}.home-grid{grid-template-columns:1fr}.consult-layout{grid-template-columns:1fr}.category-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:900px){:root{--sidebar:0px}.sidebar{transform:translateX(-260px);width:260px}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.hamburger-btn{display:flex}.topbar-search{display:none}.chat-layout{grid-template-columns:1fr;height:auto}.chat-sidebar,.chat-detail{display:none}.stats-row{grid-template-columns:repeat(2,1fr)}.edu-grid{grid-template-columns:repeat(2,1fr)}.profile-layout{grid-template-columns:1fr}.category-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.stats-row{grid-template-columns:1fr 1fr}.edu-grid{grid-template-columns:1fr}.content{padding:1rem}.quick-actions{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -605,55 +374,31 @@ select.form-input option{background:#fff}
     <span class="logo-text">Nurse<span>Connect</span></span>
   </div>
   <div class="sidebar-user">
-    <div class="user-ava">
-      <i class="fas fa-user"></i>
-      <div class="online-badge"></div>
-    </div>
+    <div class="user-ava" id="sb-ava">?</div>
     <div>
-      <div class="user-name" id="sb-name">Ahmad Rizki</div>
+      <div class="user-name" id="sb-name">Memuat...</div>
       <div class="user-role">Pasien</div>
     </div>
   </div>
   <nav class="sidebar-nav">
     <div class="nav-section-title">Menu Utama</div>
-    <a class="nav-item active" onclick="showPage('home',this)">
-      <i class="fas fa-house"></i> Beranda
-    </a>
-    <a class="nav-item" onclick="showPage('consultation',this)">
-      <i class="fas fa-stethoscope"></i> Konsultasi
-      <span class="nav-badge">3</span>
-    </a>
-    <a class="nav-item" onclick="showPage('education',this)">
-      <i class="fas fa-book-open-reader"></i> Edukasi
-    </a>
-    <a class="nav-item" onclick="showPage('chat',this)">
-      <i class="fas fa-comments"></i> Chat
-      <span class="nav-badge">2</span>
-    </a>
-    <a class="nav-item" onclick="showPage('history',this)">
-      <i class="fas fa-clock-rotate-left"></i> Riwayat
-    </a>
+    <a class="nav-item active" onclick="showPage('home',this)"><i class="fas fa-house"></i> Beranda</a>
+    <a class="nav-item" onclick="showPage('consultation',this)"><i class="fas fa-stethoscope"></i> Konsultasi<span class="nav-badge">3</span></a>
+    <a class="nav-item" onclick="showPage('education',this)"><i class="fas fa-book-open-reader"></i> Edukasi</a>
+    <a class="nav-item" onclick="showPage('chat',this)"><i class="fas fa-comments"></i> Chat<span class="nav-badge">2</span></a>
+    <a class="nav-item" onclick="showPage('history',this)"><i class="fas fa-clock-rotate-left"></i> Riwayat</a>
     <div class="nav-section-title">Akun</div>
-    <a class="nav-item" onclick="showPage('profile',this)">
-      <i class="fas fa-circle-user"></i> Profil
-    </a>
-    <a class="nav-item" onclick="showPage('settings',this)">
-      <i class="fas fa-gear"></i> Pengaturan
-    </a>
+    <a class="nav-item" onclick="showPage('profile',this)"><i class="fas fa-circle-user"></i> Profil</a>
+    <a class="nav-item" onclick="showPage('settings',this)"><i class="fas fa-gear"></i> Pengaturan</a>
   </nav>
   <div class="sidebar-footer">
-    <a class="nav-item" href="index.html">
-      <i class="fas fa-arrow-left-long"></i> Kembali ke Beranda
-    </a>
-    <a class="nav-item" href="auth.html">
-      <i class="fas fa-right-from-bracket"></i> Keluar
-    </a>
+    <a class="nav-item" href="index.html"><i class="fas fa-arrow-left-long"></i> Ke Beranda</a>
+    <a class="nav-item" onclick="doLogout()"><i class="fas fa-right-from-bracket"></i> Keluar</a>
   </div>
 </aside>
 
 <!-- MAIN -->
 <div class="main">
-  <!-- TOPBAR -->
   <header class="topbar">
     <div class="topbar-left">
       <button class="hamburger-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
@@ -668,21 +413,18 @@ select.form-input option{background:#fff}
         <i class="fas fa-bell"></i>
         <div class="notif-dot"></div>
       </div>
-      <div class="topbar-btn" onclick="showPage('profile',null)">
-        <i class="fas fa-circle-user"></i>
-      </div>
+      <div class="topbar-btn" onclick="showPage('profile',null)"><i class="fas fa-circle-user"></i></div>
     </div>
   </header>
 
-  <!-- CONTENT -->
   <div class="content">
 
     <!-- ══ HOME ══ -->
     <div class="page-view active" id="page-home">
       <div class="welcome-banner">
         <div class="welcome-text" style="position:relative;z-index:1">
-          <h2 class="serif">Halo, Ahmad Rizki! 👋</h2>
-          <p>Bagaimana kabar Anda hari ini? Kami siap membantu kesehatan Anda.</p>
+          <h2 class="serif" id="welcome-greeting">Halo! 👋</h2>
+          <p id="welcome-sub">Bagaimana kabar Anda hari ini?</p>
           <div class="welcome-actions">
             <button class="btn btn-primary" onclick="showPage('consultation',null)"><i class="fas fa-stethoscope"></i> Mulai Konsultasi</button>
             <button class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.1)" onclick="showPage('education',null)"><i class="fas fa-book-open"></i> Lihat Edukasi</button>
@@ -692,169 +434,72 @@ select.form-input option{background:#fff}
       </div>
 
       <div class="stats-row">
-        <div class="stat-card gold">
-          <div class="stat-icon gold"><i class="fas fa-comments"></i></div>
-          <div class="stat-num">12</div>
-          <div class="stat-label">Total Konsultasi</div>
-          <div class="stat-trend up"><i class="fas fa-arrow-up"></i> +2 bulan ini</div>
-        </div>
-        <div class="stat-card green">
-          <div class="stat-icon green"><i class="fas fa-book-open-reader"></i></div>
-          <div class="stat-num">7</div>
-          <div class="stat-label">Edukasi Selesai</div>
-          <div class="stat-trend up"><i class="fas fa-arrow-up"></i> 3 dalam progress</div>
-        </div>
-        <div class="stat-card blue">
-          <div class="stat-icon blue"><i class="fas fa-star"></i></div>
-          <div class="stat-num">4.8</div>
-          <div class="stat-label">Rata-rata Rating</div>
-          <div class="stat-trend up"><i class="fas fa-check"></i> Pasien aktif</div>
-        </div>
-        <div class="stat-card purple">
-          <div class="stat-icon purple"><i class="fas fa-trophy"></i></div>
-          <div class="stat-num">85%</div>
-          <div class="stat-label">Progress Edukasi</div>
-          <div class="stat-trend up"><i class="fas fa-arrow-up"></i> +15% minggu ini</div>
-        </div>
+        <div class="stat-card gold"><div class="stat-icon gold"><i class="fas fa-comments"></i></div><div class="stat-num">12</div><div class="stat-label">Total Konsultasi</div><div class="stat-trend up"><i class="fas fa-arrow-up"></i> +2 bulan ini</div></div>
+        <div class="stat-card green"><div class="stat-icon green"><i class="fas fa-book-open-reader"></i></div><div class="stat-num">7</div><div class="stat-label">Edukasi Selesai</div><div class="stat-trend up"><i class="fas fa-arrow-up"></i> 3 dalam progress</div></div>
+        <div class="stat-card blue"><div class="stat-icon blue"><i class="fas fa-star"></i></div><div class="stat-num">4.8</div><div class="stat-label">Rata-rata Rating</div><div class="stat-trend up"><i class="fas fa-check"></i> Pasien aktif</div></div>
+        <div class="stat-card purple"><div class="stat-icon purple"><i class="fas fa-trophy"></i></div><div class="stat-num">85%</div><div class="stat-label">Progress Edukasi</div><div class="stat-trend up"><i class="fas fa-arrow-up"></i> +15% minggu ini</div></div>
       </div>
 
       <div class="home-grid">
         <div class="home-main">
           <div class="card">
-            <div class="card-header">
-              <div>
-                <div class="section-label">Akses Cepat</div>
-                <div class="card-title">Apa yang ingin Anda lakukan?</div>
-              </div>
-            </div>
+            <div class="card-header"><div><div class="section-label">Akses Cepat</div><div class="card-title">Apa yang ingin Anda lakukan?</div></div></div>
             <div class="card-body">
               <div class="quick-actions">
-                <div class="qa-card" onclick="showPage('consultation',null)">
-                  <div class="qa-icon" style="background:#fef3c7;color:var(--gold2)"><i class="fas fa-video"></i></div>
-                  <div><div class="qa-label">Konsultasi Video</div><div class="qa-sub">Hubungi perawat sekarang</div></div>
-                </div>
-                <div class="qa-card" onclick="showPage('chat',null)">
-                  <div class="qa-icon" style="background:#dbeafe;color:#2563eb"><i class="fas fa-comment-dots"></i></div>
-                  <div><div class="qa-label">Chat Perawat</div><div class="qa-sub">Pesan teks & foto</div></div>
-                </div>
-                <div class="qa-card" onclick="showPage('education',null)">
-                  <div class="qa-icon" style="background:#dcfce7;color:#16a34a"><i class="fas fa-graduation-cap"></i></div>
-                  <div><div class="qa-label">Edukasi Kesehatan</div><div class="qa-sub">Belajar & tes pemahaman</div></div>
-                </div>
-                <div class="qa-card" onclick="showPage('history',null)">
-                  <div class="qa-icon" style="background:#ede9fe;color:#7c3aed"><i class="fas fa-file-medical"></i></div>
-                  <div><div class="qa-label">Rekam Medis</div><div class="qa-sub">Riwayat konsultasi</div></div>
-                </div>
+                <div class="qa-card" onclick="showPage('consultation',null)"><div class="qa-icon" style="background:#fef3c7;color:var(--gold2)"><i class="fas fa-video"></i></div><div><div class="qa-label">Konsultasi Video</div><div class="qa-sub">Hubungi perawat sekarang</div></div></div>
+                <div class="qa-card" onclick="showPage('chat',null)"><div class="qa-icon" style="background:#dbeafe;color:#2563eb"><i class="fas fa-comment-dots"></i></div><div><div class="qa-label">Chat Perawat</div><div class="qa-sub">Pesan teks & foto</div></div></div>
+                <div class="qa-card" onclick="showPage('education',null)"><div class="qa-icon" style="background:#dcfce7;color:#16a34a"><i class="fas fa-graduation-cap"></i></div><div><div class="qa-label">Edukasi Kesehatan</div><div class="qa-sub">Belajar & tes pemahaman</div></div></div>
+                <div class="qa-card" onclick="showPage('history',null)"><div class="qa-icon" style="background:#ede9fe;color:#7c3aed"><i class="fas fa-file-medical"></i></div><div><div class="qa-label">Rekam Medis</div><div class="qa-sub">Riwayat konsultasi</div></div></div>
               </div>
             </div>
           </div>
 
           <div class="card">
-            <div class="card-header">
-              <div><div class="section-label">Status Kesehatan</div><div class="card-title">Profil Kesehatan Anda</div></div>
-              <button class="btn btn-ghost btn-sm" onclick="showPage('profile',null)"><i class="fas fa-pen"></i> Edit</button>
-            </div>
+            <div class="card-header"><div><div class="section-label">Status Kesehatan</div><div class="card-title">Profil Kesehatan Anda</div></div><button class="btn btn-ghost btn-sm" onclick="showPage('profile',null)"><i class="fas fa-pen"></i> Edit</button></div>
             <div class="card-body">
-              <div class="health-item"><span class="health-label"><i class="fas fa-heart" style="color:var(--red)"></i> Tekanan Darah</span><div style="display:flex;align-items:center;gap:8px"><span class="health-val">120/80</span><span class="health-status normal">Normal</span></div></div>
-              <div class="health-item"><span class="health-label"><i class="fas fa-droplet" style="color:var(--blue)"></i> Gula Darah</span><div style="display:flex;align-items:center;gap:8px"><span class="health-val">105 mg/dL</span><span class="health-status normal">Normal</span></div></div>
-              <div class="health-item"><span class="health-label"><i class="fas fa-weight-scale" style="color:var(--gold2)"></i> BMI</span><div style="display:flex;align-items:center;gap:8px"><span class="health-val">23.4</span><span class="health-status normal">Ideal</span></div></div>
-              <div class="health-item"><span class="health-label"><i class="fas fa-lungs" style="color:var(--purple)"></i> Kolesterol</span><div style="display:flex;align-items:center;gap:8px"><span class="health-val">210 mg/dL</span><span class="health-status warning">Perhatian</span></div></div>
-              <div class="health-item"><span class="health-label"><i class="fas fa-person-walking" style="color:var(--green)"></i> Aktivitas Fisik</span><div style="display:flex;align-items:center;gap:8px"><span class="health-val">3x/minggu</span><span class="health-status normal">Baik</span></div></div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <div><div class="section-label">Edukasi</div><div class="card-title">Sedang Dipelajari</div></div>
-              <button class="btn btn-ghost btn-sm" onclick="showPage('education',null)">Lihat Semua</button>
-            </div>
-            <div class="card-body" style="display:flex;flex-direction:column;gap:.75rem">
-              <div style="display:flex;align-items:center;gap:12px">
-                <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#fef9c3,#fde68a);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0">💉</div>
-                <div style="flex:1">
-                  <div style="font-size:.82rem;font-weight:700;color:var(--navy)">Manajemen Hipertensi</div>
-                  <div class="edu-progress-bar" style="margin-top:.4rem"><div class="edu-progress-fill" style="width:70%"></div></div>
-                  <div style="font-size:.68rem;color:var(--slate2);margin-top:.2rem">70% selesai</div>
-                </div>
-                <span class="badge badge-gold">Dalam Progress</span>
-              </div>
-              <div style="display:flex;align-items:center;gap:12px">
-                <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#dcfce7,#bbf7d0);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0">🧘</div>
-                <div style="flex:1">
-                  <div style="font-size:.82rem;font-weight:700;color:var(--navy)">Kesehatan Mental</div>
-                  <div class="edu-progress-bar" style="margin-top:.4rem"><div class="edu-progress-fill" style="width:30%"></div></div>
-                  <div style="font-size:.68rem;color:var(--slate2);margin-top:.2rem">30% selesai</div>
-                </div>
-                <span class="badge badge-blue">Baru</span>
-              </div>
+              <div class="health-item"><span class="health-label"><i class="fas fa-heart" style="color:var(--red)"></i> Tekanan Darah</span><div style="display:flex;align-items:center;gap:8px"><span class="health-val">-</span><span class="health-status normal" id="home-td-status" style="display:none">Normal</span></div></div>
+              <div class="health-item"><span class="health-label"><i class="fas fa-droplet" style="color:var(--blue)"></i> Gula Darah</span><div style="display:flex;align-items:center;gap:8px"><span class="health-val">-</span></div></div>
+              <div class="health-item"><span class="health-label"><i class="fas fa-weight-scale" style="color:var(--gold2)"></i> BMI</span><div style="display:flex;align-items:center;gap:8px"><span class="health-val" id="home-bmi">-</span></div></div>
+              <div class="health-item"><span class="health-label"><i class="fas fa-person-walking" style="color:var(--green)"></i> Aktivitas Fisik</span><div style="display:flex;align-items:center;gap:8px"><span class="health-val">-</span></div></div>
             </div>
           </div>
         </div>
 
         <div class="home-side">
+          <!-- Profil singkat user -->
           <div class="card">
-            <div class="card-header">
-              <div><div class="section-label">Perawat Online</div><div class="card-title">Tersedia Sekarang</div></div>
-            </div>
-            <div class="card-body" style="padding:.5rem 1rem">
-              <div class="nurse-list">
-                <div class="nurse-item" onclick="showPage('consultation',null)">
-                  <div class="nurse-ava" style="background:linear-gradient(135deg,var(--gold),var(--gold2))"><i class="fas fa-user-nurse" style="color:#fff;font-size:.9rem"></i><div class="status-dot online"></div></div>
-                  <div class="nurse-info">
-                    <div class="nurse-name-sm">Ns. Sitti Nasyroh</div>
-                    <div class="nurse-spec-sm">Medikal Bedah</div>
-                    <div class="nurse-rating-sm"><span class="stars-sm">★★★★★</span><span style="font-size:.65rem;font-weight:700;color:var(--navy);margin-left:2px">4.97</span></div>
-                  </div>
-                  <div class="nurse-wait"><div style="font-size:.62rem;color:var(--green);font-weight:700">● Online</div><div style="font-size:.62rem;color:var(--slate3);margin-top:1px">~3 mnt</div></div>
-                </div>
-                <div class="nurse-item" onclick="showPage('consultation',null)">
-                  <div class="nurse-ava" style="background:linear-gradient(135deg,#7c3aed,#a855f7)"><i class="fas fa-user-doctor" style="color:#fff;font-size:.9rem"></i><div class="status-dot online"></div></div>
-                  <div class="nurse-info">
-                    <div class="nurse-name-sm">Ns. Budi Santoso</div>
-                    <div class="nurse-spec-sm">Kritis & ICU</div>
-                    <div class="nurse-rating-sm"><span class="stars-sm">★★★★★</span><span style="font-size:.65rem;font-weight:700;color:var(--navy);margin-left:2px">4.95</span></div>
-                  </div>
-                  <div class="nurse-wait"><div style="font-size:.62rem;color:var(--green);font-weight:700">● Online</div><div style="font-size:.62rem;color:var(--slate3);margin-top:1px">~5 mnt</div></div>
-                </div>
-                <div class="nurse-item" onclick="showPage('consultation',null)">
-                  <div class="nurse-ava" style="background:linear-gradient(135deg,#ec4899,#f9a8d4)"><i class="fas fa-user-nurse" style="color:#fff;font-size:.9rem"></i><div class="status-dot busy"></div></div>
-                  <div class="nurse-info">
-                    <div class="nurse-name-sm">Ns. Dewi Kartika</div>
-                    <div class="nurse-spec-sm">Maternitas</div>
-                    <div class="nurse-rating-sm"><span class="stars-sm">★★★★★</span><span style="font-size:.65rem;font-weight:700;color:var(--navy);margin-left:2px">4.98</span></div>
-                  </div>
-                  <div class="nurse-wait"><div style="font-size:.62rem;color:var(--gold);font-weight:700">● Sibuk</div><div style="font-size:.62rem;color:var(--slate3);margin-top:1px">~15 mnt</div></div>
-                </div>
-                <div class="nurse-item" onclick="showPage('consultation',null)">
-                  <div class="nurse-ava" style="background:linear-gradient(135deg,#0ea5e9,#38bdf8)"><i class="fas fa-user-doctor" style="color:#fff;font-size:.9rem"></i><div class="status-dot online"></div></div>
-                  <div class="nurse-info">
-                    <div class="nurse-name-sm">Ns. Ahmad Fauzi</div>
-                    <div class="nurse-spec-sm">Kesehatan Jiwa</div>
-                    <div class="nurse-rating-sm"><span class="stars-sm">★★★★★</span><span style="font-size:.65rem;font-weight:700;color:var(--navy);margin-left:2px">4.93</span></div>
-                  </div>
-                  <div class="nurse-wait"><div style="font-size:.62rem;color:var(--green);font-weight:700">● Online</div><div style="font-size:.62rem;color:var(--slate3);margin-top:1px">~2 mnt</div></div>
-                </div>
-              </div>
-              <button class="btn btn-outline" style="width:100%;justify-content:center;margin-top:.75rem;font-size:.78rem" onclick="showPage('consultation',null)"><i class="fas fa-search"></i> Lihat Semua Perawat</button>
+            <div class="card-header"><div class="card-title">Profil Singkat</div><button class="btn btn-ghost btn-sm" onclick="showPage('profile',null)">Lengkapi</button></div>
+            <div class="card-body" style="padding:.75rem 1.25rem">
+              <div class="detail-info-row"><span class="detail-info-label">Nama</span><span class="detail-info-val" id="pi-nama">-</span></div>
+              <div class="detail-info-row"><span class="detail-info-label">Umur</span><span class="detail-info-val" id="pi-umur">-</span></div>
+              <div class="detail-info-row"><span class="detail-info-label">Jenis Kelamin</span><span class="detail-info-val" id="pi-gender">-</span></div>
+              <div class="detail-info-row"><span class="detail-info-label">Nomor HP</span><span class="detail-info-val" id="pi-phone">-</span></div>
+              <div class="detail-info-row"><span class="detail-info-label">Agama</span><span class="detail-info-val" id="pi-religion">-</span></div>
+              <div class="detail-info-row"><span class="detail-info-label">Alamat</span><span class="detail-info-val" id="pi-address">-</span></div>
             </div>
           </div>
 
           <div class="card">
-            <div class="card-header"><div class="card-title">Konsultasi Terdekat</div></div>
-            <div class="card-body">
-              <div style="background:var(--gold-light);border:1.5px solid rgba(245,158,11,.2);border-radius:var(--radius-xs);padding:1rem;margin-bottom:.75rem">
-                <div style="display:flex;align-items:center;gap:8px;margin-bottom:.5rem">
-                  <div style="width:8px;height:8px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite"></div>
-                  <span style="font-size:.72rem;font-weight:700;color:var(--gold2)">Besok, 09:00</span>
+            <div class="card-header"><div><div class="section-label">Perawat Online</div><div class="card-title">Tersedia Sekarang</div></div></div>
+            <div class="card-body" style="padding:.5rem 1rem">
+              <div class="nurse-list">
+                <div class="nurse-item" onclick="showPage('consultation',null)">
+                  <div class="nurse-ava" style="background:linear-gradient(135deg,var(--gold),var(--gold2))"><i class="fas fa-user-nurse" style="color:#fff;font-size:.9rem"></i><div class="status-dot online"></div></div>
+                  <div class="nurse-info"><div class="nurse-name-sm">Ns. Sitti Nasyroh</div><div class="nurse-spec-sm">Medikal Bedah</div><div class="nurse-rating-sm"><span class="stars-sm">★★★★★</span><span style="font-size:.65rem;font-weight:700;color:var(--navy);margin-left:2px">4.97</span></div></div>
+                  <div style="flex-shrink:0;text-align:right"><div style="font-size:.62rem;color:var(--green);font-weight:700">● Online</div><div style="font-size:.62rem;color:var(--slate3)">~3 mnt</div></div>
                 </div>
-                <div style="font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:.2rem">Follow-up Konsultasi</div>
-                <div style="font-size:.72rem;color:var(--slate2)">Ns. Sitti Nasyroh · Medikal Bedah</div>
-                <div style="display:flex;gap:.5rem;margin-top:.75rem">
-                  <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center"><i class="fas fa-video"></i> Gabung</button>
-                  <button class="btn btn-ghost btn-sm"><i class="fas fa-xmark"></i></button>
+                <div class="nurse-item" onclick="showPage('consultation',null)">
+                  <div class="nurse-ava" style="background:linear-gradient(135deg,#7c3aed,#a855f7)"><i class="fas fa-user-doctor" style="color:#fff;font-size:.9rem"></i><div class="status-dot online"></div></div>
+                  <div class="nurse-info"><div class="nurse-name-sm">Ns. Budi Santoso</div><div class="nurse-spec-sm">Kritis & ICU</div><div class="nurse-rating-sm"><span class="stars-sm">★★★★★</span><span style="font-size:.65rem;font-weight:700;color:var(--navy);margin-left:2px">4.95</span></div></div>
+                  <div style="flex-shrink:0;text-align:right"><div style="font-size:.62rem;color:var(--green);font-weight:700">● Online</div><div style="font-size:.62rem;color:var(--slate3)">~5 mnt</div></div>
+                </div>
+                <div class="nurse-item" onclick="showPage('consultation',null)">
+                  <div class="nurse-ava" style="background:linear-gradient(135deg,#ec4899,#f9a8d4)"><i class="fas fa-user-nurse" style="color:#fff;font-size:.9rem"></i><div class="status-dot busy"></div></div>
+                  <div class="nurse-info"><div class="nurse-name-sm">Ns. Dewi Kartika</div><div class="nurse-spec-sm">Maternitas</div><div class="nurse-rating-sm"><span class="stars-sm">★★★★★</span><span style="font-size:.65rem;font-weight:700;color:var(--navy);margin-left:2px">4.98</span></div></div>
+                  <div style="flex-shrink:0;text-align:right"><div style="font-size:.62rem;color:var(--gold);font-weight:700">● Sibuk</div><div style="font-size:.62rem;color:var(--slate3)">~15 mnt</div></div>
                 </div>
               </div>
-              <div style="font-size:.78rem;color:var(--slate2);text-align:center">Tidak ada jadwal lain hari ini</div>
+              <button class="btn btn-outline" style="width:100%;justify-content:center;margin-top:.75rem;font-size:.78rem" onclick="showPage('consultation',null)"><i class="fas fa-search"></i> Lihat Semua Perawat</button>
             </div>
           </div>
         </div>
@@ -863,141 +508,84 @@ select.form-input option{background:#fff}
 
     <!-- ══ CONSULTATION ══ -->
     <div class="page-view" id="page-consultation">
-      <!-- Step 1: Choose category -->
-      <div id="consult-step1">
-        <div style="margin-bottom:1.5rem">
-          <div class="section-label">Konsultasi Baru</div>
-          <h2 class="serif" style="font-size:1.4rem;color:var(--navy)">Pilih Kategori Konsultasi</h2>
-          <p style="font-size:.82rem;color:var(--slate2);margin-top:.25rem">Sistem akan mencarikan perawat yang paling sesuai</p>
-        </div>
-        <div class="category-grid">
-          <div class="cat-card" onclick="selectCat(this,'Hipertensi')"><div class="cat-icon">💉</div><div class="cat-name">Hipertensi</div></div>
-          <div class="cat-card" onclick="selectCat(this,'Diabetes')"><div class="cat-icon">🩸</div><div class="cat-name">Diabetes</div></div>
-          <div class="cat-card" onclick="selectCat(this,'Luka & Perawatan')"><div class="cat-icon">🩹</div><div class="cat-name">Luka & Perawatan</div></div>
-          <div class="cat-card" onclick="selectCat(this,'Kesehatan Lansia')"><div class="cat-icon">👴</div><div class="cat-name">Kesehatan Lansia</div></div>
-          <div class="cat-card" onclick="selectCat(this,'Kesehatan Anak')"><div class="cat-icon">👶</div><div class="cat-name">Kesehatan Anak</div></div>
-          <div class="cat-card" onclick="selectCat(this,'Nutrisi')"><div class="cat-icon">🥗</div><div class="cat-name">Nutrisi</div></div>
-          <div class="cat-card" onclick="selectCat(this,'Kesehatan Jiwa')"><div class="cat-icon">🧘</div><div class="cat-name">Kesehatan Jiwa</div></div>
-          <div class="cat-card" onclick="selectCat(this,'Konsultasi Umum')"><div class="cat-icon">🩺</div><div class="cat-name">Umum</div></div>
-        </div>
-        <div class="consult-layout">
-          <div class="card">
-            <div class="card-header"><div class="card-title"><i class="fas fa-clipboard-list" style="color:var(--gold2);margin-right:6px"></i>Formulir Konsultasi</div></div>
-            <div class="card-body">
-              <div class="form-group">
-                <label class="form-label">Keluhan Utama *</label>
-                <textarea class="form-input" placeholder="Ceritakan keluhan Anda secara lengkap..."></textarea>
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label class="form-label">Sudah Berapa Lama?</label>
-                  <select class="form-input">
-                    <option>Pilih...</option>
-                    <option>Kurang dari 1 hari</option>
-                    <option>1–3 hari</option>
-                    <option>4–7 hari</option>
-                    <option>1–2 minggu</option>
-                    <option>Lebih dari 2 minggu</option>
-                    <option>Kondisi kronik/lama</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Riwayat Penyakit</label>
-                  <input type="text" class="form-input" placeholder="Contoh: Diabetes, Asma...">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Sedang Minum Obat?</label>
-                <div style="display:flex;gap:.5rem;margin-bottom:.6rem">
-                  <button type="button" class="btn btn-ghost btn-sm" id="obat-no" onclick="setObat('no')" style="flex:1;justify-content:center;border-color:var(--gold);background:var(--gold-light);color:var(--gold2)">Tidak</button>
-                  <button type="button" class="btn btn-ghost btn-sm" id="obat-yes" onclick="setObat('yes')" style="flex:1;justify-content:center">Ya</button>
-                </div>
-                <div id="obat-input" style="display:none">
-                  <input type="text" class="form-input" placeholder="Nama obat yang sedang dikonsumsi...">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Tingkat Nyeri (0–10)</label>
-                <div class="pain-scale" id="painScale">
-                  <button class="pain-btn" onclick="setPain(0,this)">0</button>
-                  <button class="pain-btn" onclick="setPain(1,this)">1</button>
-                  <button class="pain-btn" onclick="setPain(2,this)">2</button>
-                  <button class="pain-btn" onclick="setPain(3,this)">3</button>
-                  <button class="pain-btn active" onclick="setPain(4,this)">4</button>
-                  <button class="pain-btn" onclick="setPain(5,this)">5</button>
-                  <button class="pain-btn" onclick="setPain(6,this)">6</button>
-                  <button class="pain-btn" onclick="setPain(7,this)">7</button>
-                  <button class="pain-btn" onclick="setPain(8,this)">8</button>
-                  <button class="pain-btn" onclick="setPain(9,this)">9</button>
-                  <button class="pain-btn" onclick="setPain(10,this)">10</button>
-                </div>
-                <div style="display:flex;justify-content:space-between;font-size:.65rem;color:var(--slate3);margin-top:.3rem"><span>Tidak nyeri</span><span>Nyeri ekstrim</span></div>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Upload Foto (Opsional)</label>
-                <div style="border:2px dashed var(--off2);border-radius:var(--radius-xs);padding:1.5rem;text-align:center;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='rgba(245,158,11,.4)'" onmouseout="this.style.borderColor='var(--off2)'">
-                  <i class="fas fa-cloud-arrow-up" style="font-size:1.5rem;color:var(--slate3);margin-bottom:.5rem"></i>
-                  <div style="font-size:.78rem;color:var(--slate2)">Klik untuk upload atau drag & drop</div>
-                  <div style="font-size:.65rem;color:var(--slate3)">PNG, JPG, HEIC hingga 10MB</div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Metode Konsultasi</label>
-                <div style="display:flex;gap:.5rem">
-                  <button type="button" id="met-video" class="btn btn-outline btn-sm" style="flex:1;justify-content:center;background:var(--gold-light)" onclick="setMethod('video')"><i class="fas fa-video"></i> Video Call</button>
-                  <button type="button" id="met-chat" class="btn btn-ghost btn-sm" style="flex:1;justify-content:center" onclick="setMethod('chat')"><i class="fas fa-comment"></i> Chat</button>
-                  <button type="button" id="met-voice" class="btn btn-ghost btn-sm" style="flex:1;justify-content:center" onclick="setMethod('voice')"><i class="fas fa-phone"></i> Voice</button>
-                </div>
-              </div>
-              <button class="btn btn-primary" style="width:100%;justify-content:center;padding:12px" onclick="nextConsultStep()"><i class="fas fa-arrow-right"></i> Pilih Perawat</button>
+      <div style="margin-bottom:1.5rem">
+        <div class="section-label">Konsultasi Baru</div>
+        <h2 class="serif" style="font-size:1.4rem;color:var(--navy)">Pilih Kategori Konsultasi</h2>
+        <p style="font-size:.82rem;color:var(--slate2);margin-top:.25rem">Sistem akan mencarikan perawat yang paling sesuai</p>
+      </div>
+      <div class="category-grid">
+        <div class="cat-card" onclick="selectCat(this,'Hipertensi')"><div class="cat-icon">💉</div><div class="cat-name">Hipertensi</div></div>
+        <div class="cat-card" onclick="selectCat(this,'Diabetes')"><div class="cat-icon">🩸</div><div class="cat-name">Diabetes</div></div>
+        <div class="cat-card" onclick="selectCat(this,'Luka & Perawatan')"><div class="cat-icon">🩹</div><div class="cat-name">Luka & Perawatan</div></div>
+        <div class="cat-card" onclick="selectCat(this,'Kesehatan Lansia')"><div class="cat-icon">👴</div><div class="cat-name">Kesehatan Lansia</div></div>
+        <div class="cat-card" onclick="selectCat(this,'Kesehatan Anak')"><div class="cat-icon">👶</div><div class="cat-name">Kesehatan Anak</div></div>
+        <div class="cat-card" onclick="selectCat(this,'Nutrisi')"><div class="cat-icon">🥗</div><div class="cat-name">Nutrisi</div></div>
+        <div class="cat-card" onclick="selectCat(this,'Kesehatan Jiwa')"><div class="cat-icon">🧘</div><div class="cat-name">Kesehatan Jiwa</div></div>
+        <div class="cat-card" onclick="selectCat(this,'Konsultasi Umum')"><div class="cat-icon">🩺</div><div class="cat-name">Umum</div></div>
+      </div>
+      <div class="consult-layout">
+        <div class="card">
+          <div class="card-header"><div class="card-title"><i class="fas fa-clipboard-list" style="color:var(--gold2);margin-right:6px"></i>Formulir Konsultasi</div></div>
+          <div class="card-body">
+            <!-- Auto-filled dari data user -->
+            <div class="info-box" id="consult-user-info">
+              <i class="fas fa-circle-user" style="color:var(--gold2)"></i>
+              <div id="consult-user-text">Data pasien akan diisi otomatis</div>
             </div>
+            <div class="form-group"><label class="form-label">Keluhan Utama *</label><textarea class="form-input" id="keluhan" placeholder="Ceritakan keluhan Anda secara lengkap..."></textarea></div>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">Sudah Berapa Lama?</label>
+                <select class="form-input"><option>Pilih...</option><option>Kurang dari 1 hari</option><option>1–3 hari</option><option>4–7 hari</option><option>1–2 minggu</option><option>Lebih dari 2 minggu</option><option>Kondisi kronik/lama</option></select>
+              </div>
+              <div class="form-group"><label class="form-label">Riwayat Penyakit</label><input type="text" class="form-input" placeholder="Contoh: Diabetes, Asma..."></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Sedang Minum Obat?</label>
+              <div style="display:flex;gap:.5rem;margin-bottom:.6rem">
+                <button type="button" class="btn btn-ghost btn-sm" id="obat-no" onclick="setObat('no')" style="flex:1;justify-content:center;border-color:var(--gold);background:var(--gold-light);color:var(--gold2)">Tidak</button>
+                <button type="button" class="btn btn-ghost btn-sm" id="obat-yes" onclick="setObat('yes')" style="flex:1;justify-content:center">Ya</button>
+              </div>
+              <div id="obat-input" style="display:none"><input type="text" class="form-input" placeholder="Nama obat yang sedang dikonsumsi..."></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tingkat Nyeri (0–10)</label>
+              <div class="pain-scale" id="painScale">
+                <button class="pain-btn" onclick="setPain(0,this)">0</button><button class="pain-btn" onclick="setPain(1,this)">1</button><button class="pain-btn" onclick="setPain(2,this)">2</button><button class="pain-btn" onclick="setPain(3,this)">3</button><button class="pain-btn active" onclick="setPain(4,this)">4</button><button class="pain-btn" onclick="setPain(5,this)">5</button><button class="pain-btn" onclick="setPain(6,this)">6</button><button class="pain-btn" onclick="setPain(7,this)">7</button><button class="pain-btn" onclick="setPain(8,this)">8</button><button class="pain-btn" onclick="setPain(9,this)">9</button><button class="pain-btn" onclick="setPain(10,this)">10</button>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:.65rem;color:var(--slate3);margin-top:.3rem"><span>Tidak nyeri</span><span>Nyeri ekstrim</span></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Metode Konsultasi</label>
+              <div style="display:flex;gap:.5rem">
+                <button type="button" id="met-video" class="btn btn-outline btn-sm" style="flex:1;justify-content:center;background:var(--gold-light)" onclick="setMethod('video')"><i class="fas fa-video"></i> Video Call</button>
+                <button type="button" id="met-chat" class="btn btn-ghost btn-sm" style="flex:1;justify-content:center" onclick="setMethod('chat')"><i class="fas fa-comment"></i> Chat</button>
+                <button type="button" id="met-voice" class="btn btn-ghost btn-sm" style="flex:1;justify-content:center" onclick="setMethod('voice')"><i class="fas fa-phone"></i> Voice</button>
+              </div>
+            </div>
+            <button class="btn btn-primary" style="width:100%;justify-content:center;padding:12px" onclick="nextConsultStep()"><i class="fas fa-arrow-right"></i> Pilih Perawat</button>
           </div>
-
-          <div class="card" style="position:sticky;top:80px">
-            <div class="card-header"><div class="card-title"><i class="fas fa-user-nurse" style="color:var(--gold2);margin-right:6px"></i>Pilih Perawat</div></div>
-            <div class="card-body" style="padding:.75rem">
-              <div style="font-size:.72rem;color:var(--slate2);margin-bottom:.75rem">Menampilkan perawat sesuai kategori pilihan</div>
-              <div class="nurse-selector">
-                <div class="nurse-select-item selected" onclick="selectNurse(this)">
-                  <div class="nurse-select-radio"><span style="content:''"></span></div>
-                  <div class="nurse-ava" style="width:38px;height:38px;background:linear-gradient(135deg,var(--gold),var(--gold2))"><i class="fas fa-user-nurse" style="color:#fff;font-size:.8rem"></i><div class="status-dot online" style="width:9px;height:9px"></div></div>
-                  <div style="flex:1">
-                    <div style="font-size:.78rem;font-weight:700;color:var(--navy)">Ns. Sitti Nasyroh</div>
-                    <div style="font-size:.65rem;color:var(--gold2);font-weight:600">Medikal Bedah · 8 thn</div>
-                    <div style="display:flex;gap:3px;align-items:center;margin-top:1px"><span style="color:var(--gold);font-size:.6rem">★★★★★</span><span style="font-size:.65rem;font-weight:700;color:var(--navy)">4.97</span><span style="font-size:.62rem;color:var(--slate2)">(843)</span></div>
-                  </div>
-                  <div style="text-align:right;font-size:.7rem;flex-shrink:0"><div style="font-weight:800;color:var(--gold2)">Rp 25.000</div><div style="color:var(--green);font-size:.62rem">~3 mnt</div></div>
-                </div>
-                <div class="nurse-select-item" onclick="selectNurse(this)">
-                  <div class="nurse-select-radio"></div>
-                  <div class="nurse-ava" style="width:38px;height:38px;background:linear-gradient(135deg,#7c3aed,#a855f7)"><i class="fas fa-user-doctor" style="color:#fff;font-size:.8rem"></i><div class="status-dot online" style="width:9px;height:9px"></div></div>
-                  <div style="flex:1">
-                    <div style="font-size:.78rem;font-weight:700;color:var(--navy)">Ns. Budi Santoso</div>
-                    <div style="font-size:.65rem;color:var(--gold2);font-weight:600">Kritis & ICU · 12 thn</div>
-                    <div style="display:flex;gap:3px;align-items:center;margin-top:1px"><span style="color:var(--gold);font-size:.6rem">★★★★★</span><span style="font-size:.65rem;font-weight:700;color:var(--navy)">4.95</span><span style="font-size:.62rem;color:var(--slate2)">(1.2K)</span></div>
-                  </div>
-                  <div style="text-align:right;font-size:.7rem;flex-shrink:0"><div style="font-weight:800;color:var(--gold2)">Rp 35.000</div><div style="color:var(--green);font-size:.62rem">~5 mnt</div></div>
-                </div>
-                <div class="nurse-select-item" onclick="selectNurse(this)">
-                  <div class="nurse-select-radio"></div>
-                  <div class="nurse-ava" style="width:38px;height:38px;background:linear-gradient(135deg,#0ea5e9,#38bdf8)"><i class="fas fa-user-doctor" style="color:#fff;font-size:.8rem"></i><div class="status-dot online" style="width:9px;height:9px"></div></div>
-                  <div style="flex:1">
-                    <div style="font-size:.78rem;font-weight:700;color:var(--navy)">Ns. Ahmad Fauzi</div>
-                    <div style="font-size:.65rem;color:var(--gold2);font-weight:600">Kesehatan Jiwa · 7 thn</div>
-                    <div style="display:flex;gap:3px;align-items:center;margin-top:1px"><span style="color:var(--gold);font-size:.6rem">★★★★★</span><span style="font-size:.65rem;font-weight:700;color:var(--navy)">4.93</span><span style="font-size:.62rem;color:var(--slate2)">(567)</span></div>
-                  </div>
-                  <div style="text-align:right;font-size:.7rem;flex-shrink:0"><div style="font-weight:800;color:var(--gold2)">Rp 45.000</div><div style="color:var(--green);font-size:.62rem">~2 mnt</div></div>
-                </div>
-                <div class="nurse-select-item" onclick="selectNurse(this)">
-                  <div class="nurse-select-radio"></div>
-                  <div class="nurse-ava" style="width:38px;height:38px;background:linear-gradient(135deg,#ec4899,#f9a8d4)"><i class="fas fa-user-nurse" style="color:#fff;font-size:.8rem"></i><div class="status-dot busy" style="width:9px;height:9px"></div></div>
-                  <div style="flex:1">
-                    <div style="font-size:.78rem;font-weight:700;color:var(--navy)">Ns. Dewi Kartika</div>
-                    <div style="font-size:.65rem;color:var(--gold2);font-weight:600">Maternitas · 10 thn</div>
-                    <div style="display:flex;gap:3px;align-items:center;margin-top:1px"><span style="color:var(--gold);font-size:.6rem">★★★★★</span><span style="font-size:.65rem;font-weight:700;color:var(--navy)">4.98</span><span style="font-size:.62rem;color:var(--slate2)">(2.1K)</span></div>
-                  </div>
-                  <div style="text-align:right;font-size:.7rem;flex-shrink:0"><div style="font-weight:800;color:var(--gold2)">Rp 30.000</div><div style="color:var(--gold);font-size:.62rem">~15 mnt</div></div>
-                </div>
+        </div>
+        <div class="card" style="position:sticky;top:80px">
+          <div class="card-header"><div class="card-title"><i class="fas fa-user-nurse" style="color:var(--gold2);margin-right:6px"></i>Pilih Perawat</div></div>
+          <div class="card-body" style="padding:.75rem">
+            <div class="nurse-selector">
+              <div class="nurse-select-item selected" onclick="selectNurse(this)">
+                <div class="nurse-select-radio"></div>
+                <div class="nurse-ava" style="width:38px;height:38px;background:linear-gradient(135deg,var(--gold),var(--gold2))"><i class="fas fa-user-nurse" style="color:#fff;font-size:.8rem"></i><div class="status-dot online" style="width:9px;height:9px"></div></div>
+                <div style="flex:1"><div style="font-size:.78rem;font-weight:700;color:var(--navy)">Ns. Sitti Nasyroh</div><div style="font-size:.65rem;color:var(--gold2);font-weight:600">Medikal Bedah · 8 thn</div><div style="display:flex;gap:3px;align-items:center;margin-top:1px"><span style="color:var(--gold);font-size:.6rem">★★★★★</span><span style="font-size:.65rem;font-weight:700;color:var(--navy)">4.97</span></div></div>
+                <div style="text-align:right;font-size:.7rem;flex-shrink:0"><div style="font-weight:800;color:var(--gold2)">Rp 25.000</div><div style="color:var(--green);font-size:.62rem">~3 mnt</div></div>
+              </div>
+              <div class="nurse-select-item" onclick="selectNurse(this)">
+                <div class="nurse-select-radio"></div>
+                <div class="nurse-ava" style="width:38px;height:38px;background:linear-gradient(135deg,#7c3aed,#a855f7)"><i class="fas fa-user-doctor" style="color:#fff;font-size:.8rem"></i><div class="status-dot online" style="width:9px;height:9px"></div></div>
+                <div style="flex:1"><div style="font-size:.78rem;font-weight:700;color:var(--navy)">Ns. Budi Santoso</div><div style="font-size:.65rem;color:var(--gold2);font-weight:600">Kritis & ICU · 12 thn</div><div style="display:flex;gap:3px;align-items:center;margin-top:1px"><span style="color:var(--gold);font-size:.6rem">★★★★★</span><span style="font-size:.65rem;font-weight:700;color:var(--navy)">4.95</span></div></div>
+                <div style="text-align:right;font-size:.7rem;flex-shrink:0"><div style="font-weight:800;color:var(--gold2)">Rp 35.000</div><div style="color:var(--green);font-size:.62rem">~5 mnt</div></div>
+              </div>
+              <div class="nurse-select-item" onclick="selectNurse(this)">
+                <div class="nurse-select-radio"></div>
+                <div class="nurse-ava" style="width:38px;height:38px;background:linear-gradient(135deg,#ec4899,#f9a8d4)"><i class="fas fa-user-nurse" style="color:#fff;font-size:.8rem"></i><div class="status-dot busy" style="width:9px;height:9px"></div></div>
+                <div style="flex:1"><div style="font-size:.78rem;font-weight:700;color:var(--navy)">Ns. Dewi Kartika</div><div style="font-size:.65rem;color:var(--gold2);font-weight:600">Maternitas · 10 thn</div><div style="display:flex;gap:3px;align-items:center;margin-top:1px"><span style="color:var(--gold);font-size:.6rem">★★★★★</span><span style="font-size:.65rem;font-weight:700;color:var(--navy)">4.98</span></div></div>
+                <div style="text-align:right;font-size:.7rem;flex-shrink:0"><div style="font-weight:800;color:var(--gold2)">Rp 30.000</div><div style="color:var(--gold);font-size:.62rem">~15 mnt</div></div>
               </div>
             </div>
           </div>
@@ -1008,7 +596,6 @@ select.form-input option{background:#fff}
     <!-- ══ CHAT ══ -->
     <div class="page-view" id="page-chat">
       <div class="chat-layout">
-        <!-- Chat list -->
         <div class="chat-sidebar">
           <div class="chat-sidebar-header">
             <div class="chat-sidebar-title">Percakapan</div>
@@ -1017,52 +604,26 @@ select.form-input option{background:#fff}
           <div class="chat-rooms">
             <div class="chat-room-item active">
               <div class="chat-room-ava" style="background:linear-gradient(135deg,var(--gold),var(--gold2))"><i class="fas fa-user-nurse" style="color:#fff;font-size:.9rem"></i><div class="status-dot online" style="position:absolute;bottom:0;right:0;border:2px solid #fff"></div></div>
-              <div class="chat-room-info">
-                <div class="chat-room-name">Ns. Sitti Nasyroh</div>
-                <div class="chat-room-last">Baik, kompres hangat dulu ya...</div>
-              </div>
-              <div class="chat-room-meta">
-                <div class="chat-room-time">10:32</div>
-                <div class="chat-room-unread">2</div>
-              </div>
+              <div class="chat-room-info"><div class="chat-room-name">Ns. Sitti Nasyroh</div><div class="chat-room-last">Baik, kompres hangat dulu ya...</div></div>
+              <div class="chat-room-meta"><div class="chat-room-time">10:32</div><div class="chat-room-unread">2</div></div>
             </div>
             <div class="chat-room-item">
               <div class="chat-room-ava" style="background:linear-gradient(135deg,#0ea5e9,#38bdf8)"><i class="fas fa-user-doctor" style="color:#fff;font-size:.9rem"></i><div class="status-dot online" style="position:absolute;bottom:0;right:0;border:2px solid #fff"></div></div>
-              <div class="chat-room-info">
-                <div class="chat-room-name">Ns. Ahmad Fauzi</div>
-                <div class="chat-room-last">Terima kasih sudah berbagi 🙏</div>
-              </div>
-              <div class="chat-room-meta">
-                <div class="chat-room-time">Kemarin</div>
-              </div>
-            </div>
-            <div class="chat-room-item">
-              <div class="chat-room-ava" style="background:linear-gradient(135deg,#ec4899,#f9a8d4)"><i class="fas fa-user-nurse" style="color:#fff;font-size:.9rem"></i><div class="status-dot offline" style="position:absolute;bottom:0;right:0;border:2px solid #fff"></div></div>
-              <div class="chat-room-info">
-                <div class="chat-room-name">Ns. Dewi Kartika</div>
-                <div class="chat-room-last">Konsultasi selesai. Semoga lekas...</div>
-              </div>
-              <div class="chat-room-meta">
-                <div class="chat-room-time">Senin</div>
-              </div>
+              <div class="chat-room-info"><div class="chat-room-name">Ns. Ahmad Fauzi</div><div class="chat-room-last">Terima kasih sudah berbagi 🙏</div></div>
+              <div class="chat-room-meta"><div class="chat-room-time">Kemarin</div></div>
             </div>
           </div>
         </div>
-
-        <!-- Chat main -->
         <div class="chat-main">
           <div class="chat-main-header">
             <div class="chat-nurse-info">
               <div class="chat-nurse-ava" style="background:linear-gradient(135deg,var(--gold),var(--gold2))"><i class="fas fa-user-nurse" style="color:#fff;font-size:.85rem"></i><div class="status-dot online" style="position:absolute;bottom:0;right:0;width:9px;height:9px;border:2px solid #fff"></div></div>
-              <div>
-                <div class="chat-nurse-name">Ns. Sitti Nasyroh Nuhsin, S.Kep.</div>
-                <div class="chat-nurse-status">Online · Keperawatan Medikal Bedah</div>
-              </div>
+              <div><div class="chat-nurse-name">Ns. Sitti Nasyroh Nuhsin, S.Kep.</div><div class="chat-nurse-status">Online · Keperawatan Medikal Bedah</div></div>
             </div>
             <div class="chat-actions">
-              <div class="chat-action-btn" title="Video Call"><i class="fas fa-video"></i></div>
-              <div class="chat-action-btn" title="Voice Call"><i class="fas fa-phone"></i></div>
-              <div class="chat-action-btn" title="Info Pasien"><i class="fas fa-circle-info"></i></div>
+              <div class="chat-action-btn"><i class="fas fa-video"></i></div>
+              <div class="chat-action-btn"><i class="fas fa-phone"></i></div>
+              <div class="chat-action-btn"><i class="fas fa-circle-info"></i></div>
             </div>
           </div>
           <div class="chat-messages-area" id="chatMessages">
@@ -1070,95 +631,41 @@ select.form-input option{background:#fff}
             <div class="msg-group">
               <div class="msg-row">
                 <div class="msg-ava-sm" style="background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff"><i class="fas fa-user-nurse" style="font-size:.65rem"></i></div>
-                <div>
-                  <div class="msg-bubble them">Selamat pagi! 🌸 Saya Ns. Sitti Nasyroh. Ada yang bisa saya bantu hari ini?</div>
-                  <div class="msg-time">09:00</div>
-                </div>
-              </div>
-            </div>
-            <div class="msg-group">
-              <div class="msg-row me">
-                <div class="msg-ava-sm" style="background:linear-gradient(135deg,#64748b,#94a3b8);color:#fff"><i class="fas fa-user" style="font-size:.65rem"></i></div>
-                <div>
-                  <div class="msg-bubble me">Selamat pagi Suster. Anak saya demam sudah 2 hari ini, suhu 38.5°C. Saya khawatir karena juga ada batuk ringan.</div>
-                  <div class="msg-status">✓✓ Terkirim</div>
-                </div>
-              </div>
-            </div>
-            <div class="msg-group">
-              <div class="msg-row">
-                <div class="msg-ava-sm" style="background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff"><i class="fas fa-user-nurse" style="font-size:.65rem"></i></div>
-                <div>
-                  <div class="msg-bubble them">Baik, saya mengerti. Berapa usia anak Anda? Apakah demamnya naik turun atau terus-menerus?</div>
-                  <div class="msg-time">09:03</div>
-                </div>
-              </div>
-            </div>
-            <div class="msg-group">
-              <div class="msg-row me">
-                <div class="msg-ava-sm" style="background:linear-gradient(135deg,#64748b,#94a3b8);color:#fff"><i class="fas fa-user" style="font-size:.65rem"></i></div>
-                <div>
-                  <div class="msg-bubble me">Usia 5 tahun. Demamnya naik di malam hari, siang sedikit turun tapi tidak sampai normal.</div>
-                  <div class="msg-status">✓✓ Terkirim</div>
-                </div>
-              </div>
-            </div>
-            <div class="msg-group">
-              <div class="msg-row">
-                <div class="msg-ava-sm" style="background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff"><i class="fas fa-user-nurse" style="font-size:.65rem"></i></div>
-                <div>
-                  <div class="msg-bubble them">Untuk sementara, berikan paracetamol anak sesuai dosis berat badan, kompres hangat di dahi dan ketiak. Pastikan cukup minum air putih. Apakah ada ruam atau muntah?</div>
-                  <div class="msg-time">09:06</div>
-                </div>
+                <div><div class="msg-bubble them">Selamat datang! 🌸 Saya Ns. Sitti. Ada yang bisa saya bantu?</div><div class="msg-time">09:00</div></div>
               </div>
             </div>
             <div id="typingIndicator" style="display:none" class="msg-group">
               <div class="msg-row">
                 <div class="msg-ava-sm" style="background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff"><i class="fas fa-user-nurse" style="font-size:.65rem"></i></div>
-                <div class="typing-indicator">
-                  <div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>
-                  <span class="typing-label">Ns. Sitti sedang mengetik...</span>
-                </div>
+                <div class="typing-indicator"><div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div><span class="typing-label">Ns. Sitti sedang mengetik...</span></div>
               </div>
             </div>
           </div>
           <div class="chat-input-area">
             <div class="chat-input-row">
               <div class="chat-input-attach"><i class="fas fa-paperclip"></i></div>
-              <div class="chat-input-attach"><i class="fas fa-image"></i></div>
               <div class="chat-input-box">
                 <input type="text" id="chatInputBox" placeholder="Ketik pesan Anda..." onkeydown="if(event.key==='Enter')sendPatientMsg()">
-                <i class="fas fa-face-smile" style="color:var(--slate3);cursor:pointer;font-size:.85rem"></i>
               </div>
               <button class="chat-send-btn" onclick="sendPatientMsg()"><i class="fas fa-paper-plane"></i></button>
             </div>
           </div>
         </div>
-
-        <!-- Chat detail / patient info -->
         <div class="chat-detail">
-          <div class="chat-detail-header">
-            <div class="chat-detail-title">Info Konsultasi</div>
-            <div class="chat-detail-sub">Sesi aktif · 30 menit</div>
-          </div>
+          <div class="chat-detail-header"><div class="chat-detail-title">Info Sesi</div><div class="chat-detail-sub">Sesi aktif · 30 menit</div></div>
           <div class="chat-detail-section">
-            <div class="chat-detail-sec-title">Data Saya</div>
-            <div class="detail-info-row"><span class="detail-info-label">Nama</span><span class="detail-info-val">Ahmad Rizki</span></div>
-            <div class="detail-info-row"><span class="detail-info-label">Umur</span><span class="detail-info-val">28 tahun</span></div>
-            <div class="detail-info-row"><span class="detail-info-label">Keluhan</span><span class="detail-info-val">Anak demam 38.5°C, batuk</span></div>
-            <div class="detail-info-row"><span class="detail-info-label">Minum Obat</span><span class="detail-info-val">Tidak</span></div>
-            <div class="detail-info-row"><span class="detail-info-label">Nyeri (0-10)</span><span class="detail-info-val">4/10</span></div>
+            <div class="chat-detail-sec-title">Data Pasien</div>
+            <div class="detail-info-row"><span class="detail-info-label">Nama</span><span class="detail-info-val" id="chat-nama">-</span></div>
+            <div class="detail-info-row"><span class="detail-info-label">Umur</span><span class="detail-info-val" id="chat-umur">-</span></div>
+            <div class="detail-info-row"><span class="detail-info-label">Jenis Kelamin</span><span class="detail-info-val" id="chat-gender">-</span></div>
+            <div class="detail-info-row"><span class="detail-info-label">No. HP</span><span class="detail-info-val" id="chat-phone">-</span></div>
           </div>
           <div class="chat-detail-section">
             <div class="chat-detail-sec-title">Catatan Perawatan</div>
             <div class="medical-note">Berikan paracetamol anak 250mg setiap 6-8 jam jika suhu >38°C. Kompres hangat. Monitor suhu tiap 4 jam.</div>
           </div>
-          <div class="chat-detail-section">
-            <div class="chat-detail-sec-title">Tindak Lanjut</div>
-            <div style="font-size:.75rem;color:var(--slate2);line-height:1.6">Jika demam tidak turun dalam 3 hari atau ada kejang, segera bawa ke IGD terdekat.</div>
-          </div>
           <div style="padding:1rem">
-            <button class="btn btn-danger btn-sm" style="width:100%;justify-content:center" onclick="openRatingModal()"><i class="fas fa-circle-check"></i> Akhiri & Nilai Konsultasi</button>
+            <button class="btn btn-danger btn-sm" style="width:100%;justify-content:center" onclick="openRatingModal()"><i class="fas fa-circle-check"></i> Akhiri & Nilai</button>
           </div>
         </div>
       </div>
@@ -1167,87 +674,27 @@ select.form-input option{background:#fff}
     <!-- ══ EDUCATION ══ -->
     <div class="page-view" id="page-education">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">
-        <div>
-          <div class="section-label">Edukasi Kesehatan</div>
-          <h2 class="serif" style="font-size:1.4rem;color:var(--navy)">Tingkatkan Pemahaman Anda</h2>
-        </div>
+        <div><div class="section-label">Edukasi Kesehatan</div><h2 class="serif" style="font-size:1.4rem;color:var(--navy)">Tingkatkan Pemahaman Anda</h2></div>
         <div style="display:flex;gap:.5rem">
           <button class="tab active" onclick="filterEdu('all',this)">Semua</button>
-          <button class="tab" onclick="filterEdu('progress',this)">Dalam Progress</button>
+          <button class="tab" onclick="filterEdu('progress',this)">Progress</button>
           <button class="tab" onclick="filterEdu('done',this)">Selesai</button>
         </div>
       </div>
       <div class="edu-grid">
-        <div class="edu-card" onclick="openEduModal('Hipertensi')">
-          <div class="edu-img" style="background:linear-gradient(135deg,#fef9c3,#fde68a)">💉<div class="edu-prog-ring">70%</div></div>
-          <div class="edu-body">
-            <span class="edu-tag badge-gold">Kardiovaskular</span>
-            <div class="edu-title">Manajemen Hipertensi</div>
-            <div class="edu-desc">Pelajari cara mengelola tekanan darah tinggi dengan pola hidup sehat dan pemantauan rutin.</div>
-            <div class="edu-footer"><span><i class="fas fa-book-open"></i> 8 topik</span><span><i class="fas fa-circle-check" style="color:var(--green)"></i> Pre-test selesai</span></div>
-            <div class="edu-progress-bar"><div class="edu-progress-fill" style="width:70%"></div></div>
-          </div>
-        </div>
-        <div class="edu-card" onclick="openEduModal('Diabetes')">
-          <div class="edu-img" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)">🩸<div class="edu-prog-ring" style="color:var(--green)">✓</div></div>
-          <div class="edu-body">
-            <span class="edu-tag badge-blue">Metabolik</span>
-            <div class="edu-title">Mengenal Diabetes Mellitus</div>
-            <div class="edu-desc">Pahami penyakit diabetes, gejala, faktor risiko, dan cara pencegahannya secara komprehensif.</div>
-            <div class="edu-footer"><span><i class="fas fa-book-open"></i> 8 topik</span><span><i class="fas fa-trophy" style="color:var(--gold)"></i> Skor: 90%</span></div>
-            <div class="edu-progress-bar"><div class="edu-progress-fill" style="width:100%"></div></div>
-          </div>
-        </div>
-        <div class="edu-card" onclick="openEduModal('Kesehatan Mental')">
-          <div class="edu-img" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe)">🧘<div class="edu-prog-ring">30%</div></div>
-          <div class="edu-body">
-            <span class="edu-tag badge-purple">Mental Health</span>
-            <div class="edu-title">Menjaga Kesehatan Mental</div>
-            <div class="edu-desc">Strategi praktis mengelola stres, kecemasan, dan menjaga keseimbangan kesehatan jiwa sehari-hari.</div>
-            <div class="edu-footer"><span><i class="fas fa-book-open"></i> 8 topik</span><span><i class="fas fa-clock" style="color:var(--slate2)"></i> Baru dimulai</span></div>
-            <div class="edu-progress-bar"><div class="edu-progress-fill" style="width:30%"></div></div>
-          </div>
-        </div>
-        <div class="edu-card" onclick="openEduModal('Kolesterol')">
-          <div class="edu-img" style="background:linear-gradient(135deg,#fee2e2,#fecaca)">🫀<div class="edu-prog-ring" style="color:var(--slate3)">-</div></div>
-          <div class="edu-body">
-            <span class="edu-tag badge-red">Kardiovaskular</span>
-            <div class="edu-title">Mengelola Kolesterol</div>
-            <div class="edu-desc">Panduan lengkap tentang kolesterol baik dan buruk, diet sehat, dan olahraga yang tepat.</div>
-            <div class="edu-footer"><span><i class="fas fa-book-open"></i> 8 topik</span><span><i class="fas fa-lock" style="color:var(--slate3)"></i> Belum dimulai</span></div>
-            <div class="edu-progress-bar"><div class="edu-progress-fill" style="width:0%"></div></div>
-          </div>
-        </div>
-        <div class="edu-card" onclick="openEduModal('Pola Tidur')">
-          <div class="edu-img" style="background:linear-gradient(135deg,#e0f2fe,#bae6fd)">🌙<div class="edu-prog-ring" style="color:var(--slate3)">-</div></div>
-          <div class="edu-body">
-            <span class="edu-tag badge-blue">Gaya Hidup</span>
-            <div class="edu-title">Pola Tidur Sehat</div>
-            <div class="edu-desc">Panduan tidur berkualitas untuk meningkatkan imunitas, produktivitas, dan kesehatan mental.</div>
-            <div class="edu-footer"><span><i class="fas fa-book-open"></i> 8 topik</span><span><i class="fas fa-lock" style="color:var(--slate3)"></i> Belum dimulai</span></div>
-            <div class="edu-progress-bar"><div class="edu-progress-fill" style="width:0%"></div></div>
-          </div>
-        </div>
-        <div class="edu-card" onclick="openEduModal('Nutrisi Seimbang')">
-          <div class="edu-img" style="background:linear-gradient(135deg,#dcfce7,#bbf7d0)">🥗<div class="edu-prog-ring" style="color:var(--slate3)">-</div></div>
-          <div class="edu-body">
-            <span class="edu-tag badge-green">Nutrisi</span>
-            <div class="edu-title">Panduan Nutrisi Seimbang</div>
-            <div class="edu-desc">Pelajari komposisi gizi ideal, porsi makan sehat, dan pilihan makanan terbaik untuk tubuh Anda.</div>
-            <div class="edu-footer"><span><i class="fas fa-book-open"></i> 8 topik</span><span><i class="fas fa-lock" style="color:var(--slate3)"></i> Belum dimulai</span></div>
-            <div class="edu-progress-bar"><div class="edu-progress-fill" style="width:0%"></div></div>
-          </div>
-        </div>
+        <div class="edu-card" onclick="openEduModal('Hipertensi')"><div class="edu-img" style="background:linear-gradient(135deg,#fef9c3,#fde68a)">💉<div class="edu-prog-ring">70%</div></div><div class="edu-body"><span class="edu-tag badge-gold">Kardiovaskular</span><div class="edu-title">Manajemen Hipertensi</div><div class="edu-desc">Pelajari cara mengelola tekanan darah tinggi dengan pola hidup sehat.</div><div class="edu-footer"><span><i class="fas fa-book-open"></i> 8 topik</span><span><i class="fas fa-circle-check" style="color:var(--green)"></i> Pre-test selesai</span></div><div class="edu-progress-bar"><div class="edu-progress-fill" style="width:70%"></div></div></div></div>
+        <div class="edu-card" onclick="openEduModal('Diabetes')"><div class="edu-img" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)">🩸<div class="edu-prog-ring" style="color:var(--green)">✓</div></div><div class="edu-body"><span class="edu-tag badge-blue">Metabolik</span><div class="edu-title">Mengenal Diabetes Mellitus</div><div class="edu-desc">Pahami penyakit diabetes, gejala, faktor risiko, dan cara pencegahannya.</div><div class="edu-footer"><span><i class="fas fa-book-open"></i> 8 topik</span><span><i class="fas fa-trophy" style="color:var(--gold)"></i> Skor: 90%</span></div><div class="edu-progress-bar"><div class="edu-progress-fill" style="width:100%"></div></div></div></div>
+        <div class="edu-card" onclick="openEduModal('Kesehatan Mental')"><div class="edu-img" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe)">🧘<div class="edu-prog-ring">30%</div></div><div class="edu-body"><span class="edu-tag badge-purple">Mental Health</span><div class="edu-title">Menjaga Kesehatan Mental</div><div class="edu-desc">Strategi praktis mengelola stres dan menjaga keseimbangan jiwa.</div><div class="edu-footer"><span><i class="fas fa-book-open"></i> 8 topik</span><span><i class="fas fa-clock" style="color:var(--slate2)"></i> Baru dimulai</span></div><div class="edu-progress-bar"><div class="edu-progress-fill" style="width:30%"></div></div></div></div>
+        <div class="edu-card" onclick="openEduModal('Kolesterol')"><div class="edu-img" style="background:linear-gradient(135deg,#fee2e2,#fecaca)">🫀<div class="edu-prog-ring" style="color:var(--slate3)">-</div></div><div class="edu-body"><span class="edu-tag badge-red">Kardiovaskular</span><div class="edu-title">Mengelola Kolesterol</div><div class="edu-desc">Panduan lengkap tentang kolesterol dan diet sehat.</div><div class="edu-footer"><span><i class="fas fa-book-open"></i> 8 topik</span><span><i class="fas fa-lock" style="color:var(--slate3)"></i> Belum dimulai</span></div><div class="edu-progress-bar"><div class="edu-progress-fill" style="width:0%"></div></div></div></div>
+        <div class="edu-card" onclick="openEduModal('Pola Tidur')"><div class="edu-img" style="background:linear-gradient(135deg,#e0f2fe,#bae6fd)">🌙<div class="edu-prog-ring" style="color:var(--slate3)">-</div></div><div class="edu-body"><span class="edu-tag badge-blue">Gaya Hidup</span><div class="edu-title">Pola Tidur Sehat</div><div class="edu-desc">Panduan tidur berkualitas untuk imunitas dan produktivitas.</div><div class="edu-footer"><span><i class="fas fa-book-open"></i> 8 topik</span><span><i class="fas fa-lock" style="color:var(--slate3)"></i> Belum dimulai</span></div><div class="edu-progress-bar"><div class="edu-progress-fill" style="width:0%"></div></div></div></div>
+        <div class="edu-card" onclick="openEduModal('Nutrisi Seimbang')"><div class="edu-img" style="background:linear-gradient(135deg,#dcfce7,#bbf7d0)">🥗<div class="edu-prog-ring" style="color:var(--slate3)">-</div></div><div class="edu-body"><span class="edu-tag badge-green">Nutrisi</span><div class="edu-title">Panduan Nutrisi Seimbang</div><div class="edu-desc">Komposisi gizi ideal dan pilihan makanan terbaik untuk tubuh Anda.</div><div class="edu-footer"><span><i class="fas fa-book-open"></i> 8 topik</span><span><i class="fas fa-lock" style="color:var(--slate3)"></i> Belum dimulai</span></div><div class="edu-progress-bar"><div class="edu-progress-fill" style="width:0%"></div></div></div></div>
       </div>
     </div>
 
     <!-- ══ HISTORY ══ -->
     <div class="page-view" id="page-history">
       <div style="margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between">
-        <div>
-          <div class="section-label">Riwayat</div>
-          <h2 class="serif" style="font-size:1.4rem;color:var(--navy)">Rekam Jejak Kesehatan</h2>
-        </div>
+        <div><div class="section-label">Riwayat</div><h2 class="serif" style="font-size:1.4rem;color:var(--navy)">Rekam Jejak Kesehatan</h2></div>
         <button class="btn btn-ghost btn-sm"><i class="fas fa-download"></i> Export PDF</button>
       </div>
       <div style="display:flex;gap:.5rem;margin-bottom:1.25rem">
@@ -1256,61 +703,9 @@ select.form-input option{background:#fff}
         <button class="tab" onclick="filterHistory('edu',this)">Edukasi</button>
       </div>
       <div class="card">
-        <div class="history-item">
-          <div class="history-icon" style="background:#dcfce7;color:#16a34a"><i class="fas fa-comments"></i></div>
-          <div class="history-info">
-            <div class="history-title">Konsultasi Keperawatan Umum</div>
-            <div class="history-sub">Ns. Sitti Nasyroh · Chat · ★★★★★ Dinilai</div>
-          </div>
-          <div class="history-meta">
-            <div class="history-date">28 Mei 2026</div>
-            <div class="history-amount">Rp 25.000</div>
-          </div>
-        </div>
-        <div class="history-item">
-          <div class="history-icon" style="background:#dbeafe;color:#2563eb"><i class="fas fa-book-open-reader"></i></div>
-          <div class="history-info">
-            <div class="history-title">Edukasi: Diabetes Mellitus — Selesai</div>
-            <div class="history-sub">Pre-test: 60% → Post-test: 90% · Peningkatan +30%</div>
-          </div>
-          <div class="history-meta">
-            <div class="history-date">25 Mei 2026</div>
-            <div class="history-amount" style="color:var(--green)">+30% 📈</div>
-          </div>
-        </div>
-        <div class="history-item">
-          <div class="history-icon" style="background:#fef3c7;color:var(--gold2)"><i class="fas fa-stethoscope"></i></div>
-          <div class="history-info">
-            <div class="history-title">Konsultasi Kesehatan Jiwa</div>
-            <div class="history-sub">Ns. Ahmad Fauzi · Video Call · ★★★★☆ Dinilai</div>
-          </div>
-          <div class="history-meta">
-            <div class="history-date">20 Mei 2026</div>
-            <div class="history-amount">Rp 45.000</div>
-          </div>
-        </div>
-        <div class="history-item">
-          <div class="history-icon" style="background:#ede9fe;color:#7c3aed"><i class="fas fa-book-open-reader"></i></div>
-          <div class="history-info">
-            <div class="history-title">Edukasi: Manajemen Hipertensi — 70%</div>
-            <div class="history-sub">Pre-test: 55% → Dalam Progress</div>
-          </div>
-          <div class="history-meta">
-            <div class="history-date">15 Mei 2026</div>
-            <div class="history-amount" style="color:var(--gold2)">Sedang 📖</div>
-          </div>
-        </div>
-        <div class="history-item">
-          <div class="history-icon" style="background:#dcfce7;color:#16a34a"><i class="fas fa-comments"></i></div>
-          <div class="history-info">
-            <div class="history-title">Konsultasi Maternitas & Neonatal</div>
-            <div class="history-sub">Ns. Dewi Kartika · Chat · ★★★★★ Dinilai</div>
-          </div>
-          <div class="history-meta">
-            <div class="history-date">10 Mei 2026</div>
-            <div class="history-amount">Rp 30.000</div>
-          </div>
-        </div>
+        <div class="history-item"><div class="history-icon" style="background:#dcfce7;color:#16a34a"><i class="fas fa-comments"></i></div><div class="history-info"><div class="history-title">Konsultasi Keperawatan Umum</div><div class="history-sub">Ns. Sitti Nasyroh · Chat · ★★★★★ Dinilai</div></div><div class="history-meta"><div class="history-date">28 Mei 2026</div><div class="history-amount">Rp 25.000</div></div></div>
+        <div class="history-item"><div class="history-icon" style="background:#dbeafe;color:#2563eb"><i class="fas fa-book-open-reader"></i></div><div class="history-info"><div class="history-title">Edukasi: Diabetes Mellitus — Selesai</div><div class="history-sub">Pre-test: 60% → Post-test: 90% · +30%</div></div><div class="history-meta"><div class="history-date">25 Mei 2026</div><div class="history-amount" style="color:var(--green)">+30% 📈</div></div></div>
+        <div class="history-item"><div class="history-icon" style="background:#fef3c7;color:var(--gold2)"><i class="fas fa-stethoscope"></i></div><div class="history-info"><div class="history-title">Konsultasi Kesehatan Jiwa</div><div class="history-sub">Ns. Ahmad Fauzi · Video Call · ★★★★☆</div></div><div class="history-meta"><div class="history-date">20 Mei 2026</div><div class="history-amount">Rp 45.000</div></div></div>
       </div>
     </div>
 
@@ -1321,66 +716,47 @@ select.form-input option{background:#fff}
         <div>
           <div class="card" style="overflow:hidden">
             <div class="profile-card-top">
-              <div class="profile-ava-lg">
-                <i class="fas fa-user"></i>
-                <div class="profile-ava-edit"><i class="fas fa-camera"></i></div>
-              </div>
-              <div class="profile-name-lg">Ahmad Rizki</div>
-              <div class="profile-sub-lg">ahmad.rizki@email.com</div>
+              <div class="profile-ava-lg" id="prof-ava-lg">?<div class="profile-ava-edit"><i class="fas fa-camera"></i></div></div>
+              <div class="profile-name-lg" id="prof-name">-</div>
+              <div class="profile-sub-lg" id="prof-email">-</div>
               <div style="margin-top:.5rem"><span class="badge badge-green"><i class="fas fa-circle-check"></i> Terverifikasi</span></div>
             </div>
             <div class="profile-stats-row">
               <div class="profile-stat"><div class="profile-stat-num">12</div><div class="profile-stat-label">Konsultasi</div></div>
               <div class="profile-stat"><div class="profile-stat-num">7</div><div class="profile-stat-label">Edukasi</div></div>
-              <div class="profile-stat"><div class="profile-stat-num">4.8</div><div class="profile-stat-label">Rating</div></div>
+              <div class="profile-stat"><div class="profile-stat-num" id="prof-umur-stat">-</div><div class="profile-stat-label">Tahun</div></div>
             </div>
           </div>
           <div class="card" style="margin-top:1rem">
-            <div class="card-header"><div class="card-title">Info Kesehatan</div></div>
+            <div class="card-header"><div class="card-title">Info Pribadi</div></div>
             <div class="card-body">
-              <div class="health-item"><span class="health-label">Golongan Darah</span><span class="health-val">A+</span></div>
-              <div class="health-item"><span class="health-label">Tinggi Badan</span><span class="health-val">170 cm</span></div>
-              <div class="health-item"><span class="health-label">Berat Badan</span><span class="health-val">68 kg</span></div>
-              <div class="health-item"><span class="health-label">Alergi</span><span class="health-val">Penisilin</span></div>
-              <div class="health-item"><span class="health-label">Penyakit Kronik</span><span class="health-val">-</span></div>
+              <div class="health-item"><span class="health-label">Tanggal Lahir</span><span class="health-val" id="prof-dob">-</span></div>
+              <div class="health-item"><span class="health-label">Jenis Kelamin</span><span class="health-val" id="prof-gender">-</span></div>
+              <div class="health-item"><span class="health-label">Nomor HP</span><span class="health-val" id="prof-phone">-</span></div>
+              <div class="health-item"><span class="health-label">Agama</span><span class="health-val" id="prof-religion">-</span></div>
+              <div class="health-item"><span class="health-label">Alamat</span><span class="health-val" id="prof-address">-</span></div>
+              <div class="health-item"><span class="health-label">Terdaftar Sejak</span><span class="health-val" id="prof-created">-</span></div>
             </div>
           </div>
         </div>
         <div>
           <div class="card">
-            <div class="card-header"><div class="card-title">Edit Profil</div><button class="btn btn-primary btn-sm"><i class="fas fa-floppy-disk"></i> Simpan</button></div>
+            <div class="card-header"><div class="card-title">Edit Profil</div><button class="btn btn-primary btn-sm" onclick="saveProfile()"><i class="fas fa-floppy-disk"></i> Simpan</button></div>
             <div class="card-body">
               <div class="form-row">
-                <div class="form-group"><label class="form-label">Nama Lengkap</label><input type="text" class="form-input" value="Ahmad Rizki"></div>
-                <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" value="ahmad.rizki@email.com"></div>
+                <div class="form-group"><label class="form-label">Nama Lengkap</label><input type="text" class="form-input" id="edit-nama" placeholder="Nama sesuai KTP"></div>
+                <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" id="edit-email" placeholder="email@contoh.com" readonly style="background:#f9f9f9;cursor:not-allowed" title="Email tidak bisa diubah"></div>
               </div>
               <div class="form-row">
-                <div class="form-group"><label class="form-label">Nomor HP</label><input type="tel" class="form-input" value="08123456789"></div>
-                <div class="form-group"><label class="form-label">Jenis Kelamin</label><select class="form-input"><option>Laki-laki</option><option>Perempuan</option></select></div>
+                <div class="form-group"><label class="form-label">Nomor HP</label><input type="tel" class="form-input" id="edit-phone" placeholder="08xxxxxxxxxx"></div>
+                <div class="form-group"><label class="form-label">Jenis Kelamin</label><select class="form-input" id="edit-gender"><option value="">Pilih...</option><option>Laki-laki</option><option>Perempuan</option></select></div>
               </div>
               <div class="form-row">
-                <div class="form-group"><label class="form-label">Tanggal Lahir</label><input type="date" class="form-input" value="1998-03-15"></div>
-                <div class="form-group"><label class="form-label">Agama</label><select class="form-input"><option>Islam</option><option>Kristen</option><option>Katolik</option><option>Hindu</option><option>Buddha</option><option>Konghucu</option></select></div>
+                <div class="form-group"><label class="form-label">Tanggal Lahir</label><input type="date" class="form-input" id="edit-dob"></div>
+                <div class="form-group"><label class="form-label">Agama</label><select class="form-input" id="edit-religion"><option value="">Pilih...</option><option>Islam</option><option>Kristen</option><option>Katolik</option><option>Hindu</option><option>Buddha</option><option>Konghucu</option></select></div>
               </div>
-              <div class="form-group"><label class="form-label">Alamat Lengkap</label><textarea class="form-input" rows="3">Jl. Merdeka No. 12, Bandung, Jawa Barat</textarea></div>
-              <div class="form-group"><label class="form-label">Golongan Darah</label>
-                <div style="display:flex;gap:.5rem;flex-wrap:wrap">
-                  <button class="btn btn-outline btn-sm active" style="background:var(--gold-light)">A+</button>
-                  <button class="btn btn-ghost btn-sm">A-</button>
-                  <button class="btn btn-ghost btn-sm">B+</button>
-                  <button class="btn btn-ghost btn-sm">B-</button>
-                  <button class="btn btn-ghost btn-sm">AB+</button>
-                  <button class="btn btn-ghost btn-sm">AB-</button>
-                  <button class="btn btn-ghost btn-sm">O+</button>
-                  <button class="btn btn-ghost btn-sm">O-</button>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group"><label class="form-label">Tinggi Badan (cm)</label><input type="number" class="form-input" value="170"></div>
-                <div class="form-group"><label class="form-label">Berat Badan (kg)</label><input type="number" class="form-input" value="68"></div>
-              </div>
-              <div class="form-group"><label class="form-label">Alergi Obat</label><input type="text" class="form-input" value="Penisilin" placeholder="Kosongkan jika tidak ada"></div>
-              <div class="form-group"><label class="form-label">Riwayat Penyakit Kronik</label><input type="text" class="form-input" placeholder="Contoh: Diabetes, Hipertensi..."></div>
+              <div class="form-group"><label class="form-label">Alamat</label><input type="text" class="form-input" id="edit-address" placeholder="Kota / Kabupaten"></div>
+              <div class="form-group"><label class="form-label">Password Baru (kosongkan jika tidak ingin ubah)</label><input type="password" class="form-input" id="edit-pass" placeholder="Min. 6 karakter" autocomplete="new-password"></div>
             </div>
           </div>
         </div>
@@ -1394,76 +770,43 @@ select.form-input option{background:#fff}
         <div class="card">
           <div class="card-header"><div class="card-title"><i class="fas fa-bell" style="color:var(--gold2);margin-right:6px"></i>Notifikasi</div></div>
           <div class="card-body" style="display:flex;flex-direction:column;gap:.85rem">
-            <div style="display:flex;align-items:center;justify-content:space-between">
-              <div><div style="font-size:.85rem;font-weight:600;color:var(--navy)">Pesan Chat</div><div style="font-size:.72rem;color:var(--slate2)">Notifikasi pesan masuk</div></div>
-              <div style="width:44px;height:24px;background:var(--gold);border-radius:999px;position:relative;cursor:pointer"><div style="position:absolute;right:2px;top:2px;width:20px;height:20px;background:#fff;border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,.2)"></div></div>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:space-between">
-              <div><div style="font-size:.85rem;font-weight:600;color:var(--navy)">Jadwal Konsultasi</div><div style="font-size:.72rem;color:var(--slate2)">Pengingat 30 menit sebelum</div></div>
-              <div style="width:44px;height:24px;background:var(--gold);border-radius:999px;position:relative;cursor:pointer"><div style="position:absolute;right:2px;top:2px;width:20px;height:20px;background:#fff;border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,.2)"></div></div>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:space-between">
-              <div><div style="font-size:.85rem;font-weight:600;color:var(--navy)">Email Newsletter</div><div style="font-size:.72rem;color:var(--slate2)">Tips kesehatan mingguan</div></div>
-              <div style="width:44px;height:24px;background:var(--slate3);border-radius:999px;position:relative;cursor:pointer"><div style="position:absolute;left:2px;top:2px;width:20px;height:20px;background:#fff;border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,.2)"></div></div>
-            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between"><div><div style="font-size:.85rem;font-weight:600;color:var(--navy)">Pesan Chat</div><div style="font-size:.72rem;color:var(--slate2)">Notifikasi pesan masuk</div></div><div style="width:44px;height:24px;background:var(--gold);border-radius:999px;position:relative;cursor:pointer"><div style="position:absolute;right:2px;top:2px;width:20px;height:20px;background:#fff;border-radius:50%"></div></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between"><div><div style="font-size:.85rem;font-weight:600;color:var(--navy)">Jadwal Konsultasi</div><div style="font-size:.72rem;color:var(--slate2)">Pengingat 30 menit sebelum</div></div><div style="width:44px;height:24px;background:var(--gold);border-radius:999px;position:relative;cursor:pointer"><div style="position:absolute;right:2px;top:2px;width:20px;height:20px;background:#fff;border-radius:50%"></div></div></div>
           </div>
         </div>
         <div class="card">
           <div class="card-header"><div class="card-title"><i class="fas fa-shield-halved" style="color:var(--gold2);margin-right:6px"></i>Keamanan</div></div>
           <div class="card-body" style="display:flex;flex-direction:column;gap:.75rem">
-            <button class="btn btn-ghost" style="justify-content:flex-start;gap:10px"><i class="fas fa-key" style="color:var(--gold2)"></i> Ganti Password</button>
-            <button class="btn btn-ghost" style="justify-content:flex-start;gap:10px"><i class="fas fa-mobile-screen" style="color:var(--gold2)"></i> Autentikasi 2 Faktor</button>
-            <button class="btn btn-ghost" style="justify-content:flex-start;gap:10px"><i class="fas fa-list" style="color:var(--gold2)"></i> Riwayat Login</button>
-            <button class="btn btn-danger" style="justify-content:flex-start;gap:10px"><i class="fas fa-trash"></i> Hapus Akun</button>
+            <button class="btn btn-ghost" style="justify-content:flex-start;gap:10px" onclick="showPage('profile',null)"><i class="fas fa-key" style="color:var(--gold2)"></i> Ganti Password</button>
+            <button class="btn btn-danger" style="justify-content:flex-start;gap:10px" onclick="doLogout()"><i class="fas fa-right-from-bracket"></i> Keluar dari Akun</button>
           </div>
         </div>
       </div>
     </div>
 
-  </div><!-- end content -->
-</div><!-- end main -->
+  </div>
+</div>
 
 <!-- NOTIFICATION PANEL -->
 <div class="notif-panel" id="notifPanel">
-  <div class="notif-header">
-    <div class="notif-title">Notifikasi</div>
-    <button class="btn btn-ghost btn-sm" onclick="toggleNotif()"><i class="fas fa-xmark"></i></button>
-  </div>
+  <div class="notif-header"><div class="notif-title">Notifikasi</div><button class="btn btn-ghost btn-sm" onclick="toggleNotif()"><i class="fas fa-xmark"></i></button></div>
   <div class="notif-list">
-    <div class="notif-item unread">
-      <div class="notif-dot2"></div>
-      <div><div class="notif-text"><b>Ns. Sitti Nasyroh</b> membalas pesan Anda: "Baik, kompres hangat dulu ya..."</div><div class="notif-time">2 menit lalu</div></div>
-    </div>
-    <div class="notif-item unread">
-      <div class="notif-dot2"></div>
-      <div><div class="notif-text">Konsultasi besok pukul 09:00 dengan Ns. Sitti Nasyroh dikonfirmasi ✅</div><div class="notif-time">1 jam lalu</div></div>
-    </div>
-    <div class="notif-item">
-      <div class="notif-dot2" style="background:var(--slate3)"></div>
-      <div><div class="notif-text">Catatan medis dari konsultasi kemarin telah tersimpan. Unduh rekam medis Anda.</div><div class="notif-time">Kemarin</div></div>
-    </div>
-    <div class="notif-item">
-      <div class="notif-dot2" style="background:var(--slate3)"></div>
-      <div><div class="notif-text">Edukasi "Manajemen Hipertensi" — Anda sudah mencapai 70%. Lanjutkan sekarang!</div><div class="notif-time">2 hari lalu</div></div>
-    </div>
+    <div class="notif-item unread"><div class="notif-dot2"></div><div><div class="notif-text"><b>Ns. Sitti Nasyroh</b> membalas: "Baik, kompres hangat dulu ya..."</div><div class="notif-time">2 menit lalu</div></div></div>
+    <div class="notif-item unread"><div class="notif-dot2"></div><div><div class="notif-text">Konsultasi besok pukul 09:00 dikonfirmasi ✅</div><div class="notif-time">1 jam lalu</div></div></div>
+    <div class="notif-item"><div class="notif-dot2" style="background:var(--slate3)"></div><div><div class="notif-text">Catatan medis dari konsultasi kemarin tersimpan.</div><div class="notif-time">Kemarin</div></div></div>
   </div>
 </div>
 
 <!-- EDUCATION MODAL -->
 <div class="edu-overlay" id="eduOverlay" onclick="if(event.target===this)closeEduModal()">
-  <div class="edu-modal" id="eduModal">
-    <!-- content injected by JS -->
-  </div>
+  <div class="edu-modal" id="eduModal"></div>
 </div>
 
 <!-- RATING MODAL -->
-<div class="edu-overlay" id="ratingOverlay" onclick="if(event.target===this)document.getElementById('ratingOverlay').classList.remove('show')">
+<div class="edu-overlay" id="ratingOverlay" onclick="if(event.target===this)this.classList.remove('show')">
   <div class="edu-modal" style="max-width:420px">
     <div class="edu-modal-header">
-      <div>
-        <h3 class="serif" style="font-size:1.1rem;color:var(--navy)">Nilai Konsultasi Ini</h3>
-        <p style="font-size:.78rem;color:var(--slate2);margin-top:3px">Berikan rating untuk Ns. Sitti Nasyroh</p>
-      </div>
+      <div><h3 class="serif" style="font-size:1.1rem;color:var(--navy)">Nilai Konsultasi Ini</h3><p style="font-size:.78rem;color:var(--slate2);margin-top:3px">Berikan rating untuk Ns. Sitti Nasyroh</p></div>
       <button class="modal-close-btn" onclick="document.getElementById('ratingOverlay').classList.remove('show')"><i class="fas fa-times"></i></button>
     </div>
     <div class="edu-modal-body" style="text-align:center">
@@ -1477,27 +820,182 @@ select.form-input option{background:#fff}
         <button class="rating-star-btn active" onclick="setRating(5)">★</button>
       </div>
       <div style="font-size:.82rem;color:var(--slate2);margin-bottom:1rem" id="ratingLabel">Sangat Bagus (5/5)</div>
-      <div class="form-group" style="text-align:left">
-        <label class="form-label">Komentar (opsional)</label>
-        <textarea class="form-input" rows="3" placeholder="Ceritakan pengalaman konsultasi Anda..."></textarea>
-      </div>
+      <div class="form-group" style="text-align:left"><label class="form-label">Komentar (opsional)</label><textarea class="form-input" rows="3" placeholder="Ceritakan pengalaman konsultasi Anda..."></textarea></div>
       <button class="btn btn-primary" style="width:100%;justify-content:center;padding:12px" onclick="submitRating()"><i class="fas fa-star"></i> Kirim Penilaian</button>
     </div>
   </div>
 </div>
 
+<!-- shared.js dulu, baru script halaman -->
+<script src="shared.js"></script>
 <script>
-// Current state
-var currentPage = 'home';
-var selectedCategory = '';
-var currentRating = 5;
-var currentEduTopic = '';
-var eduPhase = 'pretest'; // pretest, reading, posttest, result
-var quizAnswers = {};
-var preScore = 0;
-var postScore = 0;
+// ─────────────────────────────────────────────────
+// INLINE FALLBACK: jika shared.js tidak tersedia
+// ─────────────────────────────────────────────────
+if (!window.NC) {
+  window.NC = (function () {
+    const KEY = 'nc_data';
+    const SESSION_KEY = 'nc_current_user';
+    const defaults = { users: [
+      { id:'demo-nurse-001', role:'nurse', name:'Ns. Sitti Nasyroh Nuhsin, S.Kep.', email:'sitti@nurse.id', password:'nurse123', specialization:'Keperawatan Medikal Bedah' },
+      { id:'demo-patient-001', role:'patient', name:'Rina Kusuma', email:'rina@patient.id', password:'pasien123', gender:'Perempuan', dob:'1990-05-12', phone:'081234567890', religion:'Islam', address:'Jakarta', createdAt: Date.now() }
+    ], consultations:[], messages:[] };
+    function load() { try { const r=localStorage.getItem(KEY); return r?JSON.parse(r):JSON.parse(JSON.stringify(defaults)); } catch(e){return JSON.parse(JSON.stringify(defaults));} }
+    function save() { try { localStorage.setItem(KEY, JSON.stringify({users,consultations,messages})); } catch(e){} }
+    function genId() { return 'u_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7); }
+    function getCurrentUser() { const id=sessionStorage.getItem(SESSION_KEY); return id ? users.find(u=>u.id===id)||null : null; }
+    function calcAge(dob) { if(!dob)return null; const d=new Date(dob),n=new Date(); let a=n.getFullYear()-d.getFullYear(); if(n.getMonth()-d.getMonth()<0||(n.getMonth()-d.getMonth()===0&&n.getDate()<d.getDate()))a--; return a; }
+    function getInitials(name) { if(!name)return'?'; return name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase(); }
+    function formatDate(ts) { if(!ts)return'-'; return new Date(ts).toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}); }
+    function logout() { sessionStorage.removeItem(SESSION_KEY); window.location.href='auth.html'; }
+    const data=load(); const users=data.users; const consultations=data.consultations; const messages=data.messages;
+    return { users, consultations, messages, save, genId, getCurrentUser, calcAge, getInitials, formatDate, logout };
+  })();
+}
 
-// Page titles
+// ─────────────────────────────────────────────────
+// LOAD USER DATA & POPULATE UI
+// ─────────────────────────────────────────────────
+var currentUser = null;
+
+function loadUserData() {
+  currentUser = NC.getCurrentUser();
+
+  // Guard: kalau tidak login, redirect ke auth
+  if (!currentUser) {
+    window.location.href = 'auth.html';
+    return;
+  }
+
+  // Guard: kalau yang login bukan pasien, redirect
+  if (currentUser.role !== 'patient') {
+    window.location.href = 'nurse.html';
+    return;
+  }
+
+  var u = currentUser;
+  var initials = NC.getInitials(u.name);
+  var age = u.dob ? NC.calcAge(u.dob) : null;
+  var ageText = age !== null ? age + ' tahun' : '-';
+  var firstName = u.name ? u.name.split(' ')[0] : 'Pasien';
+  var genderIcon = u.gender === 'Perempuan' ? '👩' : u.gender === 'Laki-laki' ? '👨' : '🧑';
+
+  // ── Sidebar ──
+  document.getElementById('sb-ava').textContent = initials;
+  document.getElementById('sb-name').textContent = u.name || '-';
+
+  // ── Welcome banner ──
+  document.getElementById('welcome-greeting').textContent = 'Halo, ' + firstName + '! 👋';
+  var subParts = [];
+  if (u.gender) subParts.push(u.gender);
+  if (age !== null) subParts.push(age + ' tahun');
+  if (u.address) subParts.push(u.address);
+  document.getElementById('welcome-sub').textContent = subParts.length ? subParts.join(' · ') : 'Selamat datang di NurseConnect!';
+
+  // ── Home: profil singkat ──
+  document.getElementById('pi-nama').textContent = u.name || '-';
+  document.getElementById('pi-umur').textContent = ageText;
+  document.getElementById('pi-gender').textContent = u.gender || '-';
+  document.getElementById('pi-phone').textContent = u.phone || '-';
+  document.getElementById('pi-religion').textContent = u.religion || '-';
+  document.getElementById('pi-address').textContent = u.address || '-';
+
+  // ── Consultation: info user di form ──
+  var consultInfoParts = [];
+  if (u.name) consultInfoParts.push('<b>' + u.name + '</b>');
+  if (u.gender && age !== null) consultInfoParts.push(u.gender + ', ' + age + ' tahun');
+  else if (u.gender) consultInfoParts.push(u.gender);
+  else if (age !== null) consultInfoParts.push(age + ' tahun');
+  if (u.phone) consultInfoParts.push('📱 ' + u.phone);
+  document.getElementById('consult-user-text').innerHTML = 'Data pasien: ' + (consultInfoParts.join(' · ') || '-');
+
+  // ── Chat: info pasien di panel kanan ──
+  document.getElementById('chat-nama').textContent = u.name || '-';
+  document.getElementById('chat-umur').textContent = ageText;
+  document.getElementById('chat-gender').textContent = u.gender || '-';
+  document.getElementById('chat-phone').textContent = u.phone || '-';
+
+  // ── Profile page ──
+  document.getElementById('prof-ava-lg').innerHTML = initials + '<div class="profile-ava-edit"><i class="fas fa-camera"></i></div>';
+  document.getElementById('prof-name').textContent = u.name || '-';
+  document.getElementById('prof-email').textContent = u.email || '-';
+  document.getElementById('prof-umur-stat').textContent = age !== null ? age : '-';
+  document.getElementById('prof-dob').textContent = u.dob ? new Date(u.dob).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : '-';
+  document.getElementById('prof-gender').textContent = u.gender || '-';
+  document.getElementById('prof-phone').textContent = u.phone || '-';
+  document.getElementById('prof-religion').textContent = u.religion || '-';
+  document.getElementById('prof-address').textContent = u.address || '-';
+  document.getElementById('prof-created').textContent = u.createdAt ? NC.formatDate(u.createdAt) : '-';
+
+  // ── Profile edit form: pre-fill ──
+  setVal('edit-nama', u.name);
+  setVal('edit-email', u.email);
+  setVal('edit-phone', u.phone);
+  setSelectVal('edit-gender', u.gender);
+  setVal('edit-dob', u.dob);
+  setSelectVal('edit-religion', u.religion);
+  setVal('edit-address', u.address);
+
+  // ── BMI (jika ada data tinggi & berat) ──
+  if (u.height && u.weight) {
+    var bmi = (u.weight / ((u.height / 100) ** 2)).toFixed(1);
+    document.getElementById('home-bmi').textContent = bmi;
+  }
+}
+
+function setVal(id, val) {
+  var el = document.getElementById(id);
+  if (el && val) el.value = val;
+}
+function setSelectVal(id, val) {
+  var el = document.getElementById(id);
+  if (!el || !val) return;
+  for (var i = 0; i < el.options.length; i++) {
+    if (el.options[i].text === val || el.options[i].value === val) {
+      el.selectedIndex = i;
+      break;
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────
+// SAVE PROFILE
+// ─────────────────────────────────────────────────
+function saveProfile() {
+  if (!currentUser) return;
+  var nama    = document.getElementById('edit-nama').value.trim();
+  var phone   = document.getElementById('edit-phone').value.trim();
+  var gender  = document.getElementById('edit-gender').value;
+  var dob     = document.getElementById('edit-dob').value;
+  var religion= document.getElementById('edit-religion').value;
+  var address = document.getElementById('edit-address').value.trim();
+  var pass    = document.getElementById('edit-pass').value;
+
+  if (!nama) { showToast('Nama tidak boleh kosong', true); return; }
+
+  // Update di array NC.users
+  var idx = NC.users.findIndex(u => u.id === currentUser.id);
+  if (idx === -1) { showToast('Gagal menyimpan: user tidak ditemukan', true); return; }
+
+  NC.users[idx].name    = nama;
+  NC.users[idx].phone   = phone;
+  NC.users[idx].gender  = gender;
+  NC.users[idx].dob     = dob;
+  NC.users[idx].religion= religion;
+  NC.users[idx].address = address;
+  if (pass && pass.length >= 6) NC.users[idx].password = pass;
+  else if (pass && pass.length > 0 && pass.length < 6) { showToast('Password minimal 6 karakter', true); return; }
+
+  NC.save();
+  currentUser = NC.users[idx]; // refresh referensi
+  loadUserData();               // re-render semua elemen
+  document.getElementById('edit-pass').value = '';
+  showToast('Profil berhasil disimpan ✅');
+}
+
+// ─────────────────────────────────────────────────
+// PAGE NAVIGATION
+// ─────────────────────────────────────────────────
 var pageTitles = {
   home: ['Beranda', 'Selamat datang kembali!'],
   consultation: ['Konsultasi', 'Temukan perawat yang tepat'],
@@ -1513,135 +1011,90 @@ function showPage(page, el) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   var target = document.getElementById('page-' + page);
   if (target) target.classList.add('active');
-  if (el) el.classList.add('active');
-  else {
+  if (el) {
+    el.classList.add('active');
+  } else {
     document.querySelectorAll('.nav-item').forEach(n => {
       if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + page + "'")) n.classList.add('active');
     });
   }
-  var titles = pageTitles[page] || [page, ''];
-  document.getElementById('topbar-title').textContent = titles[0];
-  document.getElementById('topbar-sub').textContent = titles[1];
-  currentPage = page;
+  var t = pageTitles[page] || [page, ''];
+  document.getElementById('topbar-title').textContent = t[0];
+  document.getElementById('topbar-sub').textContent   = t[1];
   closeSidebar();
 }
 
-function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('open');
-}
-function closeSidebar() {
-  if (window.innerWidth <= 900) document.getElementById('sidebar').classList.remove('open');
-}
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+function closeSidebar() { if (window.innerWidth <= 900) document.getElementById('sidebar').classList.remove('open'); }
+function toggleNotif() { document.getElementById('notifPanel').classList.toggle('show'); }
+function doLogout() { if (window.NC && NC.logout) NC.logout(); else { sessionStorage.clear(); window.location.href='auth.html'; } }
 
-function toggleNotif() {
-  document.getElementById('notifPanel').classList.toggle('show');
-}
-
-// Consultation
+// ─────────────────────────────────────────────────
+// CONSULTATION HELPERS
+// ─────────────────────────────────────────────────
 function selectCat(el, name) {
   document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
-  selectedCategory = name;
 }
 function setObat(v) {
-  var noBtn = document.getElementById('obat-no');
-  var yesBtn = document.getElementById('obat-yes');
-  var input = document.getElementById('obat-input');
-  if (v === 'yes') {
-    yesBtn.style.borderColor = 'var(--gold)';
-    yesBtn.style.background = 'var(--gold-light)';
-    yesBtn.style.color = 'var(--gold2)';
-    noBtn.style.borderColor = '';
-    noBtn.style.background = '';
-    noBtn.style.color = '';
-    input.style.display = 'block';
-  } else {
-    noBtn.style.borderColor = 'var(--gold)';
-    noBtn.style.background = 'var(--gold-light)';
-    noBtn.style.color = 'var(--gold2)';
-    yesBtn.style.borderColor = '';
-    yesBtn.style.background = '';
-    yesBtn.style.color = '';
-    input.style.display = 'none';
-  }
+  var noBtn=document.getElementById('obat-no'), yesBtn=document.getElementById('obat-yes'), inp=document.getElementById('obat-input');
+  if (v==='yes') { yesBtn.style.cssText='flex:1;justify-content:center;border-color:var(--gold);background:var(--gold-light);color:var(--gold2)'; noBtn.style.cssText='flex:1;justify-content:center'; inp.style.display='block'; }
+  else { noBtn.style.cssText='flex:1;justify-content:center;border-color:var(--gold);background:var(--gold-light);color:var(--gold2)'; yesBtn.style.cssText='flex:1;justify-content:center'; inp.style.display='none'; }
 }
-function setPain(n, el) {
-  document.querySelectorAll('.pain-btn').forEach((b, i) => {
-    b.classList.toggle('active', i <= n);
-  });
-}
+function setPain(n, el) { document.querySelectorAll('.pain-btn').forEach((b,i) => b.classList.toggle('active', i<=n)); }
 function setMethod(m) {
   ['video','chat','voice'].forEach(k => {
-    var btn = document.getElementById('met-' + k);
-    if (!btn) return;
-    if (k === m) {
-      btn.classList.remove('btn-ghost');
-      btn.classList.add('btn-outline');
-      btn.style.background = 'var(--gold-light)';
-    } else {
-      btn.classList.remove('btn-outline');
-      btn.classList.add('btn-ghost');
-      btn.style.background = '';
-    }
+    var btn=document.getElementById('met-'+k); if(!btn)return;
+    if(k===m){btn.className='btn btn-outline btn-sm';btn.style.cssText='flex:1;justify-content:center;background:var(--gold-light)';}
+    else{btn.className='btn btn-ghost btn-sm';btn.style.cssText='flex:1;justify-content:center';}
   });
 }
-function selectNurse(el) {
-  document.querySelectorAll('.nurse-select-item').forEach(n => n.classList.remove('selected'));
-  el.classList.add('selected');
-}
-function nextConsultStep() {
-  showPage('chat', null);
-}
+function selectNurse(el) { document.querySelectorAll('.nurse-select-item').forEach(n=>n.classList.remove('selected')); el.classList.add('selected'); }
+function nextConsultStep() { showPage('chat', null); }
 
-// Chat
-var botReplies = [
-  'Baik, saya mengerti. Apakah ada gejala lain yang dirasakan?',
-  'Saya sarankan untuk memantau kondisi selama 24 jam ke depan.',
-  'Apakah suhu tubuh sudah diukur kembali setelah diberikan obat?',
-  'Jika kondisi tidak membaik, segera bawa ke fasilitas kesehatan terdekat ya.',
-  'Semoga segera pulih! 🌸 Ada hal lain yang ingin ditanyakan?'
-];
+// ─────────────────────────────────────────────────
+// CHAT
+// ─────────────────────────────────────────────────
+var botReplies = ['Baik, saya mengerti. Apakah ada gejala lain?','Saya sarankan untuk memantau kondisi 24 jam ke depan.','Apakah suhu tubuh sudah diukur kembali?','Jika tidak membaik, segera ke fasilitas kesehatan terdekat.','Semoga segera pulih! 🌸'];
 var replyIdx = 0;
 
 function sendPatientMsg() {
   var input = document.getElementById('chatInputBox');
-  var msgs = document.getElementById('chatMessages');
-  var txt = input.value.trim();
+  var msgs  = document.getElementById('chatMessages');
+  var txt   = input.value.trim();
   if (!txt) return;
-  
+  var senderInitials = currentUser ? NC.getInitials(currentUser.name) : '?';
   var row = document.createElement('div');
   row.className = 'msg-group';
-  row.innerHTML = `<div class="msg-row me"><div class="msg-ava-sm" style="background:linear-gradient(135deg,#64748b,#94a3b8);color:#fff"><i class="fas fa-user" style="font-size:.65rem"></i></div><div><div class="msg-bubble me">${txt}</div><div class="msg-status">✓✓ Terkirim</div></div></div>`;
+  row.innerHTML = '<div class="msg-row me"><div class="msg-ava-sm" style="background:linear-gradient(135deg,#64748b,#94a3b8);color:#fff;font-size:.6rem;font-weight:700">'+senderInitials+'</div><div><div class="msg-bubble me">'+txt+'</div><div class="msg-status">✓✓ Terkirim</div></div></div>';
   msgs.appendChild(row);
   input.value = '';
   msgs.scrollTop = msgs.scrollHeight;
-
   var typing = document.getElementById('typingIndicator');
   typing.style.display = 'flex';
   msgs.scrollTop = msgs.scrollHeight;
-
-  setTimeout(() => {
+  setTimeout(function() {
     typing.style.display = 'none';
     var botRow = document.createElement('div');
     botRow.className = 'msg-group';
-    botRow.innerHTML = `<div class="msg-row"><div class="msg-ava-sm" style="background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff"><i class="fas fa-user-nurse" style="font-size:.65rem"></i></div><div><div class="msg-bubble them">${botReplies[replyIdx % botReplies.length]}</div><div class="msg-time">${new Date().getHours()}:${String(new Date().getMinutes()).padStart(2,'0')}</div></div></div>`;
+    var now = new Date();
+    botRow.innerHTML = '<div class="msg-row"><div class="msg-ava-sm" style="background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff"><i class="fas fa-user-nurse" style="font-size:.65rem"></i></div><div><div class="msg-bubble them">'+botReplies[replyIdx%botReplies.length]+'</div><div class="msg-time">'+now.getHours()+':'+String(now.getMinutes()).padStart(2,'0')+'</div></div></div>';
     msgs.appendChild(botRow);
     replyIdx++;
     msgs.scrollTop = msgs.scrollHeight;
   }, 1400);
 }
 
-// Rating
-function openRatingModal() {
-  document.getElementById('ratingOverlay').classList.add('show');
-}
+// ─────────────────────────────────────────────────
+// RATING
+// ─────────────────────────────────────────────────
+var currentRating = 5;
+function openRatingModal() { document.getElementById('ratingOverlay').classList.add('show'); }
 function setRating(n) {
   currentRating = n;
-  var labels = ['Buruk', 'Kurang Baik', 'Cukup', 'Bagus', 'Sangat Bagus'];
-  document.getElementById('ratingLabel').textContent = labels[n-1] + ' (' + n + '/5)';
-  document.querySelectorAll('.rating-star-btn').forEach((s, i) => {
-    s.classList.toggle('active', i < n);
-  });
+  var labels = ['Buruk','Kurang Baik','Cukup','Bagus','Sangat Bagus'];
+  document.getElementById('ratingLabel').textContent = labels[n-1]+' ('+n+'/5)';
+  document.querySelectorAll('.rating-star-btn').forEach((s,i)=>s.classList.toggle('active',i<n));
 }
 function submitRating() {
   document.getElementById('ratingOverlay').classList.remove('show');
@@ -1649,268 +1102,105 @@ function submitRating() {
   showPage('history', null);
 }
 
-// Education
+// ─────────────────────────────────────────────────
+// EDUCATION
+// ─────────────────────────────────────────────────
+var currentEduTopic='', currentQuizIdx=0, currentQuizData=null, currentPhase='pre', quizAnswers={}, preScore=0, postScore=0;
 var eduData = {
-  'Hipertensi': {
-    color: 'linear-gradient(135deg,#fef9c3,#fde68a)',
-    icon: '💉',
-    tag: 'Kardiovaskular',
-    preQuiz: [
-      { q: 'Berapa nilai tekanan darah yang dianggap hipertensi?', opts: ['Di atas 120/80 mmHg', 'Di atas 130/85 mmHg', 'Di atas 140/90 mmHg', 'Di atas 150/100 mmHg'], ans: 2 },
-      { q: 'Gejala umum hipertensi yang sering muncul adalah?', opts: ['Sakit pinggang', 'Sakit kepala dan pusing', 'Mual dan muntah', 'Sesak napas berat'], ans: 1 },
-      { q: 'Makanan yang harus dibatasi penderita hipertensi?', opts: ['Buah-buahan segar', 'Sayuran hijau', 'Makanan tinggi garam', 'Ikan omega-3'], ans: 2 }
+  'Hipertensi':{
+    preQuiz:[
+      {q:'Berapa nilai tekanan darah yang dianggap hipertensi?',opts:['Di atas 120/80 mmHg','Di atas 130/85 mmHg','Di atas 140/90 mmHg','Di atas 150/100 mmHg'],ans:2},
+      {q:'Gejala umum hipertensi yang sering muncul adalah?',opts:['Sakit pinggang','Sakit kepala dan pusing','Mual dan muntah','Sesak napas berat'],ans:1},
+      {q:'Makanan yang harus dibatasi penderita hipertensi?',opts:['Buah-buahan segar','Sayuran hijau','Makanan tinggi garam','Ikan omega-3'],ans:2}
     ],
-    sections: [
-      { title: 'Pengertian', icon: 'fa-book', content: 'Hipertensi atau tekanan darah tinggi adalah kondisi saat tekanan darah di arteri meningkat secara persisten hingga ≥140/90 mmHg. Disebut "silent killer" karena sering tidak bergejala namun merusak organ secara perlahan.' },
-      { title: 'Penyebab', icon: 'fa-circle-exclamation', content: 'Hipertensi primer (esensial) penyebabnya tidak diketahui namun berkaitan dengan genetik, usia, dan gaya hidup. Hipertensi sekunder disebabkan penyakit ginjal, gangguan hormon, atau obat-obatan tertentu.' },
-      { title: 'Gejala', icon: 'fa-face-meh', content: 'Kebanyakan tidak bergejala. Bila bergejala: sakit kepala di belakang kepala terutama pagi hari, pusing, penglihatan kabur, mimisan, atau rasa berdebar. Gejala berat: nyeri dada, sesak napas.' },
-      { title: 'Faktor Risiko', icon: 'fa-triangle-exclamation', content: 'Usia >45 tahun, riwayat keluarga, obesitas, kurang aktivitas fisik, diet tinggi garam, merokok, konsumsi alkohol, stres kronis, dan diabetes mellitus.' },
-      { title: 'Dampak / Bahaya', icon: 'fa-heart-crack', content: 'Jika tidak ditangani dapat menyebabkan stroke, serangan jantung, gagal jantung, gagal ginjal, gangguan penglihatan, dan aneurisma. Hipertensi adalah penyebab utama kematian dini di dunia.' },
-      { title: 'Pencegahan & Pengendalian', icon: 'fa-shield-heart', content: 'Batasi asupan garam (<5g/hari), olahraga rutin 30 menit/hari, jaga berat badan ideal, hindari rokok dan alkohol, kelola stres, monitor tekanan darah secara rutin.' },
-      { title: 'Pengobatan', icon: 'fa-pills', content: 'Modifikasi gaya hidup adalah dasar terapi. Obat antihipertensi (ACE inhibitor, ARB, beta blocker, diuretik, CCB) diberikan sesuai indikasi dokter. Jangan menghentikan obat tanpa konsultasi.' },
-      { title: 'Tips Harian', icon: 'fa-lightbulb', content: 'Ukur tekanan darah setiap pagi. Catat hasilnya di buku atau aplikasi. Hindari kafein berlebih. Tidur 7–8 jam. Latihan pernapasan dalam 10 menit sehari dapat menurunkan tekanan darah 3–5 mmHg.' }
+    sections:[
+      {title:'Pengertian',icon:'fa-book',content:'Hipertensi adalah kondisi tekanan darah di arteri ≥140/90 mmHg secara persisten. Disebut "silent killer" karena sering tanpa gejala.'},
+      {title:'Penyebab',icon:'fa-circle-exclamation',content:'Hipertensi primer berkaitan dengan genetik & gaya hidup. Hipertensi sekunder disebabkan penyakit ginjal, gangguan hormon, atau obat-obatan.'},
+      {title:'Gejala',icon:'fa-face-meh',content:'Kebanyakan tanpa gejala. Bila bergejala: sakit kepala, pusing, penglihatan kabur, mimisan, atau rasa berdebar.'},
+      {title:'Faktor Risiko',icon:'fa-triangle-exclamation',content:'Usia >45 tahun, riwayat keluarga, obesitas, kurang aktivitas, diet tinggi garam, merokok, stres kronis.'},
+      {title:'Dampak',icon:'fa-heart-crack',content:'Jika tidak ditangani dapat menyebabkan stroke, serangan jantung, gagal ginjal, dan gangguan penglihatan.'},
+      {title:'Pencegahan',icon:'fa-shield-heart',content:'Batasi garam (<5g/hari), olahraga 30 menit/hari, jaga berat badan, hindari rokok, kelola stres.'},
+      {title:'Pengobatan',icon:'fa-pills',content:'Modifikasi gaya hidup adalah dasar terapi. Obat antihipertensi diberikan sesuai indikasi dokter.'},
+      {title:'Tips Harian',icon:'fa-lightbulb',content:'Ukur tekanan darah setiap pagi. Catat hasilnya. Hindari kafein berlebih. Tidur 7–8 jam sehari.'}
     ]
   }
 };
 
 function openEduModal(topic) {
-  currentEduTopic = topic;
-  eduPhase = 'pretest';
-  quizAnswers = {};
-  currentQuizIdx = 0;
-  
-  var data = eduData[topic] || {
-    color: 'linear-gradient(135deg,#f0f9ff,#e0f2fe)',
-    icon: '📖',
-    tag: 'Kesehatan',
-    preQuiz: [
-      { q: 'Pertanyaan awal 1 tentang ' + topic + '?', opts: ['Jawaban A', 'Jawaban B', 'Jawaban C', 'Jawaban D'], ans: 0 },
-      { q: 'Pertanyaan awal 2 tentang ' + topic + '?', opts: ['Jawaban A', 'Jawaban B', 'Jawaban C', 'Jawaban D'], ans: 2 },
-      { q: 'Pertanyaan awal 3 tentang ' + topic + '?', opts: ['Jawaban A', 'Jawaban B', 'Jawaban C', 'Jawaban D'], ans: 1 }
-    ],
-    sections: [
-      { title: 'Pengertian', icon: 'fa-book', content: 'Penjelasan singkat tentang ' + topic + '.' },
-      { title: 'Penyebab', icon: 'fa-circle-exclamation', content: 'Hal-hal yang menyebabkan kondisi ini.' },
-      { title: 'Gejala', icon: 'fa-face-meh', content: 'Tanda atau keluhan yang dirasakan.' },
-      { title: 'Faktor Risiko', icon: 'fa-triangle-exclamation', content: 'Faktor yang meningkatkan kemungkinan.' },
-      { title: 'Dampak / Bahaya', icon: 'fa-heart-crack', content: 'Akibat jika tidak ditangani.' },
-      { title: 'Pencegahan', icon: 'fa-shield-heart', content: 'Langkah pencegahan dan pengendalian.' },
-      { title: 'Pengobatan', icon: 'fa-pills', content: 'Penanganan medis yang tersedia.' },
-      { title: 'Tips Harian', icon: 'fa-lightbulb', content: 'Tips sehari-hari agar kondisi tetap stabil.' }
+  currentEduTopic=topic; quizAnswers={}; currentQuizIdx=0;
+  var data=eduData[topic]||{
+    preQuiz:[{q:'Pertanyaan 1 tentang '+topic+'?',opts:['A','B','C','D'],ans:0},{q:'Pertanyaan 2 tentang '+topic+'?',opts:['A','B','C','D'],ans:2},{q:'Pertanyaan 3 tentang '+topic+'?',opts:['A','B','C','D'],ans:1}],
+    sections:[
+      {title:'Pengertian',icon:'fa-book',content:'Penjelasan singkat tentang '+topic+'.'},
+      {title:'Penyebab',icon:'fa-circle-exclamation',content:'Hal-hal yang menyebabkan kondisi ini.'},
+      {title:'Gejala',icon:'fa-face-meh',content:'Tanda atau keluhan yang dirasakan.'},
+      {title:'Faktor Risiko',icon:'fa-triangle-exclamation',content:'Faktor yang meningkatkan kemungkinan.'},
+      {title:'Dampak',icon:'fa-heart-crack',content:'Akibat jika tidak ditangani.'},
+      {title:'Pencegahan',icon:'fa-shield-heart',content:'Langkah pencegahan dan pengendalian.'},
+      {title:'Pengobatan',icon:'fa-pills',content:'Penanganan medis yang tersedia.'},
+      {title:'Tips Harian',icon:'fa-lightbulb',content:'Tips agar kondisi tetap stabil.'}
     ]
   };
-
-  renderQuiz(topic, data, 'pre');
+  renderQuiz(topic,data,'pre');
   document.getElementById('eduOverlay').classList.add('show');
 }
 
-var currentQuizIdx = 0;
-var currentQuizData = null;
-var currentPhase = 'pre';
-
-function renderQuiz(topic, data, phase) {
-  currentQuizData = data;
-  currentPhase = phase;
-  currentQuizIdx = 0;
-  quizAnswers = {};
-  var modal = document.getElementById('eduModal');
-  var total = data.preQuiz.length;
-  var phaseLabel = phase === 'pre' ? 'Pre-Test' : 'Post-Test';
-  var phaseDesc = phase === 'pre' ? 'Uji pemahaman awal Anda sebelum membaca materi' : 'Uji pemahaman Anda setelah membaca materi';
-  
-  modal.innerHTML = `
-    <div class="edu-modal-header">
-      <div>
-        <div style="font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--gold2);margin-bottom:.2rem">${phaseLabel} — ${topic}</div>
-        <h3 class="serif" style="font-size:1.1rem;color:var(--navy)">${phaseDesc}</h3>
-      </div>
-      <button class="modal-close-btn" onclick="closeEduModal()"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="edu-modal-body" id="quizBody">
-      <div class="quiz-progress"><div class="quiz-progress-fill" id="quizProg" style="width:0%"></div></div>
-      <div id="quizContent"></div>
-    </div>`;
+function renderQuiz(topic,data,phase) {
+  currentQuizData=data; currentPhase=phase; currentQuizIdx=0; quizAnswers={};
+  var total=data.preQuiz.length, phaseLabel=phase==='pre'?'Pre-Test':'Post-Test', phaseDesc=phase==='pre'?'Uji pemahaman awal sebelum membaca materi':'Uji pemahaman setelah membaca materi';
+  document.getElementById('eduModal').innerHTML='<div class="edu-modal-header"><div><div style="font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--gold2);margin-bottom:.2rem">'+phaseLabel+' — '+topic+'</div><h3 class="serif" style="font-size:1.1rem;color:var(--navy)">'+phaseDesc+'</h3></div><button class="modal-close-btn" onclick="closeEduModal()"><i class="fas fa-times"></i></button></div><div class="edu-modal-body" id="quizBody"><div class="quiz-progress"><div class="quiz-progress-fill" id="quizProg" style="width:0%"></div></div><div id="quizContent"></div></div>';
   renderQuizQuestion();
 }
 
 function renderQuizQuestion() {
-  var data = currentQuizData;
-  var idx = currentQuizIdx;
-  var total = data.preQuiz.length;
-  var q = data.preQuiz[idx];
-  document.getElementById('quizProg').style.width = ((idx / total) * 100) + '%';
-  
-  var optsHTML = q.opts.map((o, i) => `
-    <div class="quiz-option" onclick="selectQuizOpt(this,${i})" id="opt-${i}">
-      <div class="quiz-opt-radio"></div>
-      <span>${o}</span>
-    </div>`).join('');
-
-  document.getElementById('quizContent').innerHTML = `
-    <div style="font-size:.72rem;color:var(--slate2);margin-bottom:.5rem">Pertanyaan ${idx + 1} dari ${total}</div>
-    <div class="quiz-question">${q.q}</div>
-    <div class="quiz-options" id="quizOpts">${optsHTML}</div>
-    <div style="margin-top:1.25rem;display:flex;justify-content:flex-end">
-      <button class="btn btn-primary" onclick="nextQuizQuestion()" id="nextQuizBtn" style="opacity:.4;pointer-events:none"><i class="fas fa-arrow-right"></i> ${idx === total - 1 ? 'Selesai' : 'Lanjut'}</button>
-    </div>`;
+  var q=currentQuizData.preQuiz[currentQuizIdx], total=currentQuizData.preQuiz.length, idx=currentQuizIdx;
+  document.getElementById('quizProg').style.width=((idx/total)*100)+'%';
+  document.getElementById('quizContent').innerHTML='<div style="font-size:.72rem;color:var(--slate2);margin-bottom:.5rem">Pertanyaan '+(idx+1)+' dari '+total+'</div><div class="quiz-question">'+q.q+'</div><div class="quiz-options" id="quizOpts">'+q.opts.map((o,i)=>'<div class="quiz-option" onclick="selectQuizOpt(this,'+i+')" id="opt-'+i+'"><div class="quiz-opt-radio"></div><span>'+o+'</span></div>').join('')+'</div><div style="margin-top:1.25rem;display:flex;justify-content:flex-end"><button class="btn btn-primary" onclick="nextQuizQuestion()" id="nextQuizBtn" style="opacity:.4;pointer-events:none"><i class="fas fa-arrow-right"></i> '+(idx===total-1?'Selesai':'Lanjut')+'</button></div>';
 }
 
-function selectQuizOpt(el, idx) {
-  document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
-  el.classList.add('selected');
-  quizAnswers[currentQuizIdx] = idx;
-  var btn = document.getElementById('nextQuizBtn');
-  btn.style.opacity = '1';
-  btn.style.pointerEvents = 'all';
+function selectQuizOpt(el,idx) {
+  document.querySelectorAll('.quiz-option').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected'); quizAnswers[currentQuizIdx]=idx;
+  var btn=document.getElementById('nextQuizBtn'); btn.style.opacity='1'; btn.style.pointerEvents='all';
 }
 
 function nextQuizQuestion() {
-  var data = currentQuizData;
   currentQuizIdx++;
-  if (currentQuizIdx < data.preQuiz.length) {
-    renderQuizQuestion();
-  } else {
-    // Calculate score
-    var correct = 0;
-    data.preQuiz.forEach((q, i) => { if (quizAnswers[i] === q.ans) correct++; });
-    var score = Math.round((correct / data.preQuiz.length) * 100);
-    if (currentPhase === 'pre') {
-      preScore = score;
-      renderEduReading(currentEduTopic, data);
-    } else {
-      postScore = score;
-      renderEduResult();
-    }
-  }
+  if (currentQuizIdx<currentQuizData.preQuiz.length) { renderQuizQuestion(); return; }
+  var correct=0; currentQuizData.preQuiz.forEach((q,i)=>{ if(quizAnswers[i]===q.ans)correct++; });
+  var score=Math.round((correct/currentQuizData.preQuiz.length)*100);
+  if(currentPhase==='pre'){preScore=score;renderEduReading();}else{postScore=score;renderEduResult();}
 }
 
-function renderEduReading(topic, data) {
-  var modal = document.getElementById('eduModal');
-  var sectionsHTML = data.sections.map(s => `
-    <div class="edu-section">
-      <div class="edu-section-title"><i class="fas ${s.icon}"></i> ${s.title}</div>
-      <div class="edu-section-content">${s.content}</div>
-    </div>`).join('');
-  
-  var lastSection = `<div class="edu-section">
-    <div class="edu-tip-card"><i class="fas fa-lightbulb"></i><div>${data.sections[data.sections.length-1]?.content || 'Terapkan pola hidup sehat setiap hari.'}</div></div>
-  </div>`;
-  
-  modal.innerHTML = `
-    <div class="edu-modal-header">
-      <div>
-        <div style="font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--gold2);margin-bottom:.2rem">Materi Edukasi</div>
-        <h3 class="serif" style="font-size:1.1rem;color:var(--navy)">${topic}</h3>
-      </div>
-      <button class="modal-close-btn" onclick="closeEduModal()"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="edu-modal-body">
-      <div style="background:var(--gold-light);border:1.5px solid rgba(245,158,11,.2);border-radius:var(--radius-xs);padding:.85rem 1rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:10px">
-        <i class="fas fa-circle-info" style="color:var(--gold2)"></i>
-        <div style="font-size:.78rem;color:var(--gold-deep)">Pre-Test selesai! Skor awal Anda: <b>${preScore}%</b>. Baca materi dengan seksama lalu kerjakan Post-Test.</div>
-      </div>
-      ${data.sections.slice(0,-1).map(s => `<div class="edu-section"><div class="edu-section-title"><i class="fas ${s.icon}"></i> ${s.title}</div><div class="edu-section-content">${s.content}</div></div>`).join('')}
-      <div class="edu-section"><div class="edu-tip-card"><i class="fas fa-lightbulb"></i><div><b>Tips Harian:</b> ${data.sections[data.sections.length-1]?.content}</div></div></div>
-      <div style="margin-top:1.5rem;text-align:center">
-        <button class="btn btn-primary" style="padding:12px 32px" onclick="renderQuiz('${topic}', currentQuizData, 'post')"><i class="fas fa-pen-to-square"></i> Mulai Post-Test</button>
-      </div>
-    </div>`;
+function renderEduReading() {
+  var data=currentQuizData;
+  document.getElementById('eduModal').innerHTML='<div class="edu-modal-header"><div><div style="font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--gold2)">Materi Edukasi</div><h3 class="serif" style="font-size:1.1rem;color:var(--navy)">'+currentEduTopic+'</h3></div><button class="modal-close-btn" onclick="closeEduModal()"><i class="fas fa-times"></i></button></div><div class="edu-modal-body"><div style="background:var(--gold-light);border:1.5px solid rgba(245,158,11,.2);border-radius:var(--radius-xs);padding:.85rem 1rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:10px"><i class="fas fa-circle-info" style="color:var(--gold2)"></i><div style="font-size:.78rem;color:var(--gold-deep)">Pre-Test selesai! Skor awal Anda: <b>'+preScore+'%</b>. Baca materi lalu kerjakan Post-Test.</div></div>'+data.sections.slice(0,-1).map(s=>'<div class="edu-section"><div class="edu-section-title"><i class="fas '+s.icon+'"></i> '+s.title+'</div><div class="edu-section-content">'+s.content+'</div></div>').join('')+'<div class="edu-section"><div class="edu-tip-card"><i class="fas fa-lightbulb"></i><div><b>Tips Harian:</b> '+data.sections[data.sections.length-1].content+'</div></div></div><div style="margin-top:1.5rem;text-align:center"><button class="btn btn-primary" style="padding:12px 32px" onclick="renderQuiz(currentEduTopic,currentQuizData,\'post\')"><i class="fas fa-pen-to-square"></i> Mulai Post-Test</button></div></div>';
 }
 
 function renderEduResult() {
-  var modal = document.getElementById('eduModal');
-  var improvement = postScore - preScore;
-  var icon = improvement >= 0 ? '📈' : '📉';
-  var color = improvement >= 0 ? 'var(--green)' : 'var(--red)';
-  
-  modal.innerHTML = `
-    <div class="edu-modal-header">
-      <div>
-        <h3 class="serif" style="font-size:1.1rem;color:var(--navy)">Hasil Edukasi — ${currentEduTopic}</h3>
-      </div>
-      <button class="modal-close-btn" onclick="closeEduModal()"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="edu-modal-body" style="text-align:center">
-      <div style="font-size:3rem;margin-bottom:.75rem">🎉</div>
-      <h3 class="serif" style="font-size:1.2rem;color:var(--navy);margin-bottom:.35rem">Edukasi Selesai!</h3>
-      <p style="font-size:.82rem;color:var(--slate2);margin-bottom:1.75rem">Lihat peningkatan pemahaman Anda</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin-bottom:1.5rem">
-        <div style="background:var(--off);border-radius:var(--radius-xs);padding:1rem;border:1px solid var(--off2)">
-          <div style="font-size:.65rem;font-weight:800;text-transform:uppercase;color:var(--slate2);margin-bottom:.3rem">Pre-Test</div>
-          <div style="font-size:1.6rem;font-weight:800;color:var(--navy)">${preScore}%</div>
-        </div>
-        <div style="background:var(--off);border-radius:var(--radius-xs);padding:1rem;border:1px solid var(--off2);display:flex;align-items:center;justify-content:center">
-          <div>
-            <div style="font-size:1.4rem">${icon}</div>
-            <div style="font-size:.72rem;font-weight:800;color:${color}">+${improvement}%</div>
-          </div>
-        </div>
-        <div style="background:${improvement >= 20 ? '#dcfce7' : 'var(--off)'};border-radius:var(--radius-xs);padding:1rem;border:1px solid ${improvement >= 20 ? '#bbf7d0' : 'var(--off2)'}">
-          <div style="font-size:.65rem;font-weight:800;text-transform:uppercase;color:${improvement >= 20 ? '#15803d' : 'var(--slate2)'};margin-bottom:.3rem">Post-Test</div>
-          <div style="font-size:1.6rem;font-weight:800;color:${improvement >= 20 ? '#15803d' : 'var(--navy)'}">${postScore}%</div>
-        </div>
-      </div>
-      <div style="background:${improvement >= 0 ? 'var(--gold-light)' : '#fee2e2'};border:1.5px solid ${improvement >= 0 ? 'rgba(245,158,11,.2)' : '#fecaca'};border-radius:var(--radius-xs);padding:1rem;margin-bottom:1.25rem">
-        <div style="font-size:.85rem;color:${improvement >= 0 ? 'var(--gold-deep)' : '#dc2626'};font-weight:600">
-          ${improvement >= 30 ? '🌟 Luar biasa! Pemahaman Anda meningkat signifikan!' : improvement >= 10 ? '👍 Bagus! Ada peningkatan yang baik.' : improvement >= 0 ? '📚 Anda perlu membaca ulang materi ini.' : '🔄 Coba kerjakan ulang setelah membaca materi lagi.'}
-        </div>
-      </div>
-      <div style="display:flex;gap:.75rem;justify-content:center">
-        <button class="btn btn-outline" onclick="closeEduModal()"><i class="fas fa-house"></i> Kembali</button>
-        <button class="btn btn-primary" onclick="renderQuiz(currentEduTopic, currentQuizData, 'pre')"><i class="fas fa-rotate-right"></i> Ulangi</button>
-      </div>
-    </div>`;
+  var imp=postScore-preScore, color=imp>=0?'var(--green)':'var(--red)', icon=imp>=0?'📈':'📉';
+  document.getElementById('eduModal').innerHTML='<div class="edu-modal-header"><div><h3 class="serif" style="font-size:1.1rem;color:var(--navy)">Hasil Edukasi — '+currentEduTopic+'</h3></div><button class="modal-close-btn" onclick="closeEduModal()"><i class="fas fa-times"></i></button></div><div class="edu-modal-body" style="text-align:center"><div style="font-size:3rem;margin-bottom:.75rem">🎉</div><h3 class="serif" style="font-size:1.2rem;color:var(--navy);margin-bottom:.35rem">Edukasi Selesai!</h3><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin:1.25rem 0"><div style="background:var(--off);border-radius:var(--radius-xs);padding:1rem;border:1px solid var(--off2)"><div style="font-size:.65rem;font-weight:800;text-transform:uppercase;color:var(--slate2)">Pre-Test</div><div style="font-size:1.6rem;font-weight:800;color:var(--navy)">'+preScore+'%</div></div><div style="background:var(--off);border-radius:var(--radius-xs);padding:1rem;border:1px solid var(--off2);display:flex;align-items:center;justify-content:center"><div><div style="font-size:1.4rem">'+icon+'</div><div style="font-size:.72rem;font-weight:800;color:'+color+'">'+imp+'%</div></div></div><div style="background:'+(imp>=20?'#dcfce7':'var(--off)')+';border-radius:var(--radius-xs);padding:1rem;border:1px solid '+(imp>=20?'#bbf7d0':'var(--off2)')+'"><div style="font-size:.65rem;font-weight:800;text-transform:uppercase;color:'+(imp>=20?'#15803d':'var(--slate2)')+'">Post-Test</div><div style="font-size:1.6rem;font-weight:800;color:'+(imp>=20?'#15803d':'var(--navy)')+'">'+postScore+'%</div></div></div><div style="font-size:.85rem;color:var(--gold-deep);font-weight:600;padding:.85rem;background:var(--gold-light);border-radius:var(--radius-xs);margin-bottom:1.25rem">'+(imp>=30?'🌟 Luar biasa! Pemahaman meningkat signifikan!':imp>=10?'👍 Bagus! Ada peningkatan yang baik.':'📚 Coba baca ulang materi ini.')+'</div><div style="display:flex;gap:.75rem;justify-content:center"><button class="btn btn-outline" onclick="closeEduModal()"><i class="fas fa-house"></i> Kembali</button><button class="btn btn-primary" onclick="renderQuiz(currentEduTopic,currentQuizData,\'pre\')"><i class="fas fa-rotate-right"></i> Ulangi</button></div></div>';
 }
 
-function closeEduModal() {
-  document.getElementById('eduOverlay').classList.remove('show');
+function closeEduModal() { document.getElementById('eduOverlay').classList.remove('show'); }
+function filterHistory(t,el) { document.querySelectorAll('#page-history .tab').forEach(x=>x.classList.remove('active')); el.classList.add('active'); }
+function filterEdu(t,el) { document.querySelectorAll('#page-education .tab').forEach(x=>x.classList.remove('active')); el.classList.add('active'); }
+
+// ─────────────────────────────────────────────────
+// TOAST
+// ─────────────────────────────────────────────────
+function showToast(msg, isError) {
+  var t=document.createElement('div');
+  t.style.cssText='position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:'+(isError?'var(--red)':'var(--navy)')+';color:#fff;padding:12px 24px;border-radius:999px;font-size:.82rem;font-weight:600;z-index:999;box-shadow:var(--shadow-lg);animation:fadeIn .3s ease';
+  t.textContent=msg; document.body.appendChild(t);
+  setTimeout(()=>t.remove(),3000);
 }
 
-// History filter
-function filterHistory(type, el) {
-  document.querySelectorAll('#page-history .tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-}
-function filterEdu(type, el) {
-  document.querySelectorAll('#page-education .tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-}
-
-// Toast notification
-function showToast(msg) {
-  var toast = document.createElement('div');
-  toast.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 24px;border-radius:999px;font-size:.82rem;font-weight:600;z-index:999;box-shadow:var(--shadow-lg);animation:fadeIn .3s ease';
-  toast.textContent = msg;
-  document.body.appendChild(toast);
-  setTimeout(() => toast.remove(), 3000);
-}
-
-// Calculate age from DOB
-function calcAge(dob) {
-  var d = new Date(dob);
-  var now = new Date('2026-05-28');
-  var age = now.getFullYear() - d.getFullYear();
-  var m = now.getMonth() - d.getMonth();
-  if (m < 0 || (m === 0 && now.getDate() < d.getDate())) age--;
-  return age;
-}
-// Auto-set age display
-document.addEventListener('change', function(e) {
-  if (e.target.type === 'date') {
-    var age = calcAge(e.target.value);
-    var lbl = e.target.closest('.form-group') && e.target.closest('.form-group').querySelector('.age-display');
-    if (lbl) lbl.textContent = 'Umur: ' + age + ' tahun';
-  }
-});
-
-// Load user data from localStorage (set by auth page)
-window.addEventListener('load', function() {
-  var name = localStorage.getItem('nc_name') || 'Ahmad Rizki';
-  document.getElementById('sb-name').textContent = name;
-  document.querySelectorAll('.profile-name-lg, .welcome-text h2').forEach(el => {
-    if (el.tagName === 'H2') el.textContent = 'Halo, ' + name + '! 👋';
-    else el.textContent = name;
-  });
+// ─────────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  loadUserData();
 });
 </script>
 </body>
