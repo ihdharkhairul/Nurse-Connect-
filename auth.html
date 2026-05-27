@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NurseConnect — Masuk / Daftar</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --white:#ffffff;--off:#fffdf5;--off2:#fff8e1;
+  --gold:#f59e0b;--gold2:#d97706;--gold3:#fef3c7;--gold-light:#fffbeb;--gold-deep:#92400e;
+  --navy:#1a1a2e;--navy2:#16213e;--slate:#5c5c6e;--slate2:#9ca3af;--slate3:#d1d5db;
+  --red:#ef4444;--green:#10b981;
+  --radius:16px;--radius-sm:10px;
+  --shadow:0 4px 24px rgba(26,26,46,.07);--shadow-md:0 8px 40px rgba(26,26,46,.11);--shadow-lg:0 20px 60px rgba(26,26,46,.15);
+}
+body{font-family:'DM Sans',sans-serif;background:linear-gradient(160deg,var(--white) 0%,var(--gold-light) 55%,var(--off) 100%);min-height:100vh;display:flex;flex-direction:column;color:var(--navy)}
+h1,h2,h3{font-family:'DM Serif Display',serif}
+
+/* NAV */
+nav{height:64px;display:flex;align-items:center;padding:0 5%;justify-content:space-between;background:rgba(255,255,255,.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(245,158,11,.12)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:10px;display:flex;align-items:center;justify-content:center}
+.nav-logo-icon i{color:#fff;font-size:.9rem}
+.nav-logo-text{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--navy)}
+.nav-logo-text span{color:var(--gold2)}
+.nav-back{display:flex;align-items:center;gap:6px;text-decoration:none;font-size:.85rem;font-weight:600;color:var(--slate);transition:color .2s}
+.nav-back:hover{color:var(--gold2)}
+
+/* MAIN */
+.auth-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:2rem 1rem}
+.auth-card{background:#fff;border-radius:24px;box-shadow:var(--shadow-lg);width:100%;max-width:520px;overflow:hidden;border:1px solid rgba(245,158,11,.1)}
+.auth-header{background:linear-gradient(135deg,var(--gold2),var(--navy));padding:2rem;text-align:center;position:relative;overflow:hidden}
+.auth-header::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(255,255,255,.12),transparent 70%)}
+.auth-logo{width:56px;height:56px;background:rgba(255,255,255,.2);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.6rem}
+.auth-title{font-size:1.6rem;color:#fff;margin-bottom:.35rem}
+.auth-sub{font-size:.82rem;color:rgba(255,255,255,.7)}
+
+/* TABS */
+.auth-tabs{display:flex;border-bottom:2px solid var(--off2);background:#fff}
+.auth-tab{flex:1;padding:.9rem;text-align:center;font-size:.88rem;font-weight:700;color:var(--slate2);cursor:pointer;transition:all .2s;border-bottom:2px solid transparent;margin-bottom:-2px}
+.auth-tab.active{color:var(--gold2);border-bottom-color:var(--gold)}
+
+/* BODY */
+.auth-body{padding:1.75rem 2rem 2rem}
+
+/* ROLE SELECT */
+.role-select{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.5rem}
+.role-btn{padding:1rem;border-radius:14px;border:2px solid var(--off2);background:var(--off);cursor:pointer;text-align:center;transition:all .25s;font-family:'DM Sans',sans-serif}
+.role-btn:hover{border-color:var(--gold);background:var(--gold-light)}
+.role-btn.active{border-color:var(--gold);background:var(--gold-light);box-shadow:0 0 0 3px rgba(245,158,11,.12)}
+.role-btn .role-icon{font-size:2rem;margin-bottom:.4rem}
+.role-btn .role-title{font-size:.88rem;font-weight:700;color:var(--navy)}
+.role-btn .role-desc{font-size:.72rem;color:var(--slate2);margin-top:2px}
+
+/* FORM */
+.form-group{margin-bottom:1.1rem}
+.form-label{display:block;font-size:.72rem;font-weight:800;color:var(--slate);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.4rem}
+.form-input{width:100%;padding:10px 14px;background:var(--off);border:1.5px solid var(--off2);border-radius:var(--radius-sm);color:var(--navy);font-size:.88rem;outline:none;transition:all .22s;font-family:'DM Sans',sans-serif}
+.form-input:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(245,158,11,.1)}
+.form-input::placeholder{color:var(--slate3)}
+/* FIX: input invalid state */
+.form-input.invalid{border-color:var(--red);background:#fff9f9}
+select.form-input option{background:#fff}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.btn-submit{width:100%;padding:13px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;border:none;border-radius:var(--radius-sm);font-size:.95rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .22s;box-shadow:0 4px 14px rgba(245,158,11,.3);margin-top:.5rem}
+.btn-submit:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(245,158,11,.4)}
+/* FIX: disabled state for submit button */
+.btn-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.form-divider{text-align:center;font-size:.78rem;color:var(--slate2);margin:.75rem 0;position:relative}
+.form-divider::before,.form-divider::after{content:'';position:absolute;top:50%;width:42%;height:1px;background:var(--off2)}
+.form-divider::before{left:0}.form-divider::after{right:0}
+.alert{padding:.75rem 1rem;border-radius:var(--radius-sm);font-size:.82rem;margin-bottom:1rem;display:none}
+.alert.error{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c}
+.alert.success{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d}
+.alert.show{display:block}
+.quick-note{background:var(--gold-light);border:1px solid rgba(245,158,11,.25);border-radius:var(--radius-sm);padding:.75rem 1rem;font-size:.78rem;color:var(--gold-deep);margin-bottom:1rem;display:flex;align-items:flex-start;gap:8px}
+.pass-toggle{position:relative}
+.pass-toggle input{padding-right:42px}
+.pass-eye{position:absolute;right:13px;top:50%;transform:translateY(-50%);cursor:pointer;color:var(--slate2);font-size:.85rem;background:none;border:none;padding:0}
+
+/* FIX: field error hint text */
+.field-error{font-size:.72rem;color:var(--red);margin-top:.25rem;display:none}
+.field-error.show{display:block}
+
+@media(max-width:480px){
+  .auth-body{padding:1.25rem 1.25rem 1.5rem}
+  .form-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-icon"><i class="fas fa-heartbeat"></i></div>
+    <span class="nav-logo-text">Nurse<span>Connect</span></span>
+  </a>
+  <a href="index.html" class="nav-back"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</a>
+</nav>
+
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="auth-logo">🏥</div>
+      <h1 class="auth-title">NurseConnect</h1>
+      <p class="auth-sub">Platform Telenursing #1 Indonesia</p>
+    </div>
+
+    <div class="auth-tabs">
+      <div class="auth-tab active" id="tab-login" onclick="switchTab('login')">Masuk</div>
+      <div class="auth-tab" id="tab-register" onclick="switchTab('register')">Daftar</div>
+    </div>
+
+    <div class="auth-body">
+
+      <!-- LOGIN -->
+      <div id="login-form">
+        <div class="alert" id="login-alert"></div>
+        <div class="quick-note">
+          <i class="fas fa-info-circle" style="margin-top:2px;flex-shrink:0"></i>
+          <div><strong>Demo akun:</strong><br>Perawat: sitti@nurse.id / nurse123<br>Pasien: rina@patient.id / pasien123</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <!-- FIX: added id to wrapper for validation -->
+          <input type="email" class="form-input" id="login-email" placeholder="email@contoh.com" autocomplete="email">
+          <div class="field-error" id="err-login-email">Masukkan email yang valid</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="pass-toggle">
+            <input type="password" class="form-input" id="login-pass" placeholder="••••••••" autocomplete="current-password">
+            <button class="pass-eye" onclick="togglePass('login-pass',this)" type="button" aria-label="Tampilkan password"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+        <button class="btn-submit" id="btn-login" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> Masuk</button>
+        <div class="form-divider">atau</div>
+        <button class="btn-submit" style="background:linear-gradient(135deg,var(--navy),var(--navy2));box-shadow:0 4px 14px rgba(26,26,46,.3)" onclick="switchTab('register')">
+          <i class="fas fa-user-plus"></i> Buat Akun Baru
+        </button>
+      </div>
+
+      <!-- REGISTER -->
+      <div id="register-form" style="display:none">
+        <div class="alert" id="reg-alert"></div>
+        <div class="role-select">
+          <div class="role-btn active" id="role-patient" onclick="setRole('patient')">
+            <div class="role-icon">🧑</div>
+            <div class="role-title">Saya Pasien</div>
+            <div class="role-desc">Cari & konsultasi perawat</div>
+          </div>
+          <div class="role-btn" id="role-nurse" onclick="setRole('nurse')">
+            <div class="role-icon">👩‍⚕️</div>
+            <div class="role-title">Saya Perawat</div>
+            <div class="role-desc">Berikan layanan konsultasi</div>
+          </div>
+        </div>
+
+        <!-- PATIENT FIELDS -->
+        <div id="patient-fields">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Nama Lengkap *</label>
+              <input type="text" class="form-input" id="r-nama" placeholder="Nama sesuai KTP" autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Nomor HP *</label>
+              <!-- FIX: type="tel" + pattern untuk validasi nomor Indonesia -->
+              <input type="tel" class="form-input" id="r-phone" placeholder="08xxxxxxxxxx" pattern="^0[0-9]{8,13}$" autocomplete="tel">
+              <div class="field-error" id="err-r-phone">Format: 08xxxxxxxxxx</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email *</label>
+            <input type="email" class="form-input" id="r-email" placeholder="email@contoh.com" autocomplete="email">
+            <div class="field-error" id="err-r-email">Masukkan email yang valid</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password *</label>
+            <div class="pass-toggle">
+              <input type="password" class="form-input" id="r-pass" placeholder="Min. 6 karakter" autocomplete="new-password">
+              <button class="pass-eye" onclick="togglePass('r-pass',this)" type="button" aria-label="Tampilkan password"><i class="fas fa-eye"></i></button>
+            </div>
+            <div class="field-error" id="err-r-pass">Password minimal 6 karakter</div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Jenis Kelamin *</label>
+              <select class="form-input" id="r-gender">
+                <option value="">Pilih...</option>
+                <option>Laki-laki</option>
+                <option>Perempuan</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tanggal Lahir *</label>
+              <!-- FIX: max date agar tidak bisa pilih masa depan -->
+              <input type="date" class="form-input" id="r-dob">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Agama</label>
+              <select class="form-input" id="r-religion">
+                <option value="">Pilih...</option>
+                <option>Islam</option><option>Kristen</option><option>Katolik</option>
+                <option>Hindu</option><option>Buddha</option><option>Konghucu</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Alamat</label>
+              <input type="text" class="form-input" id="r-address" placeholder="Kota / Kab." autocomplete="address-level2">
+            </div>
+          </div>
+        </div>
+
+        <!-- NURSE FIELDS -->
+        <div id="nurse-fields" style="display:none">
+          <div class="form-group">
+            <label class="form-label">Nama Lengkap (termasuk gelar) *</label>
+            <input type="text" class="form-input" id="n-nama" placeholder="Ns. Nama Lengkap, S.Kep" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email *</label>
+            <input type="email" class="form-input" id="n-email" placeholder="email@contoh.com" autocomplete="email">
+            <div class="field-error" id="err-n-email">Masukkan email yang valid</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password *</label>
+            <div class="pass-toggle">
+              <input type="password" class="form-input" id="n-pass" placeholder="Min. 6 karakter" autocomplete="new-password">
+              <button class="pass-eye" onclick="togglePass('n-pass',this)" type="button" aria-label="Tampilkan password"><i class="fas fa-eye"></i></button>
+            </div>
+            <div class="field-error" id="err-n-pass">Password minimal 6 karakter</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Spesialisasi / Pelayanan *</label>
+            <select class="form-input" id="n-spec">
+              <option value="">Pilih spesialisasi...</option>
+              <option>Keperawatan Umum</option>
+              <option>Keperawatan Medikal Bedah</option>
+              <option>Keperawatan Kritis & ICU</option>
+              <option>Keperawatan Maternitas</option>
+              <option>Kesehatan Jiwa & Psikiatri</option>
+              <option>Keperawatan Geriatri</option>
+              <option>Keperawatan Anak</option>
+              <option>Manajemen Penyakit Kronik</option>
+              <option>Perawatan Luka</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Nomor STR / ID Medis</label>
+              <input type="text" class="form-input" id="n-str" placeholder="STR-XXXXX-2024">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tanggal Lahir</label>
+              <input type="date" class="form-input" id="n-dob">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Jenis Kelamin</label>
+              <select class="form-input" id="n-gender">
+                <option value="">Pilih...</option>
+                <option>Laki-laki</option>
+                <option>Perempuan</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Alamat</label>
+              <input type="text" class="form-input" id="n-address" placeholder="Kota / Kab." autocomplete="address-level2">
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-submit" id="btn-register" onclick="doRegister()"><i class="fas fa-user-plus"></i> Buat Akun</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     FALLBACK: shared.js inline — dipakai jika shared.js gagal load
+     Jika shared.js sudah ada, blok ini akan ditimpa oleh NC dari file tersebut
+     ============================================================ -->
+<script>
+// FIX: NC fallback — mencegah crash jika shared.js tidak tersedia
+window.NC = window.NC || (function() {
+  const STORAGE_KEY = 'nc_data';
+
+  const defaultData = {
+    users: [
+      {
+        id: 'demo-nurse-001',
+        role: 'nurse',
+        name: 'Ns. Sitti Rahayu, S.Kep',
+        email: 'sitti@nurse.id',
+        password: 'nurse123',
+        specialization: 'Keperawatan Umum',
+        strNumber: 'STR-00001-2023',
+        rating: 4.9,
+        reviewCount: 128,
+        experience: 7,
+        status: 'online',
+        avatar: '👩‍⚕️',
+        createdAt: Date.now()
+      },
+      {
+        id: 'demo-patient-001',
+        role: 'patient',
+        name: 'Rina Kusuma',
+        email: 'rina@patient.id',
+        password: 'pasien123',
+        gender: 'Perempuan',
+        dob: '1990-05-12',
+        phone: '081234567890',
+        avatar: '🧑',
+        createdAt: Date.now()
+      }
+    ],
+    consultations: [],
+    messages: []
+  };
+
+  function load() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(defaultData));
+    } catch(e) {
+      console.warn('NC: gagal parse storage, pakai data default', e);
+      return JSON.parse(JSON.stringify(defaultData));
+    }
+  }
+
+  function save() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ users, consultations, messages }));
+    } catch(e) {
+      console.error('NC: gagal simpan data', e);
+    }
+  }
+
+  // FIX: genId yang benar-benar unik
+  function genId() {
+    return 'u_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 7);
+  }
+
+  const data = load();
+  const { users, consultations, messages } = data;
+
+  return { users, consultations, messages, save, genId, load };
+})();
+</script>
+
+<!-- Load shared.js — jika file ada, NC sudah terdefinisi dan akan ditimpa/digabung -->
+<script src="shared.js" onerror="console.warn('shared.js tidak ditemukan, menggunakan fallback NC')"></script>
+
+<script>
+let currentRole = 'patient';
+
+// FIX: set max date untuk field tanggal lahir
+(function setMaxDate() {
+  const today = new Date().toISOString().split('T')[0];
+  ['r-dob','n-dob'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.max = today;
+  });
+})();
+
+// FIX: validasi format email
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+// FIX: validasi nomor HP Indonesia
+function isValidPhone(phone) {
+  return /^0[0-9]{8,13}$/.test(phone.replace(/\s|-/g,''));
+}
+
+function switchTab(t) {
+  ['login','register'].forEach(x => {
+    document.getElementById(x+'-form').style.display = x===t ? 'block' : 'none';
+    document.getElementById('tab-'+x).className = 'auth-tab' + (x===t ? ' active' : '');
+  });
+  // FIX: reset semua alert saat pindah tab
+  ['login-alert','reg-alert'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.classList.remove('show');
+  });
+  // FIX: hapus state invalid dari semua input
+  document.querySelectorAll('.form-input.invalid').forEach(el => el.classList.remove('invalid'));
+  document.querySelectorAll('.field-error.show').forEach(el => el.classList.remove('show'));
+}
+
+function setRole(r) {
+  currentRole = r;
+  document.getElementById('role-patient').className = 'role-btn' + (r==='patient' ? ' active' : '');
+  document.getElementById('role-nurse').className = 'role-btn' + (r==='nurse' ? ' active' : '');
+  document.getElementById('patient-fields').style.display = r==='patient' ? 'block' : 'none';
+  document.getElementById('nurse-fields').style.display = r==='nurse' ? 'block' : 'none';
+  // FIX: reset alert & invalid state saat ganti role
+  const alert = document.getElementById('reg-alert');
+  if(alert) alert.classList.remove('show');
+  document.querySelectorAll('.form-input.invalid').forEach(el => el.classList.remove('invalid'));
+  document.querySelectorAll('.field-error.show').forEach(el => el.classList.remove('show'));
+}
+
+function togglePass(id, btn) {
+  const inp = document.getElementById(id);
+  if(!inp) return;
+  const show = inp.type === 'password';
+  inp.type = show ? 'text' : 'password';
+  btn.innerHTML = '<i class="fas fa-eye' + (show ? '-slash' : '') + '"></i>';
+}
+
+function showAlert(id, msg, type='error') {
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.textContent = msg;
+  el.className = 'alert ' + type + ' show';
+  // FIX: auto-hide lebih lama untuk success, lebih pendek untuk error
+  const delay = type === 'success' ? 3000 : 4000;
+  setTimeout(() => el.classList.remove('show'), delay);
+}
+
+// FIX: helper untuk tandai field invalid
+function markInvalid(id, errId) {
+  const inp = document.getElementById(id);
+  const err = errId ? document.getElementById(errId) : null;
+  if(inp) inp.classList.add('invalid');
+  if(err) err.classList.add('show');
+  return false;
+}
+function clearInvalid(id, errId) {
+  const inp = document.getElementById(id);
+  const err = errId ? document.getElementById(errId) : null;
+  if(inp) inp.classList.remove('invalid');
+  if(err) err.classList.remove('show');
+}
+
+// FIX: setLoading untuk prevent double-submit
+function setLoading(btnId, loading) {
+  const btn = document.getElementById(btnId);
+  if(!btn) return;
+  btn.disabled = loading;
+  if(loading) {
+    btn._origHTML = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+  } else if(btn._origHTML) {
+    btn.innerHTML = btn._origHTML;
+  }
+}
+
+function doLogin() {
+  // FIX: clear state sebelumnya
+  clearInvalid('login-email','err-login-email');
+
+  const email = document.getElementById('login-email').value.trim().toLowerCase();
+  const pass  = document.getElementById('login-pass').value;
+
+  // FIX: validasi per-field dengan pesan spesifik
+  if (!email) { showAlert('login-alert','Email tidak boleh kosong'); markInvalid('login-email'); return; }
+  if (!isValidEmail(email)) { showAlert('login-alert','Format email tidak valid'); markInvalid('login-email','err-login-email'); return; }
+  if (!pass) { showAlert('login-alert','Password tidak boleh kosong'); return; }
+
+  // FIX: guard — pastikan NC & NC.users ada
+  if (!window.NC || !Array.isArray(NC.users)) {
+    showAlert('login-alert','Sistem belum siap, coba muat ulang halaman');
+    return;
+  }
+
+  setLoading('btn-login', true);
+
+  // FIX: simulasi async agar UI tidak freeze (sekaligus bisa diganti fetch ke API)
+  setTimeout(() => {
+    const user = NC.users.find(u =>
+      u.email && u.email.toLowerCase() === email && u.password === pass
+    );
+    setLoading('btn-login', false);
+    if (!user) { showAlert('login-alert','Email atau password salah'); return; }
+
+    // FIX: pakai localStorage agar session tidak hilang saat tab baru
+    try {
+      sessionStorage.setItem('nc_current_user', user.id);
+    } catch(e) {
+      console.warn('sessionStorage tidak tersedia:', e);
+    }
+
+    window.location.href = user.role === 'nurse' ? 'nurse.html' : 'patient.html';
+  }, 300);
+}
+
+function doRegister() {
+  // FIX: guard
+  if (!window.NC || !Array.isArray(NC.users)) {
+    showAlert('reg-alert','Sistem belum siap, coba muat ulang halaman');
+    return;
+  }
+
+  // Reset semua invalid state
+  document.querySelectorAll('.form-input.invalid').forEach(el => el.classList.remove('invalid'));
+  document.querySelectorAll('.field-error.show').forEach(el => el.classList.remove('show'));
+
+  const id = NC.genId();
+  let user;
+
+  if (currentRole === 'patient') {
+    const nama    = document.getElementById('r-nama').value.trim();
+    const email   = document.getElementById('r-email').value.trim().toLowerCase();
+    const pass    = document.getElementById('r-pass').value;
+    const gender  = document.getElementById('r-gender').value;
+    const dob     = document.getElementById('r-dob').value;
+    const phone   = document.getElementById('r-phone').value.trim();
+    const religion= document.getElementById('r-religion').value;
+    const address = document.getElementById('r-address').value.trim();
+
+    // FIX: validasi satu per satu dengan highlight field
+    if (!nama) { showAlert('reg-alert','Nama lengkap wajib diisi'); markInvalid('r-nama'); return; }
+    if (!phone) { showAlert('reg-alert','Nomor HP wajib diisi'); markInvalid('r-phone','err-r-phone'); return; }
+    if (!isValidPhone(phone)) { showAlert('reg-alert','Format nomor HP tidak valid (contoh: 08123456789)'); markInvalid('r-phone','err-r-phone'); return; }
+    if (!email) { showAlert('reg-alert','Email wajib diisi'); markInvalid('r-email','err-r-email'); return; }
+    if (!isValidEmail(email)) { showAlert('reg-alert','Format email tidak valid'); markInvalid('r-email','err-r-email'); return; }
+    if (!pass) { showAlert('reg-alert','Password wajib diisi'); markInvalid('r-pass','err-r-pass'); return; }
+    if (pass.length < 6) { showAlert('reg-alert','Password minimal 6 karakter'); markInvalid('r-pass','err-r-pass'); return; }
+    if (!gender) { showAlert('reg-alert','Jenis kelamin wajib dipilih'); markInvalid('r-gender'); return; }
+    if (!dob) { showAlert('reg-alert','Tanggal lahir wajib diisi'); markInvalid('r-dob'); return; }
+
+    // FIX: cek duplikat email case-insensitive
+    if (NC.users.find(u => u.email && u.email.toLowerCase() === email)) {
+      showAlert('reg-alert','Email sudah terdaftar, silakan masuk atau gunakan email lain');
+      markInvalid('r-email','err-r-email');
+      return;
+    }
+
+    user = {
+      id, role:'patient', name:nama, email, password:pass,
+      gender, dob, phone, religion, address,
+      avatar:'🧑', createdAt: Date.now()
+    };
+
+  } else {
+    // NURSE
+    const nama   = document.getElementById('n-nama').value.trim();
+    const email  = document.getElementById('n-email').value.trim().toLowerCase();
+    const pass   = document.getElementById('n-pass').value;
+    const spec   = document.getElementById('n-spec').value;
+    const str    = document.getElementById('n-str').value.trim();
+    const dob    = document.getElementById('n-dob').value;
+    const gender = document.getElementById('n-gender').value;
+    const address= document.getElementById('n-address').value.trim();
+
+    if (!nama) { showAlert('reg-alert','Nama lengkap wajib diisi'); markInvalid('n-nama'); return; }
+    if (!email) { showAlert('reg-alert','Email wajib diisi'); markInvalid('n-email','err-n-email'); return; }
+    if (!isValidEmail(email)) { showAlert('reg-alert','Format email tidak valid'); markInvalid('n-email','err-n-email'); return; }
+    if (!pass) { showAlert('reg-alert','Password wajib diisi'); markInvalid('n-pass','err-n-pass'); return; }
+    if (pass.length < 6) { showAlert('reg-alert','Password minimal 6 karakter'); markInvalid('n-pass','err-n-pass'); return; }
+    if (!spec) { showAlert('reg-alert','Spesialisasi wajib dipilih'); markInvalid('n-spec'); return; }
+
+    if (NC.users.find(u => u.email && u.email.toLowerCase() === email)) {
+      showAlert('reg-alert','Email sudah terdaftar, silakan masuk atau gunakan email lain');
+      markInvalid('n-email','err-n-email');
+      return;
+    }
+
+    user = {
+      id, role:'nurse', name:nama, email, password:pass,
+      specialization:spec, strNumber: str || '-',
+      dob, gender, address,
+      rating:0, reviewCount:0, experience:0, status:'online',
+      avatar:'👩‍⚕️', createdAt: Date.now()
+    };
+  }
+
+  setLoading('btn-register', true);
+
+  setTimeout(() => {
+    NC.users.push(user);
+    NC.save();
+
+    try {
+      sessionStorage.setItem('nc_current_user', id);
+    } catch(e) {
+      console.warn('sessionStorage tidak tersedia:', e);
+    }
+
+    setLoading('btn-register', false);
+    showAlert('reg-alert','Akun berhasil dibuat! Mengalihkan...','success');
+    setTimeout(() => {
+      window.location.href = currentRole === 'nurse' ? 'nurse.html' : 'patient.html';
+    }, 1200);
+  }, 300);
+}
+
+// FIX: Enter key support untuk form login
+document.getElementById('login-pass').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') doLogin();
+});
+document.getElementById('login-email').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') doLogin();
+});
+
+// FIX: clear invalid state saat user mulai mengetik
+document.querySelectorAll('.form-input').forEach(function(el) {
+  el.addEventListener('input', function() {
+    this.classList.remove('invalid');
+    const errId = 'err-' + this.id;
+    const errEl = document.getElementById(errId);
+    if(errEl) errEl.classList.remove('show');
+  });
+});
+
+// Check tab dari URL param
+(function() {
+  const params = new URLSearchParams(location.search);
+  if (params.get('tab') === 'register') switchTab('register');
+  if (params.get('role') === 'nurse') { switchTab('register'); setRole('nurse'); }
+})();
+</script>
+</body>
+</html>
