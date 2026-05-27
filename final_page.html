@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NurseConnect — Platform Telenursing Indonesia</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --white:#ffffff;
+  --off:#fffdf5;
+  --off2:#fff8e1;
+  --gold:#f59e0b;
+  --gold2:#d97706;
+  --gold3:#fef3c7;
+  --gold-light:#fffbeb;
+  --gold-deep:#92400e;
+  --navy:#1a1a2e;
+  --navy2:#16213e;
+  --slate:#5c5c6e;
+  --slate2:#9ca3af;
+  --slate3:#d1d5db;
+  --red:#ef4444;
+  --amber:#f59e0b;
+  --green:#10b981;
+  --txt:#1a1a2e;
+  --txt2:#5c5c6e;
+  --txt3:#9ca3af;
+  --radius:16px;
+  --radius-sm:10px;
+  --shadow:0 4px 24px rgba(26,26,46,.07);
+  --shadow-md:0 8px 40px rgba(26,26,46,.11);
+  --shadow-lg:0 20px 60px rgba(26,26,46,.15);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--txt);overflow-x:hidden}
+
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--off)}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px}
+
+h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.05);opacity:.85}}
+@keyframes countUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.fade-up{animation:fadeUp .6s cubic-bezier(.22,1,.36,1) both}
+.fade-up-1{animation:fadeUp .6s .1s cubic-bezier(.22,1,.36,1) both}
+.fade-up-2{animation:fadeUp .6s .2s cubic-bezier(.22,1,.36,1) both}
+.fade-up-3{animation:fadeUp .6s .3s cubic-bezier(.22,1,.36,1) both}
+.fade-up-4{animation:fadeUp .6s .4s cubic-bezier(.22,1,.36,1) both}
+.float{animation:float 4s ease-in-out infinite}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:68px;
+  background:rgba(255,255,255,.95);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(245,158,11,.15);
+  display:flex;align-items:center;
+  padding:0 5%;
+  justify-content:space-between;
+  transition:box-shadow .3s;
+}
+nav.scrolled{box-shadow:0 4px 20px rgba(245,158,11,.12)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-icon{width:38px;height:38px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:10px;display:flex;align-items:center;justify-content:center}
+.nav-logo-icon i{color:#fff;font-size:1rem}
+.nav-logo-text{font-family:'DM Serif Display',serif;font-size:1.25rem;color:var(--navy)}
+.nav-logo-text span{color:var(--gold2)}
+.nav-links{display:flex;align-items:center;gap:2rem}
+.nav-links a{text-decoration:none;color:var(--slate);font-size:.9rem;font-weight:500;transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .25s}
+.nav-links a:hover{color:var(--gold2)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-cta{display:flex;align-items:center;gap:10px}
+.btn-outline{padding:9px 20px;border:1.5px solid var(--gold);color:var(--gold2);border-radius:999px;font-size:.875rem;font-weight:600;cursor:pointer;background:transparent;transition:all .22s;font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn-outline:hover{background:var(--gold-light)}
+.btn-primary{padding:9px 22px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;border:none;border-radius:999px;font-size:.875rem;font-weight:600;cursor:pointer;transition:all .22s;font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-flex;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(245,158,11,.35)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(245,158,11,.45)}
+.btn-primary-lg{padding:14px 32px;font-size:1rem}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:22px;height:2px;background:var(--navy);border-radius:2px;transition:all .3s}
+
+.mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:#fff;border-bottom:1px solid var(--off2);z-index:99;padding:1.5rem 5%;flex-direction:column;gap:1rem;box-shadow:var(--shadow-md)}
+.mobile-menu.open{display:flex}
+.mobile-menu a{text-decoration:none;color:var(--slate);font-weight:500;padding:.5rem 0;border-bottom:1px solid var(--off2);font-size:1rem}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  padding-top:68px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:4rem;
+  padding-left:5%;
+  padding-right:5%;
+  background:linear-gradient(160deg,var(--white) 0%,var(--gold-light) 55%,var(--off) 100%);
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  top:-200px;right:-200px;
+  width:700px;height:700px;
+  background:radial-gradient(circle,rgba(245,158,11,.07) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;
+  bottom:-100px;left:-100px;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(217,119,6,.04) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:7px 16px;background:var(--gold3);
+  border:1px solid rgba(245,158,11,.3);
+  border-radius:999px;margin-bottom:1.5rem;
+  font-size:.78rem;font-weight:700;color:var(--gold-deep);
+  letter-spacing:.05em;text-transform:uppercase;
+}
+.hero-badge .dot{width:7px;height:7px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite}
+.hero h1{font-size:clamp(2.2rem,4vw,3.4rem);line-height:1.15;color:var(--navy);margin-bottom:1.25rem}
+.hero h1 em{color:var(--gold2);font-style:normal}
+.hero-desc{font-size:1.05rem;color:var(--slate);line-height:1.75;margin-bottom:2rem;max-width:480px}
+.hero-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:2.5rem}
+.hero-stats{display:flex;gap:2rem;flex-wrap:wrap}
+.hero-stat-num{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--navy)}
+.hero-stat-label{font-size:.78rem;color:var(--slate2);margin-top:2px}
+
+.hero-visual{position:relative;display:flex;align-items:center;justify-content:center}
+.hero-card-main{
+  background:#fff;border-radius:24px;
+  box-shadow:var(--shadow-lg);
+  padding:2rem;width:340px;
+  position:relative;z-index:2;
+  border:1px solid rgba(245,158,11,.1);
+}
+.nurse-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
+.online-dot{width:12px;height:12px;background:#22c55e;border-radius:50%;border:2px solid #fff;position:absolute;bottom:2px;right:2px}
+.hero-float-1{
+  position:absolute;top:-30px;right:-40px;
+  background:#fff;border-radius:16px;
+  padding:14px 18px;
+  box-shadow:var(--shadow-md);
+  display:flex;align-items:center;gap:10px;
+  z-index:3;
+  animation:float 4s ease-in-out infinite;
+  border:1px solid rgba(245,158,11,.12);
+}
+.hero-float-2{
+  position:absolute;bottom:-20px;left:-50px;
+  background:#fff;border-radius:16px;
+  padding:12px 16px;
+  box-shadow:var(--shadow-md);
+  display:flex;align-items:center;gap:10px;
+  z-index:3;
+  animation:float 5s 1s ease-in-out infinite;
+  border:1px solid rgba(245,158,11,.12);
+}
+.hero-bg-circle{
+  position:absolute;width:380px;height:380px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#fffbeb,var(--off2));
+  z-index:1;
+}
+
+/* ── SECTIONS ── */
+section{padding:5rem 5%}
+.section-label{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--gold2);margin-bottom:.75rem;
+}
+.section-label::before{content:'';width:20px;height:2px;background:var(--gold);border-radius:2px}
+.section-title{font-size:clamp(1.7rem,3vw,2.5rem);color:var(--navy);line-height:1.2;margin-bottom:1rem}
+.section-desc{font-size:.95rem;color:var(--slate);line-height:1.75;max-width:560px}
+.section-header{text-align:center;margin-bottom:3.5rem}
+.section-header .section-label{justify-content:center}
+.section-header .section-desc{margin:0 auto}
+
+/* ── HOW IT WORKS ── */
+.how{background:var(--off)}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.step-card{
+  background:#fff;border-radius:var(--radius);
+  padding:2rem 1.5rem;
+  border:1.5px solid transparent;
+  transition:all .3s;
+  position:relative;overflow:hidden;
+}
+.step-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .3s;
+}
+.step-card:hover{border-color:rgba(245,158,11,.25);box-shadow:var(--shadow-md);transform:translateY(-4px)}
+.step-card:hover::before{transform:scaleX(1)}
+.step-num{
+  width:40px;height:40px;border-radius:10px;
+  background:var(--gold-light);color:var(--gold2);
+  font-weight:800;font-size:1rem;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.25rem;
+}
+.step-icon{font-size:1.8rem;margin-bottom:1rem}
+.step-title{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.5rem}
+.step-desc{font-size:.85rem;color:var(--slate);line-height:1.65}
+
+/* ── SERVICES ── */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.service-card{
+  border-radius:var(--radius);overflow:hidden;
+  border:1.5px solid var(--off2);
+  transition:all .3s;
+  background:#fff;
+}
+.service-card:hover{box-shadow:var(--shadow-md);transform:translateY(-4px);border-color:rgba(245,158,11,.25)}
+.service-img{
+  height:160px;display:flex;align-items:center;justify-content:center;
+  font-size:3.5rem;
+  position:relative;overflow:hidden;
+}
+.service-body{padding:1.5rem}
+.service-tag{
+  display:inline-block;
+  padding:3px 10px;border-radius:999px;
+  font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;
+  background:var(--gold3);color:var(--gold-deep);
+  margin-bottom:.75rem;
+}
+.service-title{font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:.5rem}
+.service-desc{font-size:.83rem;color:var(--slate);line-height:1.65;margin-bottom:1rem}
+.service-meta{display:flex;align-items:center;justify-content:space-between;font-size:.78rem;color:var(--slate2)}
+.service-price{font-weight:800;color:var(--gold2);font-size:.9rem}
+
+/* ── NURSES ── */
+.nurses{background:var(--off)}
+.nurses-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.nurse-card{background:#fff;border-radius:var(--radius);overflow:hidden;border:1.5px solid var(--off2);transition:all .3s;cursor:pointer}
+.nurse-card:hover{box-shadow:var(--shadow-md);transform:translateY(-4px);border-color:rgba(245,158,11,.25)}
+.nurse-card-top{
+  padding:1.5rem 1.5rem 1rem;
+  display:flex;gap:12px;align-items:flex-start;
+  border-bottom:1px solid var(--off2);
+}
+.nurse-ava{
+  width:52px;height:52px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;flex-shrink:0;position:relative;
+}
+.nurse-ava .status{
+  width:11px;height:11px;border-radius:50%;
+  background:#22c55e;border:2px solid #fff;
+  position:absolute;bottom:1px;right:1px;
+}
+.nurse-ava .status.busy{background:var(--amber)}
+.nurse-name{font-weight:700;color:var(--navy);font-size:.9rem}
+.nurse-spec{font-size:.75rem;color:var(--gold2);font-weight:600;margin-top:2px}
+.nurse-exp{font-size:.72rem;color:var(--slate2);margin-top:3px}
+.nurse-card-body{padding:1rem 1.5rem}
+.nurse-rating{display:flex;align-items:center;gap:5px;margin-bottom:.5rem}
+.stars{color:#f59e0b;font-size:.7rem}
+.nurse-rating-num{font-size:.78rem;font-weight:700;color:var(--navy)}
+.nurse-rating-count{font-size:.72rem;color:var(--slate2)}
+.nurse-skills{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:1rem}
+.skill-tag{font-size:.65rem;padding:3px 9px;border-radius:999px;background:var(--off);color:var(--slate);font-weight:600;border:1px solid var(--off2)}
+.nurse-card-footer{padding:.75rem 1.5rem;background:var(--off);display:flex;align-items:center;justify-content:space-between}
+.nurse-price{font-size:.85rem;font-weight:800;color:var(--gold2)}
+.nurse-price span{font-size:.7rem;color:var(--slate2);font-weight:400}
+.btn-consult{padding:7px 16px;background:var(--gold);color:#fff;border:none;border-radius:999px;font-size:.75rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.btn-consult:hover{background:var(--gold2);transform:scale(1.03)}
+
+/* ── FEATURES ── */
+.features{
+  background:var(--navy);
+  position:relative;overflow:hidden;
+}
+.features::before{
+  content:'';position:absolute;
+  top:-200px;right:-200px;
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(245,158,11,.1) 0%,transparent 70%);
+}
+.features-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.features-left .section-label{color:var(--gold)}
+.features-left .section-title{color:#fff}
+.features-left .section-desc{color:#94a3b8;max-width:480px}
+.feature-list{margin-top:2.5rem;display:flex;flex-direction:column;gap:1.25rem}
+.feature-item{display:flex;align-items:flex-start;gap:14px}
+.feature-icon{
+  width:40px;height:40px;border-radius:10px;
+  background:rgba(245,158,11,.12);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-size:.9rem;color:var(--gold);
+  border:1px solid rgba(245,158,11,.2);
+}
+.feature-text-title{font-size:.9rem;font-weight:700;color:#fff;margin-bottom:3px}
+.feature-text-desc{font-size:.82rem;color:#94a3b8;line-height:1.6}
+
+.features-right{position:relative}
+.mockup-phone{
+  background:#16213e;border-radius:28px;
+  padding:1.5rem;border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 30px 80px rgba(0,0,0,.4);
+  width:300px;margin:0 auto;position:relative;z-index:2;
+}
+.mockup-status-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding:0 4px}
+.mockup-header{text-align:center;margin-bottom:1.5rem}
+.mockup-chat{display:flex;flex-direction:column;gap:.75rem}
+.chat-bubble{padding:10px 14px;border-radius:14px;font-size:.75rem;max-width:80%;line-height:1.5}
+.chat-bubble.nurse{background:rgba(245,158,11,.12);color:#fcd34d;align-self:flex-start;border:1px solid rgba(245,158,11,.2)}
+.chat-bubble.patient{background:var(--gold);color:#fff;align-self:flex-end}
+.mockup-input{
+  margin-top:1rem;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;padding:10px 14px;
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:.72rem;color:#94a3b8;
+}
+.mockup-send{
+  width:28px;height:28px;background:var(--gold);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:.65rem;
+}
+.mockup-float{
+  position:absolute;right:-40px;top:40px;
+  background:#fff;border-radius:14px;padding:14px;
+  box-shadow:var(--shadow-lg);font-size:.75rem;
+  color:var(--navy);min-width:160px;
+  animation:float 5s ease-in-out infinite;
+  z-index:3;
+}
+
+/* ── TESTIMONIALS ── */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.testi-card{
+  background:#fff;border-radius:var(--radius);
+  padding:2rem;border:1.5px solid var(--off2);
+  transition:all .3s;
+}
+.testi-card:hover{box-shadow:var(--shadow-md);border-color:rgba(245,158,11,.25)}
+.testi-stars{color:#f59e0b;font-size:.85rem;margin-bottom:1rem}
+.testi-text{font-size:.9rem;color:var(--slate);line-height:1.75;margin-bottom:1.25rem;font-style:italic}
+.testi-text::before{content:'\201C';font-family:'DM Serif Display',serif;font-size:2rem;color:var(--gold3);line-height:0;vertical-align:-0.5rem;margin-right:4px}
+.testi-author{display:flex;align-items:center;gap:10px}
+.testi-ava{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:.9rem;color:#fff;font-weight:700;flex-shrink:0}
+.testi-name{font-size:.85rem;font-weight:700;color:var(--navy)}
+.testi-role{font-size:.72rem;color:var(--slate2)}
+
+/* ── FAQ ── */
+.faq{background:var(--off)}
+.faq-list{max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:.75rem}
+.faq-item{background:#fff;border-radius:var(--radius-sm);border:1.5px solid var(--off2);overflow:hidden}
+.faq-q{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 1.5rem;cursor:pointer;
+  font-weight:600;color:var(--navy);font-size:.9rem;
+  transition:background .2s;gap:12px;
+  user-select:none;
+}
+.faq-q:hover{background:var(--gold-light)}
+.faq-icon{
+  width:24px;height:24px;border-radius:50%;
+  background:var(--off2);display:flex;align-items:center;justify-content:center;
+  color:var(--gold2);font-size:.65rem;flex-shrink:0;transition:all .3s;
+}
+.faq-item.open .faq-icon{background:var(--gold);color:#fff;transform:rotate(45deg)}
+.faq-a{
+  max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.4,0,.2,1);
+}
+.faq-item.open .faq-a{max-height:200px}
+.faq-a-inner{padding:0 1.5rem 1.1rem;font-size:.85rem;color:var(--slate);line-height:1.75}
+
+/* ── CTA BANNER ── */
+.cta-banner{
+  background:linear-gradient(135deg,var(--gold2),var(--navy));
+  border-radius:var(--radius);
+  padding:4rem;
+  display:flex;align-items:center;justify-content:space-between;gap:3rem;
+  margin:0 5% 5rem;
+  position:relative;overflow:hidden;
+}
+.cta-banner::before{
+  content:'';position:absolute;
+  right:-100px;top:-100px;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(255,255,255,.1),transparent 70%);
+}
+.cta-banner-title{font-size:clamp(1.5rem,2.5vw,2.2rem);color:#fff;margin-bottom:.75rem}
+.cta-banner-desc{font-size:.9rem;color:rgba(255,255,255,.75);line-height:1.7;max-width:480px}
+.btn-white{padding:13px 28px;background:#fff;color:var(--gold2);border:none;border-radius:999px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .22s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;flex-shrink:0}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+
+/* ── FOOTER ── */
+footer{background:var(--navy);color:#94a3b8;padding:4rem 5% 2rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:1.2rem;color:#fff;margin-bottom:.75rem;display:flex;align-items:center;gap:8px}
+.footer-brand-icon{width:30px;height:30px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:8px;display:flex;align-items:center;justify-content:center}
+.footer-brand-icon i{color:#fff;font-size:.8rem}
+.footer-desc{font-size:.82rem;line-height:1.75;color:#64748b;margin-bottom:1.25rem}
+.footer-socials{display:flex;gap:8px}
+.social-btn{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;color:#64748b;font-size:.8rem;transition:all .2s;cursor:pointer;text-decoration:none}
+.social-btn:hover{background:var(--gold);color:#fff}
+.footer-col-title{font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#e2e8f0;margin-bottom:1rem}
+.footer-links{display:flex;flex-direction:column;gap:.6rem}
+.footer-links a{font-size:.82rem;color:#64748b;text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--gold)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-bottom-text{font-size:.78rem;color:#334155}
+.footer-badges{display:flex;gap:8px}
+.cert-badge{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);font-size:.68rem;color:#64748b}
+.cert-badge i{color:var(--gold);font-size:.7rem}
+
+/* ── MODAL ── */
+.overlay{
+  position:fixed;inset:0;
+  background:rgba(26,26,46,.65);
+  backdrop-filter:blur(6px);
+  z-index:200;
+  display:flex;align-items:center;justify-content:center;
+  padding:1rem;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.overlay.show{opacity:1;pointer-events:all}
+.modal{
+  background:#fff;border-radius:24px;
+  width:100%;max-width:500px;
+  max-height:92vh;overflow-y:auto;
+  transform:scale(.95) translateY(16px);
+  transition:all .32s cubic-bezier(.22,1,.36,1);
+  box-shadow:var(--shadow-lg);
+}
+.overlay.show .modal{transform:scale(1) translateY(0)}
+.modal-header{
+  padding:2rem 2rem 1.5rem;
+  border-bottom:1px solid var(--off2);
+  display:flex;align-items:flex-start;justify-content:space-between;
+}
+.modal-title{font-size:1.2rem;color:var(--navy)}
+.modal-close{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--off);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--slate);font-size:.8rem;transition:all .2s;
+  flex-shrink:0;
+}
+.modal-close:hover{background:var(--off2)}
+.modal-body{padding:1.5rem 2rem 2rem}
+.form-group{margin-bottom:1.25rem}
+.form-label{display:block;font-size:.78rem;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem}
+.form-input{
+  width:100%;padding:11px 15px;
+  background:var(--off);border:1.5px solid var(--off2);
+  border-radius:var(--radius-sm);color:var(--navy);font-size:.9rem;
+  outline:none;transition:all .22s;font-family:'DM Sans',sans-serif;
+}
+.form-input:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(245,158,11,.12)}
+.form-input::placeholder{color:var(--slate3)}
+select.form-input option{background:#fff}
+textarea.form-input{resize:none}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.urgency-row{display:flex;gap:.75rem}
+.urg-btn{
+  flex:1;padding:10px;border-radius:10px;
+  border:1.5px solid var(--off2);background:var(--off);
+  cursor:pointer;text-align:center;font-size:.78rem;font-weight:600;
+  color:var(--slate);transition:all .22s;
+  font-family:'DM Sans',sans-serif;
+}
+.urg-btn.active{border-color:var(--gold);background:var(--gold-light);color:var(--gold-deep)}
+.urg-btn.active.urgent{border-color:var(--red);background:#fef2f2;color:var(--red)}
+.btn-submit{width:100%;padding:14px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;border:none;border-radius:var(--radius-sm);font-size:.95rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .22s;box-shadow:0 4px 14px rgba(245,158,11,.3)}
+.btn-submit:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(245,158,11,.4)}
+
+/* ── CHAT FAB ── */
+.chat-overlay{
+  position:fixed;bottom:1.5rem;right:1.5rem;
+  z-index:300;
+}
+.chat-fab{
+  width:56px;height:56px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:1.3rem;
+  box-shadow:0 8px 24px rgba(245,158,11,.5);
+  transition:all .25s;position:relative;
+}
+.chat-fab:hover{transform:scale(1.1)}
+.chat-fab .badge-dot{
+  position:absolute;top:3px;right:3px;
+  width:14px;height:14px;background:#ef4444;border-radius:50%;
+  border:2px solid #fff;font-size:.5rem;color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:800;
+}
+.chat-window{
+  position:absolute;bottom:72px;right:0;
+  width:330px;background:#fff;border-radius:20px;
+  box-shadow:var(--shadow-lg);border:1px solid var(--off2);
+  overflow:hidden;
+  transform:scale(.9) translateY(20px);transform-origin:bottom right;
+  transition:all .3s cubic-bezier(.22,1,.36,1);
+  opacity:0;pointer-events:none;
+}
+.chat-window.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all}
+.chat-win-header{
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  padding:1rem 1.25rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.chat-win-title{font-size:.9rem;font-weight:700;color:#fff}
+.chat-win-sub{font-size:.72rem;color:rgba(255,255,255,.75);margin-top:2px}
+.chat-close{background:rgba(255,255,255,.2);border:none;width:26px;height:26px;border-radius:50%;cursor:pointer;color:#fff;font-size:.7rem;display:flex;align-items:center;justify-content:center}
+.chat-messages{padding:1rem;display:flex;flex-direction:column;gap:.75rem;max-height:240px;overflow-y:auto}
+.chat-msg{max-width:85%;font-size:.78rem;line-height:1.55}
+.chat-msg.bot{align-self:flex-start}
+.chat-msg.user{align-self:flex-end}
+.chat-bubble-bot{background:var(--off);border-radius:12px 12px 12px 4px;padding:9px 13px;color:var(--navy)}
+.chat-bubble-user{background:var(--gold);border-radius:12px 12px 4px 12px;padding:9px 13px;color:#fff}
+.chat-typing{display:flex;gap:4px;padding:10px 13px;background:var(--off);border-radius:12px;align-self:flex-start}
+.typing-dot{width:6px;height:6px;border-radius:50%;background:var(--slate3);animation:pulse .8s infinite}
+.typing-dot:nth-child(2){animation-delay:.15s}
+.typing-dot:nth-child(3){animation-delay:.3s}
+.chat-win-input{
+  padding:.75rem 1rem;border-top:1px solid var(--off2);
+  display:flex;gap:8px;align-items:center;
+}
+.chat-inp{flex:1;padding:8px 12px;background:var(--off);border:1px solid var(--off2);border-radius:999px;font-size:.78rem;outline:none;font-family:'DM Sans',sans-serif;color:var(--navy)}
+.chat-inp:focus{border-color:var(--gold);background:#fff}
+.chat-send{width:32px;height:32px;background:var(--gold);border:none;border-radius:50%;cursor:pointer;color:#fff;font-size:.75rem;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.chat-send:hover{background:var(--gold2)}
+
+/* ── STATS BAND ── */
+.stats-band{background:linear-gradient(135deg,var(--gold2),var(--navy));padding:3rem 5%}
+.stats-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+.stat-num{font-family:'DM Serif Display',serif;font-size:2.5rem;color:#fff;margin-bottom:.3rem}
+.stat-label{font-size:.83rem;color:rgba(255,255,255,.65)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .nurses-grid{grid-template-columns:repeat(2,1fr)}
+  .steps-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr;padding-top:88px;padding-bottom:3rem;text-align:center}
+  .hero h1{font-size:2rem}
+  .hero-desc{margin:0 auto 1.5rem}
+  .hero-actions{justify-content:center}
+  .hero-stats{justify-content:center}
+  .hero-visual{display:none}
+  .nav-links,.nav-cta{display:none}
+  .hamburger{display:flex}
+  .services-grid{grid-template-columns:1fr}
+  .nurses-grid{grid-template-columns:1fr}
+  .testi-grid{grid-template-columns:1fr}
+  .features-grid{grid-template-columns:1fr}
+  .features-right{display:none}
+  .cta-banner{flex-direction:column;text-align:center;padding:2.5rem 2rem}
+  .stats-inner{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;text-align:center}
+  section{padding:3.5rem 5%}
+  .steps-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .urgency-row{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon"><i class="fas fa-heartbeat"></i></div>
+    <span class="nav-logo-text">Nurse<span>Connect</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="#cara-kerja">Cara Kerja</a>
+    <a href="#layanan">Layanan</a>
+    <a href="#perawat">Perawat</a>
+    <a href="#testimoni">Testimoni</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <div class="nav-cta">
+    <a href="#" class="btn-outline"><i class="fas fa-sign-in-alt"></i> Masuk</a>
+    <button onclick="openModal()" class="btn-primary"><i class="fas fa-video"></i> Konsultasi Sekarang</button>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#cara-kerja" onclick="closeMenu()">Cara Kerja</a>
+  <a href="#layanan" onclick="closeMenu()">Layanan</a>
+  <a href="#perawat" onclick="closeMenu()">Perawat</a>
+  <a href="#testimoni" onclick="closeMenu()">Testimoni</a>
+  <a href="#faq" onclick="closeMenu()">FAQ</a>
+  <a href="#" onclick="openModal();closeMenu()">Konsultasi Sekarang →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge fade-up">
+      <span class="dot"></span>
+      Layanan Telenursing Terpercaya #1 Indonesia
+    </div>
+    <h1 class="fade-up-1">Konsultasi Perawat<br><em>Kapan Saja,</em><br>Di Mana Saja</h1>
+    <p class="hero-desc fade-up-2">Hubungkan diri Anda dengan perawat profesional bersertifikat STR melalui video call, chat, atau telepon. Layanan 24 jam tanpa perlu antre.</p>
+    <div class="hero-actions fade-up-3">
+      <button onclick="openModal()" class="btn-primary btn-primary-lg">
+        <i class="fas fa-video"></i> Mulai Konsultasi
+      </button>
+      <a href="#cara-kerja" class="btn-outline btn-primary-lg">
+        <i class="fas fa-play-circle"></i> Cara Kerja
+      </a>
+    </div>
+    <div class="hero-stats fade-up-4">
+      <div>
+        <div class="hero-stat-num">1.200+</div>
+        <div class="hero-stat-label">Perawat Aktif</div>
+      </div>
+      <div style="width:1px;background:var(--off2)"></div>
+      <div>
+        <div class="hero-stat-num">98.4%</div>
+        <div class="hero-stat-label">Kepuasan Pasien</div>
+      </div>
+      <div style="width:1px;background:var(--off2)"></div>
+      <div>
+        <div class="hero-stat-num">24/7</div>
+        <div class="hero-stat-label">Siap Melayani</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-bg-circle"></div>
+    <div class="hero-float-1">
+      <div style="width:32px;height:32px;border-radius:8px;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:.9rem;color:#16a34a"><i class="fa-solid fa-circle-check"></i></div>
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--navy)">STR Terverifikasi</div>
+        <div style="font-size:.65rem;color:var(--slate2)">Semua perawat berlisensi</div>
+      </div>
+    </div>
+    <div class="hero-card-main float">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.25rem">
+        <div class="nurse-avatar" style="position:relative">
+          <i class="fa-solid fa-user-nurse" style="color:#fff"></i>
+          <div class="online-dot"></div>
+        </div>
+        <div>
+          <div style="font-weight:700;color:var(--navy);font-size:.9rem">Ns. Sitti Nasyroh Nuhsin, S.Kep.</div>
+          <div style="font-size:.72rem;color:var(--gold2);font-weight:600">Keperawatan Medikal Bedah</div>
+          <div style="display:flex;align-items:center;gap:4px;margin-top:3px">
+            <span style="width:6px;height:6px;background:#22c55e;border-radius:50%;display:inline-block"></span>
+            <span style="font-size:.65rem;color:#22c55e;font-weight:600">Online sekarang</span>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--off);border-radius:12px;padding:1rem;margin-bottom:1rem">
+        <div style="font-size:.72rem;color:var(--slate2);margin-bottom:.6rem"><i class="fa-solid fa-comment"></i> Konsultasi berlangsung</div>
+        <div style="font-size:.78rem;color:var(--navy);line-height:1.5">Selamat pagi! Apa yang bisa saya bantu hari ini?</div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+        <div style="display:flex;align-items:center;gap:4px">
+          <span style="color:#f59e0b;font-size:.7rem">★★★★★</span>
+          <span style="font-size:.75rem;font-weight:700;color:var(--navy)">4.97</span>
+          <span style="font-size:.68rem;color:var(--slate2)">(843 ulasan)</span>
+        </div>
+        <div style="font-size:.75rem;font-weight:800;color:var(--gold2)">Rp 25.000/sesi</div>
+      </div>
+      <button onclick="openModal()" class="btn-primary" style="width:100%;justify-content:center;padding:11px"><i class="fas fa-video"></i> Hubungi Sekarang</button>
+    </div>
+    <div class="hero-float-2">
+      <div style="width:32px;height:32px;border-radius:50%;background:var(--gold-light);display:flex;align-items:center;justify-content:center;font-size:.9rem;color:var(--gold2)"><i class="fa-regular fa-clock"></i></div>
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--navy)">Tunggu: ~3 menit</div>
+        <div style="font-size:.65rem;color:var(--slate2)">247 antrian hari ini</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAND -->
+<div class="stats-band">
+  <div class="stats-inner">
+    <div><div class="stat-num">1.200+</div><div class="stat-label">Perawat Bersertifikat</div></div>
+    <div><div class="stat-num">85.000+</div><div class="stat-label">Pasien Terlayani</div></div>
+    <div><div class="stat-num">34</div><div class="stat-label">Provinsi di Indonesia</div></div>
+    <div><div class="stat-num">98.4%</div><div class="stat-label">Tingkat Kepuasan</div></div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="cara-kerja" class="how">
+  <div class="section-header">
+    <div class="section-label">Cara Kerja</div>
+    <h2 class="section-title">Konsultasi Semudah 4 Langkah</h2>
+    <p class="section-desc">Dari registrasi hingga konsultasi selesai, semuanya bisa dilakukan dalam genggaman Anda.</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <div class="step-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+      <div class="step-title">Pilih Perawat</div>
+      <div class="step-desc">Cari perawat berdasarkan spesialisasi, rating, atau ketersediaan. Semua perawat telah terverifikasi STR dari PPNI.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <div class="step-icon"><i class="fa-solid fa-calendar-days"></i></div>
+      <div class="step-title">Buat Janji / Langsung</div>
+      <div class="step-desc">Pilih jadwal sesuai waktu Anda atau langsung konsultasi dengan perawat yang sedang online saat itu.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <div class="step-icon"><i class="fa-solid fa-comment"></i></div>
+      <div class="step-title">Konsultasi</div>
+      <div class="step-desc">Lakukan konsultasi via video call, voice call, atau chat teks. Ceritakan keluhan dan tanyakan apa saja.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">04</div>
+      <div class="step-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+      <div class="step-title">Terima Catatan Perawatan</div>
+      <div class="step-desc">Dapatkan ringkasan konsultasi, saran perawatan mandiri, dan rekomendasi tindak lanjut yang dapat disimpan.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="layanan">
+  <div class="section-header">
+    <div class="section-label">Layanan Kami</div>
+    <h2 class="section-title">Perawatan Komprehensif<br><em style="color:var(--gold2);font-style:normal">untuk Setiap Kebutuhan</em></h2>
+    <p class="section-desc">Dari konsultasi rutin hingga pendampingan pasien kronik, semua tersedia dalam satu platform.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-img" style="background:linear-gradient(135deg,#fef9c3,#fde68a)"><i class="fa-solid fa-stethoscope" style="color:#92400e"></i></div>
+      <div class="service-body">
+        <span class="service-tag">Paling Populer</span>
+        <div class="service-title">Konsultasi Umum</div>
+        <div class="service-desc">Tanyakan keluhan kesehatan, dapatkan edukasi kesehatan, dan panduan perawatan dari perawat berpengalaman.</div>
+        <div class="service-meta">
+          <span><i class="fa-regular fa-clock"></i> 30–60 menit</span>
+          <span class="service-price">Rp 25.000</span>
+        </div>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-img" style="background:linear-gradient(135deg,#fff7ed,#fed7aa)"><i class="fa-solid fa-capsules" style="color:#c2410c"></i></div>
+      <div class="service-body">
+        <span class="service-tag">Kronik</span>
+        <div class="service-title">Manajemen Penyakit Kronik</div>
+        <div class="service-desc">Pendampingan intensif untuk pasien diabetes, hipertensi, PPOK, dan kondisi kronik lainnya dengan program terstruktur.</div>
+        <div class="service-meta">
+          <span><i class="fa-regular fa-clock"></i> Program bulanan</span>
+          <span class="service-price">Rp 150.000/bln</span>
+        </div>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-img" style="background:linear-gradient(135deg,#fce7f3,#fbcfe8)"><i class="fa-solid fa-person-breastfeeding" style="color:#9d174d"></i></div>
+      <div class="service-body">
+        <span class="service-tag">Ibu & Anak</span>
+        <div class="service-title">Perawatan Maternal & Neonatal</div>
+        <div class="service-desc">Konsultasi kehamilan, menyusui, tumbuh kembang bayi, dan imunisasi dengan perawat spesialis anak dan maternitas.</div>
+        <div class="service-meta">
+          <span><i class="fa-regular fa-clock"></i> 45–90 menit</span>
+          <span class="service-price">Rp 35.000</span>
+        </div>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-img" style="background:linear-gradient(135deg,#fefce8,#fef08a)"><i class="fa-solid fa-brain" style="color:#854d0e"></i></div>
+      <div class="service-body">
+        <span class="service-tag">Mental Health</span>
+        <div class="service-title">Kesehatan Mental & Jiwa</div>
+        <div class="service-desc">Dukungan psikososial, edukasi kesehatan jiwa, dan konsultasi stress/kecemasan bersama perawat kesehatan jiwa.</div>
+        <div class="service-meta">
+          <span><i class="fa-regular fa-clock"></i> 60 menit</span>
+          <span class="service-price">Rp 45.000</span>
+        </div>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-img" style="background:linear-gradient(135deg,#fffbeb,#fde68a)"><i class="fa-solid fa-house" style="color:#92400e"></i></div>
+      <div class="service-body">
+        <span class="service-tag">Home Care</span>
+        <div class="service-title">Perawatan Luka Jarak Jauh</div>
+        <div class="service-desc">Panduan perawatan luka, pemasangan perban, dan edukasi teknik steril yang dipandu langsung oleh perawat via video.</div>
+        <div class="service-meta">
+          <span><i class="fa-regular fa-clock"></i> 30–45 menit</span>
+          <span class="service-price">Rp 30.000</span>
+        </div>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-img" style="background:linear-gradient(135deg,#fef2f2,#fecaca)"><i class="fa-solid fa-person" style="color:#991b1b"></i></div>
+      <div class="service-body">
+        <span class="service-tag">Lansia</span>
+        <div class="service-title">Perawatan Geriatri</div>
+        <div class="service-desc">Pendampingan kesehatan lansia, monitoring kondisi pasca rawat inap, dan konseling keluarga dalam merawat orang tua.</div>
+        <div class="service-meta">
+          <span><i class="fa-regular fa-clock"></i> Program mingguan</span>
+          <span class="service-price">Rp 200.000/bln</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NURSES -->
+<section id="perawat" class="nurses">
+  <div class="section-header">
+    <div class="section-label">Tim Perawat Kami</div>
+    <h2 class="section-title">Perawat Profesional Bersertifikat STR</h2>
+    <p class="section-desc">Semua perawat kami telah melalui verifikasi ketat, memiliki Surat Tanda Registrasi aktif, dan berpengalaman minimal 3 tahun.</p>
+  </div>
+  <div class="nurses-grid">
+    <div class="nurse-card">
+      <div class="nurse-card-top">
+        <div class="nurse-ava"><i class="fa-solid fa-user-nurse" style="color:#fff"></i><div class="status"></div></div>
+        <div>
+          <div class="nurse-name">Ns. Sitti Nasyroh Nuhsin, S.Kep.</div>
+          <div class="nurse-spec">Keperawatan Medikal Bedah</div>
+          <div class="nurse-exp">8 tahun pengalaman</div>
+        </div>
+      </div>
+      <div class="nurse-card-body">
+        <div class="nurse-rating">
+          <span class="stars">★★★★★</span>
+          <span class="nurse-rating-num">4.97</span>
+          <span class="nurse-rating-count">(843)</span>
+        </div>
+        <div class="nurse-skills">
+          <span class="skill-tag">Luka Bakar</span>
+          <span class="skill-tag">Pasca Operasi</span>
+          <span class="skill-tag">Diabetes</span>
+        </div>
+      </div>
+      <div class="nurse-card-footer">
+        <div class="nurse-price">Rp 25.000 <span>/sesi</span></div>
+        <button class="btn-consult" onclick="openModal()">Hubungi</button>
+      </div>
+    </div>
+    <div class="nurse-card">
+      <div class="nurse-card-top">
+        <div class="nurse-ava" style="background:linear-gradient(135deg,#7c3aed,#a855f7)"><i class="fa-solid fa-user-doctor" style="color:#fff"></i><div class="status"></div></div>
+        <div>
+          <div class="nurse-name">Ns. Budi Santoso, S.Kep</div>
+          <div class="nurse-spec">Keperawatan Kritis & ICU</div>
+          <div class="nurse-exp">12 tahun pengalaman</div>
+        </div>
+      </div>
+      <div class="nurse-card-body">
+        <div class="nurse-rating">
+          <span class="stars">★★★★★</span>
+          <span class="nurse-rating-num">4.95</span>
+          <span class="nurse-rating-count">(1.204)</span>
+        </div>
+        <div class="nurse-skills">
+          <span class="skill-tag">Jantung</span>
+          <span class="skill-tag">Stroke</span>
+          <span class="skill-tag">Respirasi</span>
+        </div>
+      </div>
+      <div class="nurse-card-footer">
+        <div class="nurse-price">Rp 35.000 <span>/sesi</span></div>
+        <button class="btn-consult" onclick="openModal()">Hubungi</button>
+      </div>
+    </div>
+    <div class="nurse-card">
+      <div class="nurse-card-top">
+        <div class="nurse-ava" style="background:linear-gradient(135deg,#ec4899,#f9a8d4)"><i class="fa-solid fa-user-nurse" style="color:#fff"></i><div class="status busy"></div></div>
+        <div>
+          <div class="nurse-name">Ns. Dewi Kartika, M.Kep</div>
+          <div class="nurse-spec">Keperawatan Maternitas</div>
+          <div class="nurse-exp">10 tahun pengalaman</div>
+        </div>
+      </div>
+      <div class="nurse-card-body">
+        <div class="nurse-rating">
+          <span class="stars">★★★★★</span>
+          <span class="nurse-rating-num">4.98</span>
+          <span class="nurse-rating-count">(2.107)</span>
+        </div>
+        <div class="nurse-skills">
+          <span class="skill-tag">ASI Eksklusif</span>
+          <span class="skill-tag">Nifas</span>
+          <span class="skill-tag">Neonatal</span>
+        </div>
+      </div>
+      <div class="nurse-card-footer">
+        <div class="nurse-price">Rp 30.000 <span>/sesi</span></div>
+        <button class="btn-consult" onclick="openModal()" style="background:#f59e0b">Busy</button>
+      </div>
+    </div>
+    <div class="nurse-card">
+      <div class="nurse-card-top">
+        <div class="nurse-ava" style="background:linear-gradient(135deg,#0ea5e9,#38bdf8)"><i class="fa-solid fa-user-doctor" style="color:#fff"></i><div class="status"></div></div>
+        <div>
+          <div class="nurse-name">Ns. Ahmad Fauzi, S.Kep</div>
+          <div class="nurse-spec">Kesehatan Jiwa & Psikiatri</div>
+          <div class="nurse-exp">7 tahun pengalaman</div>
+        </div>
+      </div>
+      <div class="nurse-card-body">
+        <div class="nurse-rating">
+          <span class="stars">★★★★★</span>
+          <span class="nurse-rating-num">4.93</span>
+          <span class="nurse-rating-count">(567)</span>
+        </div>
+        <div class="nurse-skills">
+          <span class="skill-tag">Anxiety</span>
+          <span class="skill-tag">Depresi</span>
+          <span class="skill-tag">ADHD</span>
+        </div>
+      </div>
+      <div class="nurse-card-footer">
+        <div class="nurse-price">Rp 45.000 <span>/sesi</span></div>
+        <button class="btn-consult" onclick="openModal()">Hubungi</button>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:2.5rem">
+    <a href="#" class="btn-outline" style="font-size:.9rem;padding:11px 28px"><i class="fas fa-search"></i> Lihat Semua 1.200+ Perawat</a>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="features-grid">
+    <div class="features-left">
+      <div class="section-label">Mengapa NurseConnect</div>
+      <h2 class="section-title">Platform Telenursing<br><em style="color:var(--gold);font-style:normal">Paling Terpercaya</em></h2>
+      <p class="section-desc">Dibangun dengan standar keamanan data medis internasional (HIPAA-compliant) dan regulasi Kemenkes RI.</p>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+          <div>
+            <div class="feature-text-title">Data Medis Terenkripsi</div>
+            <div class="feature-text-desc">Enkripsi end-to-end AES-256. Rekam medis Anda tersimpan aman dan hanya bisa diakses oleh Anda dan perawat yang ditunjuk.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-certificate"></i></div>
+          <div>
+            <div class="feature-text-title">Verifikasi STR & PPNI</div>
+            <div class="feature-text-desc">Setiap perawat diverifikasi manual melalui sistem PPNI dan Kemenkes. Tidak ada perawat tanpa lisensi aktif.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-video"></i></div>
+          <div>
+            <div class="feature-text-title">Video Call HD Stabil</div>
+            <div class="feature-text-desc">Teknologi WebRTC dengan fallback otomatis. Konsultasi tetap berjalan bahkan di jaringan 3G sekalipun.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-file-medical"></i></div>
+          <div>
+            <div class="feature-text-title">Rekam Medis Digital</div>
+            <div class="feature-text-desc">Semua riwayat konsultasi, catatan perawatan, dan hasil pemeriksaan tersimpan otomatis dan bisa diunduh kapan saja.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="features-right">
+      <div style="position:relative;display:flex;justify-content:center">
+        <div class="mockup-phone float">
+          <div class="mockup-status-bar">
+            <span style="font-size:.6rem;color:#94a3b8">09:41</span>
+            <div style="display:flex;gap:4px;align-items:center">
+              <i class="fas fa-signal" style="font-size:.6rem;color:#94a3b8"></i>
+              <i class="fas fa-wifi" style="font-size:.6rem;color:#94a3b8"></i>
+              <i class="fas fa-battery-three-quarters" style="font-size:.6rem;color:#94a3b8"></i>
+            </div>
+          </div>
+          <div class="mockup-header">
+            <div style="font-size:.65rem;color:#64748b;margin-bottom:.35rem">Konsultasi Aktif</div>
+            <div style="display:flex;align-items:center;gap:8px;justify-content:center">
+              <div style="width:28px;height:28px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem"><i class="fa-solid fa-user-nurse" style="color:#fff"></i></div>
+              <div style="text-align:left">
+                <div style="font-size:.72rem;font-weight:700;color:#e2e8f0">Ns. Siti Rahayu</div>
+                <div style="font-size:.6rem;color:#22c55e">● Online</div>
+              </div>
+            </div>
+          </div>
+          <div class="mockup-chat">
+            <div class="chat-bubble nurse">Selamat pagi! Ada yang bisa saya bantu hari ini? 😊</div>
+            <div class="chat-bubble patient">Anak saya demam sudah 2 hari, 38.5°C</div>
+            <div class="chat-bubble nurse">Baik, saya bantu. Apakah disertai batuk atau pilek?</div>
+            <div class="chat-bubble patient">Ada batuk ringan</div>
+            <div class="chat-bubble nurse">Untuk sementara, kompres hangat dan paracetamol sesuai dosis ya...</div>
+          </div>
+          <div class="mockup-input">
+            <span>Ketik pesan...</span>
+            <div class="mockup-send"><i class="fas fa-paper-plane"></i></div>
+          </div>
+        </div>
+        <div class="mockup-float">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:.5rem">
+            <div style="width:8px;height:8px;background:#22c55e;border-radius:50%"></div>
+            <span style="font-size:.72rem;font-weight:700;color:var(--navy)">Sesi Selesai</span>
+          </div>
+          <div style="font-size:.7rem;color:var(--slate2);line-height:1.5;margin-bottom:.5rem">Catatan perawatan<br>telah disimpan</div>
+          <div style="font-size:.7rem;font-weight:700;color:var(--gold2)"><i class="fa-solid fa-clipboard-list"></i> Unduh ringkasan →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimoni">
+  <div class="section-header">
+    <div class="section-label">Testimoni</div>
+    <h2 class="section-title">Apa Kata Pasien Kami</h2>
+    <p class="section-desc">Ribuan keluarga Indonesia sudah merasakan manfaat konsultasi perawat jarak jauh.</p>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Sangat membantu! Tengah malam anak saya kejang demam dan saya panik. Dalam 5 menit perawat sudah memandu saya dengan tenang. Luar biasa layanannya.</p>
+      <div class="testi-author">
+        <div class="testi-ava">RI</div>
+        <div>
+          <div class="testi-name">Rina Indrawati</div>
+          <div class="testi-role">Ibu rumah tangga, Surabaya</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Sebagai penderita diabetes, saya butuh konsultasi rutin tapi tidak selalu bisa ke RS. NurseConnect jadi solusi tepat — perawatnya sabar dan sangat kompeten.</p>
+      <div class="testi-author">
+        <div class="testi-ava" style="background:linear-gradient(135deg,#7c3aed,#a855f7)">HW</div>
+        <div>
+          <div class="testi-name">Hendra Wijaya</div>
+          <div class="testi-role">Pebisnis, Jakarta Selatan</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Tinggal di daerah terpencil Kalimantan, susah akses kesehatan. NurseConnect benar-benar mengubah hidup kami. Kini ibu saya yang lansia bisa dapat perawatan rutin.</p>
+      <div class="testi-author">
+        <div class="testi-ava" style="background:linear-gradient(135deg,#0ea5e9,#38bdf8)">FN</div>
+        <div>
+          <div class="testi-name">Fitri Nuraini</div>
+          <div class="testi-role">Guru, Kalimantan Tengah</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="faq">
+  <div class="section-header">
+    <div class="section-label">FAQ</div>
+    <h2 class="section-title">Pertanyaan yang Sering Ditanyakan</h2>
+    <p class="section-desc">Temukan jawaban atas pertanyaan umum seputar layanan NurseConnect.</p>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Apakah perawat di NurseConnect sudah terverifikasi dan berizin?
+        <div class="faq-icon"><i class="fas fa-plus"></i></div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">Ya, 100%. Setiap perawat wajib menunjukkan Surat Tanda Registrasi (STR) aktif yang diterbitkan oleh PPNI dan terverifikasi Kemenkes RI. Proses verifikasi dilakukan secara manual oleh tim kami sebelum perawat boleh berpraktik di platform.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Apakah konsultasi ini bisa menggantikan kunjungan dokter?
+        <div class="faq-icon"><i class="fas fa-plus"></i></div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">Telenursing adalah layanan konsultasi keperawatan — bukan pelayanan medis diagnostik. Perawat kami memberikan edukasi kesehatan, panduan perawatan mandiri, dan dukungan manajemen kondisi kronik. Untuk diagnosis penyakit dan resep obat, Anda tetap perlu dokter. Namun untuk banyak kebutuhan kesehatan sehari-hari, perawat kami dapat membantu sepenuhnya.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Bagaimana keamanan data medis dan privasi saya?
+        <div class="faq-icon"><i class="fas fa-plus"></i></div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">Keamanan data adalah prioritas utama kami. Semua komunikasi dienkripsi end-to-end menggunakan AES-256. Kami mematuhi regulasi perlindungan data kesehatan (PP No. 28/2024 tentang Rekam Medis). Data Anda tidak pernah dijual atau dibagikan kepada pihak ketiga tanpa izin eksplisit Anda.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Berapa biaya per konsultasi dan bagaimana cara pembayarannya?
+        <div class="faq-icon"><i class="fas fa-plus"></i></div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">Biaya konsultasi mulai dari Rp 25.000/sesi tergantung spesialisasi dan durasi. Pembayaran bisa melalui transfer bank, GoPay, OVO, Dana, QRIS, atau kartu kredit/debit. Tersedia juga paket bulanan yang lebih hemat untuk pengguna rutin.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Apakah tersedia layanan darurat atau konsultasi malam hari?
+        <div class="faq-icon"><i class="fas fa-plus"></i></div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">Ya, NurseConnect beroperasi 24 jam sehari, 7 hari seminggu. Untuk kondisi darurat non-life-threatening (misalnya demam tinggi tengah malam, luka ringan, dll.), tersedia fitur "Konsultasi Cepat" yang menghubungkan Anda ke perawat on-call dalam waktu rata-rata 3–5 menit.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Apakah bisa menggunakan layanan ini untuk anggota keluarga?
+        <div class="faq-icon"><i class="fas fa-plus"></i></div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">Tentu! Satu akun NurseConnect dapat digunakan untuk mendaftarkan hingga 5 profil anggota keluarga. Riwayat konsultasi dan rekam medis setiap anggota tersimpan terpisah dan aman.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div>
+    <h2 class="cta-banner-title serif">Mulai Perjalanan Kesehatan<br>Anda Hari Ini</h2>
+    <p class="cta-banner-desc">Daftar gratis dan dapatkan konsultasi pertama dengan harga spesial. Lebih dari 1.200 perawat siap mendampingi Anda.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:.75rem;align-items:flex-start">
+    <button onclick="openModal()" class="btn-white"><i class="fas fa-video"></i> Konsultasi Sekarang</button>
+    <div style="font-size:.75rem;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:6px">
+      <i class="fas fa-lock" style="font-size:.65rem"></i> Tanpa biaya pendaftaran · Bayar hanya saat konsultasi
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">
+        <div class="footer-brand-icon"><i class="fas fa-heartbeat"></i></div>
+        NurseConnect
+      </div>
+      <p class="footer-desc">Platform telenursing terpercaya yang menghubungkan pasien dengan perawat profesional bersertifikat di seluruh Indonesia. Hadir untuk memastikan setiap orang mendapatkan akses perawatan kesehatan yang layak.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Layanan</div>
+      <div class="footer-links">
+        <a href="#">Konsultasi Umum</a>
+        <a href="#">Manajemen Kronik</a>
+        <a href="#">Maternal & Anak</a>
+        <a href="#">Kesehatan Jiwa</a>
+        <a href="#">Perawatan Luka</a>
+        <a href="#">Geriatri</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Perusahaan</div>
+      <div class="footer-links">
+        <a href="#">Tentang Kami</a>
+        <a href="#">Karir</a>
+        <a href="#">Blog Kesehatan</a>
+        <a href="#">Mitra Rumah Sakit</a>
+        <a href="#">Daftar sebagai Perawat</a>
+        <a href="#">Hubungi Kami</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Dukungan</div>
+      <div class="footer-links">
+        <a href="#">Pusat Bantuan</a>
+        <a href="#">Kebijakan Privasi</a>
+        <a href="#">Syarat & Ketentuan</a>
+        <a href="#">Keamanan Data</a>
+        <a href="#">Status Sistem</a>
+      </div>
+      <div style="margin-top:1.5rem">
+        <div class="footer-col-title">Kontak Darurat</div>
+        <div style="font-size:.85rem;color:#22c55e;font-weight:700;margin-top:.25rem">
+          <i class="fas fa-phone-alt" style="font-size:.7rem;margin-right:4px"></i>
+          0800-1234-5678
+        </div>
+        <div style="font-size:.72rem;color:#334155;margin-top:2px">Bebas pulsa 24/7</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-text">© 2025 NurseConnect Indonesia. Terdaftar di Kemenkes RI.</div>
+    <div class="footer-badges">
+      <div class="cert-badge"><i class="fas fa-shield-alt"></i> ISO 27001</div>
+      <div class="cert-badge"><i class="fas fa-certificate"></i> Kemenkes RI</div>
+      <div class="cert-badge"><i class="fas fa-award"></i> PPNI Verified</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ── MODAL ── -->
+<div class="overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <h2 class="modal-title serif">Mulai Konsultasi</h2>
+        <p style="font-size:.8rem;color:var(--slate2);margin-top:4px">Isi data berikut untuk dihubungkan ke perawat yang tepat</p>
+      </div>
+      <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div id="formStep1">
+        <div class="form-group">
+          <label class="form-label">Nama Lengkap *</label>
+          <input type="text" class="form-input" placeholder="Nama sesuai KTP" id="f-nama">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Usia</label>
+            <input type="number" class="form-input" placeholder="Tahun" id="f-usia" min="1" max="150">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Jenis Kelamin</label>
+            <select class="form-input" id="f-gender">
+              <option value="">Pilih...</option>
+              <option>Laki-laki</option>
+              <option>Perempuan</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Spesialisasi yang Dibutuhkan *</label>
+          <select class="form-input" id="f-spesialis">
+            <option value="">Pilih spesialisasi...</option>
+            <option>Keperawatan Umum</option>
+            <option>Keperawatan Medikal Bedah</option>
+            <option>Keperawatan Anak & Maternitas</option>
+            <option>Kesehatan Jiwa</option>
+            <option>Keperawatan Geriatri</option>
+            <option>Manajemen Penyakit Kronik</option>
+            <option>Perawatan Luka</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Keluhan / Kebutuhan Konsultasi *</label>
+          <textarea class="form-input" rows="3" placeholder="Ceritakan singkat keluhan atau pertanyaan Anda..." id="f-keluhan"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tingkat Urgensi</label>
+          <div class="urgency-row">
+            <button type="button" class="urg-btn active" id="urg-biasa" onclick="setUrg('biasa')">🟢 Tidak Mendesak</button>
+            <button type="button" class="urg-btn" id="urg-segera" onclick="setUrg('segera')">🟡 Segera</button>
+            <button type="button" class="urg-btn" id="urg-darurat" onclick="setUrg('darurat')">🔴 Darurat</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Metode Konsultasi</label>
+          <div class="urgency-row">
+            <button type="button" class="urg-btn active" id="met-video" onclick="setMet('video')"><i class="fas fa-video" style="font-size:.7rem"></i> Video Call</button>
+            <button type="button" class="urg-btn" id="met-chat" onclick="setMet('chat')"><i class="fas fa-comment" style="font-size:.7rem"></i> Chat</button>
+            <button type="button" class="urg-btn" id="met-voice" onclick="setMet('voice')"><i class="fas fa-phone" style="font-size:.7rem"></i> Voice</button>
+          </div>
+        </div>
+        <button type="button" class="btn-submit" onclick="submitForm()">
+          <i class="fas fa-search"></i> Temukan Perawat yang Tepat
+        </button>
+      </div>
+
+      <div id="formStep2" style="display:none;text-align:center">
+        <div style="width:70px;height:70px;background:var(--gold-light);border-radius:50%;margin:0 auto 1.25rem;display:flex;align-items:center;justify-content:center">
+          <i class="fas fa-spinner fa-spin" style="color:var(--gold);font-size:1.5rem"></i>
+        </div>
+        <h3 class="serif" style="color:var(--navy);margin-bottom:.5rem">Mencarikan Perawat...</h3>
+        <p style="font-size:.85rem;color:var(--slate2)">Mohon tunggu sebentar, kami sedang mencocokkan kebutuhan Anda</p>
+        <div style="margin-top:1.5rem;padding:1rem;background:var(--off);border-radius:var(--radius-sm)">
+          <div style="font-size:.78rem;color:var(--slate);display:flex;flex-direction:column;gap:.4rem">
+            <div>✅ Memverifikasi spesialisasi...</div>
+            <div id="step2-check2" style="color:var(--slate3)">⏳ Mengecek ketersediaan perawat...</div>
+            <div id="step2-check3" style="color:var(--slate3)">⏳ Menyiapkan ruang konsultasi...</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="formStep3" style="display:none">
+        <div style="text-align:center;padding-bottom:1.5rem;border-bottom:1px solid var(--off2);margin-bottom:1.5rem">
+          <div style="font-size:2.5rem;margin-bottom:.75rem">🎉</div>
+          <h3 class="serif" style="color:var(--navy);margin-bottom:.5rem">Perawat Ditemukan!</h3>
+          <p style="font-size:.82rem;color:var(--slate2)">Berikut perawat yang paling sesuai untuk Anda</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;background:var(--gold-light);border:1.5px solid rgba(245,158,11,.25);border-radius:var(--radius-sm);padding:1rem;margin-bottom:1.5rem">
+          <div style="width:48px;height:48px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0">👩‍⚕️</div>
+          <div>
+            <div style="font-weight:700;color:var(--navy);font-size:.9rem">Ns. Siti Rahayu, S.Kep</div>
+            <div style="font-size:.75rem;color:var(--gold2);font-weight:600">Keperawatan Medikal Bedah · 8 thn</div>
+            <div style="display:flex;align-items:center;gap:6px;margin-top:3px">
+              <span style="color:#f59e0b;font-size:.65rem">★★★★★</span>
+              <span style="font-size:.72rem;font-weight:700;color:var(--navy)">4.97</span>
+              <span style="width:6px;height:6px;background:#22c55e;border-radius:50%;display:inline-block"></span>
+              <span style="font-size:.65rem;color:#22c55e;font-weight:600">Online sekarang</span>
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--off);border-radius:var(--radius-sm);padding:1rem;margin-bottom:1.5rem;font-size:.82rem;color:var(--slate)">
+          <div style="display:flex;justify-content:space-between;margin-bottom:.4rem">
+            <span>Biaya konsultasi</span><span style="font-weight:700;color:var(--navy)">Rp 25.000</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:.4rem">
+            <span>Durasi</span><span style="font-weight:700;color:var(--navy)">30–60 menit</span>
+          </div>
+          <div style="display:flex;justify-content:space-between">
+            <span>Estimasi mulai</span><span style="font-weight:700;color:#22c55e">~3 menit lagi</span>
+          </div>
+        </div>
+        <button type="button" class="btn-submit" onclick="closeModal()">
+          <i class="fas fa-video"></i> Mulai Konsultasi Sekarang
+        </button>
+        <div style="text-align:center;margin-top:.75rem">
+          <button type="button" onclick="showStep(1)" style="background:none;border:none;font-size:.78rem;color:var(--slate2);cursor:pointer;font-family:'DM Sans',sans-serif">← Ubah Pilihan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAT FAB -->
+<div class="chat-overlay">
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-win-header">
+      <div>
+        <div class="chat-win-title">💬 Chat Perawat</div>
+        <div class="chat-win-sub">Biasanya dibalas dalam 2 menit</div>
+      </div>
+      <button class="chat-close" onclick="toggleChat()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="chat-messages" id="chatMsgs">
+      <div class="chat-msg bot"><div class="chat-bubble-bot">Halo! 👋 Selamat datang di NurseConnect. Ada yang bisa kami bantu?</div></div>
+      <div class="chat-msg bot"><div class="chat-bubble-bot">Kami siap membantu konsultasi keperawatan Anda 24/7 🩺</div></div>
+    </div>
+    <div class="chat-win-input">
+      <input class="chat-inp" id="chatInput" placeholder="Ketik pertanyaan..." onkeydown="if(event.key==='Enter')sendChat()">
+      <button class="chat-send" onclick="sendChat()"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+  <button class="chat-fab" onclick="toggleChat()" id="chatFab">
+    <i class="fas fa-comment-medical"></i>
+    <div class="badge-dot">1</div>
+  </button>
+</div>
+
+<script>
+// NAV scroll
+window.addEventListener('scroll',function(){
+  var nav=document.getElementById('navbar');
+  if(window.scrollY>20) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+
+// Hamburger
+function toggleMenu(){
+  var m=document.getElementById('mobileMenu');
+  var h=document.getElementById('hamburger');
+  m.classList.toggle('open');
+  var spans=h.querySelectorAll('span');
+  if(m.classList.contains('open')){
+    spans[0].style.transform='rotate(45deg) translate(5px,5px)';
+    spans[1].style.opacity='0';
+    spans[2].style.transform='rotate(-45deg) translate(5px,-5px)';
+  } else {
+    spans.forEach(function(s){s.style.transform='';s.style.opacity='';});
+  }
+}
+function closeMenu(){
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('hamburger').querySelectorAll('span').forEach(function(s){s.style.transform='';s.style.opacity='';});
+}
+
+// Modal
+function openModal(){
+  document.getElementById('modalOverlay').classList.add('show');
+  showStep(1);
+  // Reset checks
+  var c2=document.getElementById('step2-check2');
+  var c3=document.getElementById('step2-check3');
+  if(c2){c2.style.color='var(--slate3)';c2.innerHTML='⏳ Mengecek ketersediaan perawat...';}
+  if(c3){c3.style.color='var(--slate3)';c3.innerHTML='⏳ Menyiapkan ruang konsultasi...';}
+}
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('show');
+}
+
+// Urgency & Method state
+var urgency='biasa', method='video';
+
+function setUrg(u){
+  urgency=u;
+  ['biasa','segera','darurat'].forEach(function(k){
+    var btn=document.getElementById('urg-'+k);
+    if(!btn) return;
+    btn.className='urg-btn'+(k===u?' active'+(k==='darurat'?' urgent':''):'');
+  });
+}
+
+function setMet(m){
+  method=m;
+  ['video','chat','voice'].forEach(function(k){
+    var btn=document.getElementById('met-'+k);
+    if(!btn) return;
+    btn.className='urg-btn'+(k===m?' active':'');
+  });
+}
+
+function showStep(n){
+  document.getElementById('formStep1').style.display=n===1?'block':'none';
+  document.getElementById('formStep2').style.display=n===2?'block':'none';
+  document.getElementById('formStep3').style.display=n===3?'block':'none';
+}
+
+function submitForm(){
+  var nama=document.getElementById('f-nama').value.trim();
+  var keluhan=document.getElementById('f-keluhan').value.trim();
+  var spesialis=document.getElementById('f-spesialis').value;
+  if(!nama||!keluhan||!spesialis){
+    alert('Mohon lengkapi nama, spesialisasi, dan keluhan terlebih dahulu.');
+    return;
+  }
+  showStep(2);
+  setTimeout(function(){
+    var c2=document.getElementById('step2-check2');
+    if(c2){c2.style.color='var(--slate)';c2.innerHTML='✅ Perawat tersedia ditemukan...';}
+  },1000);
+  setTimeout(function(){
+    var c3=document.getElementById('step2-check3');
+    if(c3){c3.style.color='var(--slate)';c3.innerHTML='✅ Ruang konsultasi siap...';}
+  },2200);
+  setTimeout(function(){showStep(3);},3200);
+}
+
+// FAQ
+function toggleFaq(el){
+  var item=el.closest('.faq-item');
+  var wasOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});
+  if(!wasOpen) item.classList.add('open');
+}
+
+// Chat
+var chatOpen=false;
+function toggleChat(){
+  chatOpen=!chatOpen;
+  var win=document.getElementById('chatWindow');
+  var fab=document.getElementById('chatFab');
+  win.classList.toggle('open',chatOpen);
+  var dot=fab.querySelector('.badge-dot');
+  if(dot&&chatOpen) dot.style.display='none';
+}
+
+var botReplies=[
+  'Terima kasih sudah menghubungi kami! 😊 Untuk konsultasi lebih lanjut, Anda bisa klik tombol "Mulai Konsultasi" ya.',
+  'Kami memiliki 1.200+ perawat bersertifikat yang siap membantu Anda 24/7.',
+  'Biaya konsultasi mulai Rp 25.000/sesi. Ada yang ingin Anda tanyakan lagi?',
+  'Ingin saya bantu hubungkan ke perawat sekarang? Klik tombol konsultasi untuk mulai.',
+  'Semua perawat kami terverifikasi STR dari PPNI. Tidak perlu khawatir! 🏥',
+];
+var replyIdx=0;
+
+function sendChat(){
+  var inp=document.getElementById('chatInput');
+  var msgs=document.getElementById('chatMsgs');
+  var txt=inp.value.trim();
+  if(!txt) return;
+  var userMsg=document.createElement('div');
+  userMsg.className='chat-msg user';
+  userMsg.innerHTML='<div class="chat-bubble-user">'+txt+'</div>';
+  msgs.appendChild(userMsg);
+  inp.value='';
+  msgs.scrollTop=msgs.scrollHeight;
+  var typing=document.createElement('div');
+  typing.className='chat-msg bot';
+  typing.innerHTML='<div class="chat-typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+  msgs.appendChild(typing);
+  msgs.scrollTop=msgs.scrollHeight;
+  setTimeout(function(){
+    typing.remove();
+    var botMsg=document.createElement('div');
+    botMsg.className='chat-msg bot';
+    botMsg.innerHTML='<div class="chat-bubble-bot">'+botReplies[replyIdx%botReplies.length]+'</div>';
+    msgs.appendChild(botMsg);
+    replyIdx++;
+    msgs.scrollTop=msgs.scrollHeight;
+  },1200);
+}
+
+// Counter animation
+var counters=document.querySelectorAll('.stat-num');
+var observed=new Set();
+var observer=new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting&&!observed.has(entry.target)){
+      observed.add(entry.target);
+      entry.target.style.animation='countUp .6s ease both';
+    }
+  });
+},{threshold:.5});
+counters.forEach(function(c){observer.observe(c);});
+</script>
+</body>
+</html>
