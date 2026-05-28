@@ -33,7 +33,6 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
 @keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes notifPop{0%{transform:scale(0) rotate(-10deg);opacity:0}70%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
 
-/* ── SIDEBAR ── */
 .sidebar{width:var(--sidebar);min-height:100vh;background:var(--navy);position:fixed;top:0;left:0;bottom:0;display:flex;flex-direction:column;z-index:50;transition:transform .3s cubic-bezier(.22,1,.36,1)}
 .sidebar-logo{padding:1.5rem 1.5rem 1rem;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.06)}
 .logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:10px;display:flex;align-items:center;justify-content:center}
@@ -57,10 +56,8 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
 .sidebar-footer{padding:1rem .75rem;border-top:1px solid rgba(255,255,255,.06)}
 .sidebar-footer .nav-item{color:#475569}
 
-/* ── MAIN ── */
 .main{margin-left:var(--sidebar);flex:1;min-height:100vh;display:flex;flex-direction:column}
 
-/* ── TOPBAR ── */
 .topbar{height:64px;background:#fff;border-bottom:1px solid rgba(245,158,11,.1);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;position:sticky;top:0;z-index:40;box-shadow:0 2px 16px rgba(26,26,46,.04)}
 .topbar-left{display:flex;align-items:center;gap:12px}
 .hamburger-btn{display:none;background:none;border:none;cursor:pointer;padding:4px;color:var(--slate)}
@@ -74,16 +71,13 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
 .topbar-search:hover{border-color:rgba(245,158,11,.3)}
 .topbar-search i{font-size:.75rem}
 
-/* ── CONTENT ── */
 .content{flex:1;padding:2rem;animation:fadeIn .4s ease both}
 
-/* ── CARDS ── */
 .card{background:#fff;border-radius:var(--radius);border:1.5px solid rgba(245,158,11,.08);box-shadow:var(--shadow)}
 .card-header{padding:1.25rem 1.5rem;border-bottom:1px solid var(--off2);display:flex;align-items:center;justify-content:space-between}
 .card-title{font-size:.9rem;font-weight:700;color:var(--navy)}
 .card-body{padding:1.5rem}
 
-/* ── STAT CARDS ── */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
 .stat-card{background:#fff;border-radius:var(--radius);padding:1.25rem;border:1.5px solid rgba(245,158,11,.08);box-shadow:var(--shadow);position:relative;overflow:hidden;transition:all .25s}
 .stat-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
@@ -102,11 +96,9 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
 .stat-trend{font-size:.7rem;font-weight:700;margin-top:.4rem}
 .stat-trend.up{color:var(--green)}
 
-/* ── SECTION LABEL ── */
 .section-label{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--gold2);display:flex;align-items:center;gap:6px;margin-bottom:.5rem}
 .section-label::before{content:'';width:16px;height:2px;background:var(--gold);border-radius:2px}
 
-/* ── BUTTONS ── */
 .btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:999px;font-size:.82rem;font-weight:600;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .22s;text-decoration:none}
 .btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;box-shadow:0 4px 12px rgba(245,158,11,.3)}
 .btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(245,158,11,.4)}
@@ -119,7 +111,6 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
 .btn-danger:hover{background:#fee2e2}
 .btn-green{background:#dcfce7;color:#16a34a;border:1px solid #bbf7d0}
 
-/* ── BADGE ── */
 .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
 .badge-gold{background:var(--gold3);color:var(--gold-deep)}
 .badge-green{background:#dcfce7;color:#15803d}
@@ -128,16 +119,13 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
 .badge-gray{background:#f1f5f9;color:#475569}
 .badge-purple{background:#ede9fe;color:#6d28d9}
 
-/* ── TABS ── */
 .tabs{display:flex;gap:4px;background:var(--off);border-radius:12px;padding:4px;margin-bottom:1.5rem}
 .tab{padding:8px 18px;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer;color:var(--slate2);transition:all .2s;border:none;background:transparent;font-family:'DM Sans',sans-serif}
 .tab.active{background:#fff;color:var(--navy);box-shadow:0 2px 8px rgba(26,26,46,.08)}
 
-/* ── PAGE VIEWS ── */
 .page-view{display:none;animation:fadeIn .3s ease}
 .page-view.active{display:block}
 
-/* ── HOME ── */
 .welcome-banner{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:var(--radius);padding:2rem;display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;position:relative;overflow:hidden}
 .welcome-banner::before{content:'';position:absolute;right:-60px;top:-60px;width:250px;height:250px;background:radial-gradient(circle,rgba(245,158,11,.15),transparent 70%)}
 .welcome-banner::after{content:'';position:absolute;left:-30px;bottom:-30px;width:150px;height:150px;background:radial-gradient(circle,rgba(245,158,11,.08),transparent 70%)}
@@ -149,7 +137,6 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
 .home-main{display:flex;flex-direction:column;gap:1.5rem}
 .home-side{display:flex;flex-direction:column;gap:1.5rem}
 
-/* Quick Actions */
 .quick-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
 .qa-card{background:var(--off);border:1.5px solid var(--off2);border-radius:var(--radius-sm);padding:1rem;cursor:pointer;transition:all .22s;display:flex;align-items:center;gap:12px}
 .qa-card:hover{border-color:rgba(245,158,11,.35);background:var(--gold-light);transform:translateY(-2px)}
@@ -157,7 +144,6 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
 .qa-label{font-size:.82rem;font-weight:700;color:var(--navy)}
 .qa-sub{font-size:.7rem;color:var(--slate2);margin-top:1px}
 
-/* Nurse list */
 .nurse-list{display:flex;flex-direction:column;gap:.75rem}
 .nurse-item{display:flex;align-items:center;gap:12px;padding:.85rem;background:var(--off);border-radius:var(--radius-sm);border:1.5px solid var(--off2);cursor:pointer;transition:all .22s}
 .nurse-item:hover{border-color:rgba(245,158,11,.3);background:var(--gold-light)}
@@ -171,7 +157,6 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
 .nurse-rating-sm{display:flex;align-items:center;gap:3px;margin-top:2px}
 .stars-sm{color:var(--gold);font-size:.6rem}
 
-/* Health items */
 .health-item{display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid var(--off2)}
 .health-item:last-child{border-bottom:none}
 .health-label{font-size:.8rem;color:var(--slate);display:flex;align-items:center;gap:6px}
@@ -180,7 +165,6 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
 .health-status.normal{background:#dcfce7;color:#15803d}
 .health-status.warning{background:#fef3c7;color:var(--gold-deep)}
 
-/* ── CONSULTATION ── */
 .category-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1.5rem}
 .cat-card{background:#fff;border-radius:var(--radius-sm);border:1.5px solid var(--off2);padding:1rem;text-align:center;cursor:pointer;transition:all .25s}
 .cat-card:hover,.cat-card.selected{border-color:var(--gold);background:var(--gold-light);transform:translateY(-2px)}
@@ -205,7 +189,6 @@ select.form-input option{background:#fff}
 .nurse-select-item.selected .nurse-select-radio{border-color:var(--gold);background:var(--gold)}
 .nurse-select-item.selected .nurse-select-radio::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff}
 
-/* ── CHAT ── */
 .chat-layout{display:grid;grid-template-columns:280px 1fr 260px;gap:0;height:calc(100vh - 64px - 4rem);background:#fff;border-radius:var(--radius);border:1.5px solid rgba(245,158,11,.1);overflow:hidden;box-shadow:var(--shadow)}
 .chat-sidebar{border-right:1px solid var(--off2);display:flex;flex-direction:column}
 .chat-sidebar-header{padding:1rem;border-bottom:1px solid var(--off2)}
@@ -272,7 +255,6 @@ select.form-input option{background:#fff}
 .detail-info-val{font-weight:600;color:var(--navy);text-align:right;max-width:60%}
 .medical-note{background:var(--off);border-radius:var(--radius-xs);padding:.75rem;font-size:.75rem;color:var(--slate);line-height:1.6;border-left:3px solid var(--gold)}
 
-/* ── EDUCATION ── */
 .edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
 .edu-card{background:#fff;border-radius:var(--radius);border:1.5px solid var(--off2);overflow:hidden;transition:all .25s;cursor:pointer}
 .edu-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
@@ -286,7 +268,6 @@ select.form-input option{background:#fff}
 .edu-progress-bar{height:4px;background:var(--off2);border-radius:2px;margin-top:.5rem;overflow:hidden}
 .edu-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:2px;transition:width .4s ease}
 
-/* ── EDU MODAL ── */
 .edu-overlay{position:fixed;inset:0;background:rgba(26,26,46,.65);backdrop-filter:blur(8px);z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .3s}
 .edu-overlay.show{opacity:1;pointer-events:all}
 .edu-modal{background:#fff;border-radius:24px;width:100%;max-width:660px;max-height:88vh;overflow-y:auto;transform:scale(.95) translateY(16px);transition:all .32s cubic-bezier(.22,1,.36,1);box-shadow:var(--shadow-lg)}
@@ -312,7 +293,6 @@ select.form-input option{background:#fff}
 .edu-section-content{font-size:.85rem;color:var(--slate);line-height:1.75}
 .edu-tip-card{background:var(--gold-light);border:1.5px solid rgba(245,158,11,.2);border-radius:var(--radius-xs);padding:.85rem 1rem;display:flex;gap:8px;font-size:.82rem;color:var(--gold-deep);line-height:1.6}
 
-/* ── HISTORY ── */
 .history-item{display:flex;align-items:center;gap:14px;padding:1rem 1.25rem;border-bottom:1px solid var(--off2);transition:background .2s;cursor:pointer}
 .history-item:last-child{border-bottom:none}
 .history-item:hover{background:var(--off)}
@@ -324,7 +304,6 @@ select.form-input option{background:#fff}
 .history-date{font-size:.7rem;color:var(--slate3)}
 .history-amount{font-size:.82rem;font-weight:700;color:var(--gold2);margin-top:2px}
 
-/* ── PROFILE ── */
 .profile-layout{display:grid;grid-template-columns:300px 1fr;gap:1.5rem;align-items:start}
 .profile-card-top{text-align:center;padding:2rem}
 .profile-ava-lg{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:700;color:#fff;margin:0 auto 1rem;box-shadow:0 8px 24px rgba(245,158,11,.3);position:relative}
@@ -337,7 +316,6 @@ select.form-input option{background:#fff}
 .profile-stat-num{font-size:1.1rem;font-weight:800;color:var(--navy)}
 .profile-stat-label{font-size:.65rem;color:var(--slate2);margin-top:2px}
 
-/* ── NOTIF PANEL ── */
 .notif-panel{position:fixed;top:64px;right:0;width:340px;height:calc(100vh - 64px);background:#fff;border-left:1px solid var(--off2);z-index:45;transform:translateX(100%);transition:transform .3s cubic-bezier(.22,1,.36,1);display:flex;flex-direction:column;box-shadow:-4px 0 24px rgba(26,26,46,.07)}
 .notif-panel.show{transform:translateX(0)}
 .notif-header{padding:1rem 1.25rem;border-bottom:1px solid var(--off2);display:flex;align-items:center;justify-content:space-between}
@@ -350,16 +328,13 @@ select.form-input option{background:#fff}
 .notif-text{font-size:.78rem;color:var(--navy);line-height:1.5;flex:1}
 .notif-time{font-size:.65rem;color:var(--slate3);margin-top:3px}
 
-/* Rating */
 .rating-stars-row{display:flex;gap:.5rem;justify-content:center;margin:1rem 0}
 .rating-star-btn{font-size:2rem;cursor:pointer;color:var(--slate3);transition:all .2s;background:none;border:none}
 .rating-star-btn.active{color:var(--gold)}
 
-/* Info box */
 .info-box{background:var(--gold-light);border:1.5px solid rgba(245,158,11,.2);border-radius:var(--radius-xs);padding:.85rem 1rem;font-size:.78rem;color:var(--gold-deep);display:flex;align-items:flex-start;gap:8px;margin-bottom:1rem}
 .info-box i{flex-shrink:0;margin-top:2px}
 
-/* ── RESPONSIVE ── */
 @media(max-width:1200px){.chat-layout{grid-template-columns:240px 1fr 220px}.home-grid{grid-template-columns:1fr}.consult-layout{grid-template-columns:1fr}.category-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:900px){:root{--sidebar:0px}.sidebar{transform:translateX(-260px);width:260px}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.hamburger-btn{display:flex}.topbar-search{display:none}.chat-layout{grid-template-columns:1fr;height:auto}.chat-sidebar,.chat-detail{display:none}.stats-row{grid-template-columns:repeat(2,1fr)}.edu-grid{grid-template-columns:repeat(2,1fr)}.profile-layout{grid-template-columns:1fr}.category-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.stats-row{grid-template-columns:1fr 1fr}.edu-grid{grid-template-columns:1fr}.content{padding:1rem}.quick-actions{grid-template-columns:1fr}}
@@ -367,7 +342,6 @@ select.form-input option{background:#fff}
 </head>
 <body>
 
-<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-logo">
     <div class="logo-icon"><i class="fas fa-heartbeat"></i></div>
@@ -397,7 +371,6 @@ select.form-input option{background:#fff}
   </div>
 </aside>
 
-<!-- MAIN -->
 <div class="main">
   <header class="topbar">
     <div class="topbar-left">
@@ -419,7 +392,7 @@ select.form-input option{background:#fff}
 
   <div class="content">
 
-    <!-- ══ HOME ══ -->
+    <!-- HOME -->
     <div class="page-view active" id="page-home">
       <div class="welcome-banner">
         <div class="welcome-text" style="position:relative;z-index:1">
@@ -457,7 +430,7 @@ select.form-input option{background:#fff}
           <div class="card">
             <div class="card-header"><div><div class="section-label">Status Kesehatan</div><div class="card-title">Profil Kesehatan Anda</div></div><button class="btn btn-ghost btn-sm" onclick="showPage('profile',null)"><i class="fas fa-pen"></i> Edit</button></div>
             <div class="card-body">
-              <div class="health-item"><span class="health-label"><i class="fas fa-heart" style="color:var(--red)"></i> Tekanan Darah</span><div style="display:flex;align-items:center;gap:8px"><span class="health-val">-</span><span class="health-status normal" id="home-td-status" style="display:none">Normal</span></div></div>
+              <div class="health-item"><span class="health-label"><i class="fas fa-heart" style="color:var(--red)"></i> Tekanan Darah</span><div style="display:flex;align-items:center;gap:8px"><span class="health-val">-</span></div></div>
               <div class="health-item"><span class="health-label"><i class="fas fa-droplet" style="color:var(--blue)"></i> Gula Darah</span><div style="display:flex;align-items:center;gap:8px"><span class="health-val">-</span></div></div>
               <div class="health-item"><span class="health-label"><i class="fas fa-weight-scale" style="color:var(--gold2)"></i> BMI</span><div style="display:flex;align-items:center;gap:8px"><span class="health-val" id="home-bmi">-</span></div></div>
               <div class="health-item"><span class="health-label"><i class="fas fa-person-walking" style="color:var(--green)"></i> Aktivitas Fisik</span><div style="display:flex;align-items:center;gap:8px"><span class="health-val">-</span></div></div>
@@ -466,7 +439,6 @@ select.form-input option{background:#fff}
         </div>
 
         <div class="home-side">
-          <!-- Profil singkat user -->
           <div class="card">
             <div class="card-header"><div class="card-title">Profil Singkat</div><button class="btn btn-ghost btn-sm" onclick="showPage('profile',null)">Lengkapi</button></div>
             <div class="card-body" style="padding:.75rem 1.25rem">
@@ -482,23 +454,7 @@ select.form-input option{background:#fff}
           <div class="card">
             <div class="card-header"><div><div class="section-label">Perawat Online</div><div class="card-title">Tersedia Sekarang</div></div></div>
             <div class="card-body" style="padding:.5rem 1rem">
-              <div class="nurse-list">
-                <div class="nurse-item" onclick="showPage('consultation',null)">
-                  <div class="nurse-ava" style="background:linear-gradient(135deg,var(--gold),var(--gold2))"><i class="fas fa-user-nurse" style="color:#fff;font-size:.9rem"></i><div class="status-dot online"></div></div>
-                  <div class="nurse-info"><div class="nurse-name-sm">Ns. Sitti Nasyroh</div><div class="nurse-spec-sm">Medikal Bedah</div><div class="nurse-rating-sm"><span class="stars-sm">★★★★★</span><span style="font-size:.65rem;font-weight:700;color:var(--navy);margin-left:2px">4.97</span></div></div>
-                  <div style="flex-shrink:0;text-align:right"><div style="font-size:.62rem;color:var(--green);font-weight:700">● Online</div><div style="font-size:.62rem;color:var(--slate3)">~3 mnt</div></div>
-                </div>
-                <div class="nurse-item" onclick="showPage('consultation',null)">
-                  <div class="nurse-ava" style="background:linear-gradient(135deg,#7c3aed,#a855f7)"><i class="fas fa-user-doctor" style="color:#fff;font-size:.9rem"></i><div class="status-dot online"></div></div>
-                  <div class="nurse-info"><div class="nurse-name-sm">Ns. Budi Santoso</div><div class="nurse-spec-sm">Kritis & ICU</div><div class="nurse-rating-sm"><span class="stars-sm">★★★★★</span><span style="font-size:.65rem;font-weight:700;color:var(--navy);margin-left:2px">4.95</span></div></div>
-                  <div style="flex-shrink:0;text-align:right"><div style="font-size:.62rem;color:var(--green);font-weight:700">● Online</div><div style="font-size:.62rem;color:var(--slate3)">~5 mnt</div></div>
-                </div>
-                <div class="nurse-item" onclick="showPage('consultation',null)">
-                  <div class="nurse-ava" style="background:linear-gradient(135deg,#ec4899,#f9a8d4)"><i class="fas fa-user-nurse" style="color:#fff;font-size:.9rem"></i><div class="status-dot busy"></div></div>
-                  <div class="nurse-info"><div class="nurse-name-sm">Ns. Dewi Kartika</div><div class="nurse-spec-sm">Maternitas</div><div class="nurse-rating-sm"><span class="stars-sm">★★★★★</span><span style="font-size:.65rem;font-weight:700;color:var(--navy);margin-left:2px">4.98</span></div></div>
-                  <div style="flex-shrink:0;text-align:right"><div style="font-size:.62rem;color:var(--gold);font-weight:700">● Sibuk</div><div style="font-size:.62rem;color:var(--slate3)">~15 mnt</div></div>
-                </div>
-              </div>
+              <div class="nurse-list" id="homeNurseList"><div style="text-align:center;padding:1rem;color:var(--slate2);font-size:.8rem"><i class="fas fa-spinner fa-spin"></i> Memuat perawat...</div></div>
               <button class="btn btn-outline" style="width:100%;justify-content:center;margin-top:.75rem;font-size:.78rem" onclick="showPage('consultation',null)"><i class="fas fa-search"></i> Lihat Semua Perawat</button>
             </div>
           </div>
@@ -506,7 +462,7 @@ select.form-input option{background:#fff}
       </div>
     </div>
 
-    <!-- ══ CONSULTATION ══ -->
+    <!-- CONSULTATION -->
     <div class="page-view" id="page-consultation">
       <div style="margin-bottom:1.5rem">
         <div class="section-label">Konsultasi Baru</div>
@@ -527,7 +483,6 @@ select.form-input option{background:#fff}
         <div class="card">
           <div class="card-header"><div class="card-title"><i class="fas fa-clipboard-list" style="color:var(--gold2);margin-right:6px"></i>Formulir Konsultasi</div></div>
           <div class="card-body">
-            <!-- Auto-filled dari data user -->
             <div class="info-box" id="consult-user-info">
               <i class="fas fa-circle-user" style="color:var(--gold2)"></i>
               <div id="consult-user-text">Data pasien akan diisi otomatis</div>
@@ -535,7 +490,7 @@ select.form-input option{background:#fff}
             <div class="form-group"><label class="form-label">Keluhan Utama *</label><textarea class="form-input" id="keluhan" placeholder="Ceritakan keluhan Anda secara lengkap..."></textarea></div>
             <div class="form-row">
               <div class="form-group"><label class="form-label">Sudah Berapa Lama?</label>
-                <select class="form-input"><option>Pilih...</option><option>Kurang dari 1 hari</option><option>1–3 hari</option><option>4–7 hari</option><option>1–2 minggu</option><option>Lebih dari 2 minggu</option><option>Kondisi kronik/lama</option></select>
+                <select class="form-input"><option>Pilih...</option><option>Kurang dari 1 hari</option><option>1-3 hari</option><option>4-7 hari</option><option>1-2 minggu</option><option>Lebih dari 2 minggu</option><option>Kondisi kronik/lama</option></select>
               </div>
               <div class="form-group"><label class="form-label">Riwayat Penyakit</label><input type="text" class="form-input" placeholder="Contoh: Diabetes, Asma..."></div>
             </div>
@@ -548,9 +503,9 @@ select.form-input option{background:#fff}
               <div id="obat-input" style="display:none"><input type="text" class="form-input" placeholder="Nama obat yang sedang dikonsumsi..."></div>
             </div>
             <div class="form-group">
-              <label class="form-label">Tingkat Nyeri (0–10)</label>
+              <label class="form-label">Tingkat Nyeri (0-10)</label>
               <div class="pain-scale" id="painScale">
-                <button class="pain-btn" onclick="setPain(0,this)">0</button><button class="pain-btn" onclick="setPain(1,this)">1</button><button class="pain-btn" onclick="setPain(2,this)">2</button><button class="pain-btn" onclick="setPain(3,this)">3</button><button class="pain-btn active" onclick="setPain(4,this)">4</button><button class="pain-btn" onclick="setPain(5,this)">5</button><button class="pain-btn" onclick="setPain(6,this)">6</button><button class="pain-btn" onclick="setPain(7,this)">7</button><button class="pain-btn" onclick="setPain(8,this)">8</button><button class="pain-btn" onclick="setPain(9,this)">9</button><button class="pain-btn" onclick="setPain(10,this)">10</button>
+                <button class="pain-btn" onclick="setPain(0)">0</button><button class="pain-btn" onclick="setPain(1)">1</button><button class="pain-btn" onclick="setPain(2)">2</button><button class="pain-btn" onclick="setPain(3)">3</button><button class="pain-btn active" onclick="setPain(4)">4</button><button class="pain-btn" onclick="setPain(5)">5</button><button class="pain-btn" onclick="setPain(6)">6</button><button class="pain-btn" onclick="setPain(7)">7</button><button class="pain-btn" onclick="setPain(8)">8</button><button class="pain-btn" onclick="setPain(9)">9</button><button class="pain-btn" onclick="setPain(10)">10</button>
               </div>
               <div style="display:flex;justify-content:space-between;font-size:.65rem;color:var(--slate3);margin-top:.3rem"><span>Tidak nyeri</span><span>Nyeri ekstrim</span></div>
             </div>
@@ -568,32 +523,13 @@ select.form-input option{background:#fff}
         <div class="card" style="position:sticky;top:80px">
           <div class="card-header"><div class="card-title"><i class="fas fa-user-nurse" style="color:var(--gold2);margin-right:6px"></i>Pilih Perawat</div></div>
           <div class="card-body" style="padding:.75rem">
-            <div class="nurse-selector">
-              <div class="nurse-select-item selected" onclick="selectNurse(this)">
-                <div class="nurse-select-radio"></div>
-                <div class="nurse-ava" style="width:38px;height:38px;background:linear-gradient(135deg,var(--gold),var(--gold2))"><i class="fas fa-user-nurse" style="color:#fff;font-size:.8rem"></i><div class="status-dot online" style="width:9px;height:9px"></div></div>
-                <div style="flex:1"><div style="font-size:.78rem;font-weight:700;color:var(--navy)">Ns. Sitti Nasyroh</div><div style="font-size:.65rem;color:var(--gold2);font-weight:600">Medikal Bedah · 8 thn</div><div style="display:flex;gap:3px;align-items:center;margin-top:1px"><span style="color:var(--gold);font-size:.6rem">★★★★★</span><span style="font-size:.65rem;font-weight:700;color:var(--navy)">4.97</span></div></div>
-                <div style="text-align:right;font-size:.7rem;flex-shrink:0"><div style="font-weight:800;color:var(--gold2)">Rp 25.000</div><div style="color:var(--green);font-size:.62rem">~3 mnt</div></div>
-              </div>
-              <div class="nurse-select-item" onclick="selectNurse(this)">
-                <div class="nurse-select-radio"></div>
-                <div class="nurse-ava" style="width:38px;height:38px;background:linear-gradient(135deg,#7c3aed,#a855f7)"><i class="fas fa-user-doctor" style="color:#fff;font-size:.8rem"></i><div class="status-dot online" style="width:9px;height:9px"></div></div>
-                <div style="flex:1"><div style="font-size:.78rem;font-weight:700;color:var(--navy)">Ns. Budi Santoso</div><div style="font-size:.65rem;color:var(--gold2);font-weight:600">Kritis & ICU · 12 thn</div><div style="display:flex;gap:3px;align-items:center;margin-top:1px"><span style="color:var(--gold);font-size:.6rem">★★★★★</span><span style="font-size:.65rem;font-weight:700;color:var(--navy)">4.95</span></div></div>
-                <div style="text-align:right;font-size:.7rem;flex-shrink:0"><div style="font-weight:800;color:var(--gold2)">Rp 35.000</div><div style="color:var(--green);font-size:.62rem">~5 mnt</div></div>
-              </div>
-              <div class="nurse-select-item" onclick="selectNurse(this)">
-                <div class="nurse-select-radio"></div>
-                <div class="nurse-ava" style="width:38px;height:38px;background:linear-gradient(135deg,#ec4899,#f9a8d4)"><i class="fas fa-user-nurse" style="color:#fff;font-size:.8rem"></i><div class="status-dot busy" style="width:9px;height:9px"></div></div>
-                <div style="flex:1"><div style="font-size:.78rem;font-weight:700;color:var(--navy)">Ns. Dewi Kartika</div><div style="font-size:.65rem;color:var(--gold2);font-weight:600">Maternitas · 10 thn</div><div style="display:flex;gap:3px;align-items:center;margin-top:1px"><span style="color:var(--gold);font-size:.6rem">★★★★★</span><span style="font-size:.65rem;font-weight:700;color:var(--navy)">4.98</span></div></div>
-                <div style="text-align:right;font-size:.7rem;flex-shrink:0"><div style="font-weight:800;color:var(--gold2)">Rp 30.000</div><div style="color:var(--gold);font-size:.62rem">~15 mnt</div></div>
-              </div>
-            </div>
+            <div class="nurse-selector" id="nurseSelector"><div style="text-align:center;padding:2rem;color:var(--slate2);font-size:.82rem"><i class="fas fa-spinner fa-spin"></i> Memuat daftar perawat...</div></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ══ CHAT ══ -->
+    <!-- CHAT -->
     <div class="page-view" id="page-chat">
       <div class="chat-layout">
         <div class="chat-sidebar">
@@ -601,24 +537,13 @@ select.form-input option{background:#fff}
             <div class="chat-sidebar-title">Percakapan</div>
             <div class="chat-search"><i class="fas fa-search"></i><input placeholder="Cari percakapan..."></div>
           </div>
-          <div class="chat-rooms">
-            <div class="chat-room-item active">
-              <div class="chat-room-ava" style="background:linear-gradient(135deg,var(--gold),var(--gold2))"><i class="fas fa-user-nurse" style="color:#fff;font-size:.9rem"></i><div class="status-dot online" style="position:absolute;bottom:0;right:0;border:2px solid #fff"></div></div>
-              <div class="chat-room-info"><div class="chat-room-name">Ns. Sitti Nasyroh</div><div class="chat-room-last">Baik, kompres hangat dulu ya...</div></div>
-              <div class="chat-room-meta"><div class="chat-room-time">10:32</div><div class="chat-room-unread">2</div></div>
-            </div>
-            <div class="chat-room-item">
-              <div class="chat-room-ava" style="background:linear-gradient(135deg,#0ea5e9,#38bdf8)"><i class="fas fa-user-doctor" style="color:#fff;font-size:.9rem"></i><div class="status-dot online" style="position:absolute;bottom:0;right:0;border:2px solid #fff"></div></div>
-              <div class="chat-room-info"><div class="chat-room-name">Ns. Ahmad Fauzi</div><div class="chat-room-last">Terima kasih sudah berbagi 🙏</div></div>
-              <div class="chat-room-meta"><div class="chat-room-time">Kemarin</div></div>
-            </div>
-          </div>
+          <div class="chat-rooms" id="patientChatRooms"><div style="text-align:center;padding:2rem;color:var(--slate2);font-size:.82rem"><i class="fas fa-comment-slash"></i><br>Belum ada percakapan</div></div>
         </div>
         <div class="chat-main">
           <div class="chat-main-header">
             <div class="chat-nurse-info">
-              <div class="chat-nurse-ava" style="background:linear-gradient(135deg,var(--gold),var(--gold2))"><i class="fas fa-user-nurse" style="color:#fff;font-size:.85rem"></i><div class="status-dot online" style="position:absolute;bottom:0;right:0;width:9px;height:9px;border:2px solid #fff"></div></div>
-              <div><div class="chat-nurse-name">Ns. Sitti Nasyroh Nuhsin, S.Kep.</div><div class="chat-nurse-status">Online · Keperawatan Medikal Bedah</div></div>
+              <div class="chat-nurse-ava" id="activeChatNurseAva" style="background:linear-gradient(135deg,var(--gold),var(--gold2))"><i class="fas fa-user-nurse" style="color:#fff;font-size:.85rem"></i></div>
+              <div><div class="chat-nurse-name" id="activeChatNurseName">Pilih percakapan</div><div class="chat-nurse-status" id="activeChatNurseStatus">Belum ada sesi aktif</div></div>
             </div>
             <div class="chat-actions">
               <div class="chat-action-btn"><i class="fas fa-video"></i></div>
@@ -627,17 +552,16 @@ select.form-input option{background:#fff}
             </div>
           </div>
           <div class="chat-messages-area" id="chatMessages">
-            <div class="msg-date-divider">Hari ini, 28 Mei 2026</div>
-            <div class="msg-group">
-              <div class="msg-row">
-                <div class="msg-ava-sm" style="background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff"><i class="fas fa-user-nurse" style="font-size:.65rem"></i></div>
-                <div><div class="msg-bubble them">Selamat datang! 🌸 Saya Ns. Sitti. Ada yang bisa saya bantu?</div><div class="msg-time">09:00</div></div>
-              </div>
+            <div id="chatEmptyState" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--slate2);gap:.75rem;padding:2rem;text-align:center">
+              <i class="fas fa-comment-medical" style="font-size:2.5rem;color:var(--slate3)"></i>
+              <div style="font-weight:600;color:var(--navy)">Belum ada percakapan</div>
+              <div style="font-size:.78rem">Mulai konsultasi baru atau pilih percakapan dari daftar</div>
+              <button class="btn btn-primary btn-sm" onclick="showPage('consultation',null)"><i class="fas fa-stethoscope"></i> Mulai Konsultasi</button>
             </div>
             <div id="typingIndicator" style="display:none" class="msg-group">
               <div class="msg-row">
-                <div class="msg-ava-sm" style="background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff"><i class="fas fa-user-nurse" style="font-size:.65rem"></i></div>
-                <div class="typing-indicator"><div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div><span class="typing-label">Ns. Sitti sedang mengetik...</span></div>
+                <div class="msg-ava-sm" id="typingAva" style="background:var(--gold);color:#fff;font-size:.6rem;font-weight:700">?</div>
+                <div class="typing-indicator"><div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div><span class="typing-label" id="typingLabel">sedang mengetik...</span></div>
               </div>
             </div>
           </div>
@@ -662,7 +586,7 @@ select.form-input option{background:#fff}
           </div>
           <div class="chat-detail-section">
             <div class="chat-detail-sec-title">Catatan Perawatan</div>
-            <div class="medical-note">Berikan paracetamol anak 250mg setiap 6-8 jam jika suhu >38°C. Kompres hangat. Monitor suhu tiap 4 jam.</div>
+            <div class="medical-note" id="chatMedNote" style="color:var(--slate2);font-style:italic">Belum ada catatan dari perawat</div>
           </div>
           <div style="padding:1rem">
             <button class="btn btn-danger btn-sm" style="width:100%;justify-content:center" onclick="openRatingModal()"><i class="fas fa-circle-check"></i> Akhiri & Nilai</button>
@@ -671,7 +595,7 @@ select.form-input option{background:#fff}
       </div>
     </div>
 
-    <!-- ══ EDUCATION ══ -->
+    <!-- EDUCATION -->
     <div class="page-view" id="page-education">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">
         <div><div class="section-label">Edukasi Kesehatan</div><h2 class="serif" style="font-size:1.4rem;color:var(--navy)">Tingkatkan Pemahaman Anda</h2></div>
@@ -691,7 +615,7 @@ select.form-input option{background:#fff}
       </div>
     </div>
 
-    <!-- ══ HISTORY ══ -->
+    <!-- HISTORY -->
     <div class="page-view" id="page-history">
       <div style="margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between">
         <div><div class="section-label">Riwayat</div><h2 class="serif" style="font-size:1.4rem;color:var(--navy)">Rekam Jejak Kesehatan</h2></div>
@@ -709,7 +633,7 @@ select.form-input option{background:#fff}
       </div>
     </div>
 
-    <!-- ══ PROFILE ══ -->
+    <!-- PROFILE -->
     <div class="page-view" id="page-profile">
       <div style="margin-bottom:1.5rem"><div class="section-label">Akun</div><h2 class="serif" style="font-size:1.4rem;color:var(--navy)">Profil Saya</h2></div>
       <div class="profile-layout">
@@ -763,7 +687,7 @@ select.form-input option{background:#fff}
       </div>
     </div>
 
-    <!-- ══ SETTINGS ══ -->
+    <!-- SETTINGS -->
     <div class="page-view" id="page-settings">
       <div style="margin-bottom:1.5rem"><div class="section-label">Pengaturan</div><h2 class="serif" style="font-size:1.4rem;color:var(--navy)">Preferensi Akun</h2></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
@@ -826,30 +750,160 @@ select.form-input option{background:#fff}
   </div>
 </div>
 
-<!-- shared.js dulu, baru script halaman -->
 <script src="shared.js"></script>
 <script>
 // ─────────────────────────────────────────────────
-// INLINE FALLBACK: jika shared.js tidak tersedia
+// FALLBACK NC — dipakai jika shared.js tidak ada
+// Menyediakan SEMUA method yang dibutuhkan halaman ini
 // ─────────────────────────────────────────────────
 if (!window.NC) {
   window.NC = (function () {
-    const KEY = 'nc_data';
-    const SESSION_KEY = 'nc_current_user';
-    const defaults = { users: [
-      { id:'demo-nurse-001', role:'nurse', name:'Ns. Sitti Nasyroh Nuhsin, S.Kep.', email:'sitti@nurse.id', password:'nurse123', specialization:'Keperawatan Medikal Bedah' },
-      { id:'demo-patient-001', role:'patient', name:'Rina Kusuma', email:'rina@patient.id', password:'pasien123', gender:'Perempuan', dob:'1990-05-12', phone:'081234567890', religion:'Islam', address:'Jakarta', createdAt: Date.now() }
-    ], consultations:[], messages:[] };
-    function load() { try { const r=localStorage.getItem(KEY); return r?JSON.parse(r):JSON.parse(JSON.stringify(defaults)); } catch(e){return JSON.parse(JSON.stringify(defaults));} }
-    function save() { try { localStorage.setItem(KEY, JSON.stringify({users,consultations,messages})); } catch(e){} }
-    function genId() { return 'u_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7); }
-    function getCurrentUser() { let id=null; try{id=sessionStorage.getItem(SESSION_KEY);}catch(e){} if(!id){try{id=localStorage.getItem(SESSION_KEY);}catch(e){}} return id ? users.find(u=>u.id===id)||null : null; }
-    function calcAge(dob) { if(!dob)return null; const d=new Date(dob),n=new Date(); let a=n.getFullYear()-d.getFullYear(); if(n.getMonth()-d.getMonth()<0||(n.getMonth()-d.getMonth()===0&&n.getDate()<d.getDate()))a--; return a; }
-    function getInitials(name) { if(!name)return'?'; return name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase(); }
-    function formatDate(ts) { if(!ts)return'-'; return new Date(ts).toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}); }
-    function logout() { sessionStorage.removeItem(SESSION_KEY); window.location.href='auth.html'; }
-    const data=load(); const users=data.users; const consultations=data.consultations; const messages=data.messages;
-    return { users, consultations, messages, save, genId, getCurrentUser, calcAge, getInitials, formatDate, logout };
+    var KEY = 'nc_data';
+    var SESSION_KEY = 'nc_current_user';
+
+    // Warna avatar deterministik berdasarkan nama
+    var AVA_COLORS = ['#f59e0b','#10b981','#3b82f6','#8b5cf6','#ef4444','#06b6d4','#84cc16','#f97316'];
+    function avaColor(name) {
+      if (!name) return AVA_COLORS[0];
+      var sum = 0;
+      for (var i = 0; i < name.length; i++) sum += name.charCodeAt(i);
+      return AVA_COLORS[sum % AVA_COLORS.length];
+    }
+
+    var defaults = {
+      users: [
+        { id: 'demo-nurse-001', role: 'nurse', name: 'Ns. Sitti Nasyroh Nuhsin, S.Kep.', email: 'sitti@nurse.id', password: 'nurse123', specialization: 'Keperawatan Medikal Bedah', isOnline: true, rating: 4.8 },
+        { id: 'demo-patient-001', role: 'patient', name: 'Rina Kusuma', email: 'rina@patient.id', password: 'pasien123', gender: 'Perempuan', dob: '1990-05-12', phone: '081234567890', religion: 'Islam', address: 'Jakarta', createdAt: Date.now() }
+      ],
+      consultations: [],
+      medNotes: []
+    };
+
+    function load() {
+      try {
+        var raw = localStorage.getItem(KEY);
+        if (!raw) return JSON.parse(JSON.stringify(defaults));
+        var parsed = JSON.parse(raw);
+        // pastikan array medNotes ada
+        if (!parsed.medNotes) parsed.medNotes = [];
+        return parsed;
+      } catch (e) {
+        return JSON.parse(JSON.stringify(defaults));
+      }
+    }
+
+    var _data = load();
+    var users         = _data.users;
+    var consultations = _data.consultations;
+    var medNotes      = _data.medNotes;
+
+    function save() {
+      try { localStorage.setItem(KEY, JSON.stringify({ users: users, consultations: consultations, medNotes: medNotes })); } catch (e) {}
+    }
+
+    // Baca ulang dari localStorage (polling multi-tab)
+    function reload() {
+      try {
+        var raw = localStorage.getItem(KEY);
+        if (!raw) return;
+        var parsed = JSON.parse(raw);
+        // sync in-place agar referensi luar tetap valid
+        users.length = 0;
+        (parsed.users || []).forEach(function(u){ users.push(u); });
+        consultations.length = 0;
+        (parsed.consultations || []).forEach(function(c){ consultations.push(c); });
+        medNotes.length = 0;
+        (parsed.medNotes || []).forEach(function(n){ medNotes.push(n); });
+      } catch (e) {}
+    }
+
+    function genId() { return 'id_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 7); }
+
+    function getCurrentUser() {
+      var id = null;
+      try { id = sessionStorage.getItem(SESSION_KEY); } catch (e) {}
+      if (!id) { try { id = localStorage.getItem(SESSION_KEY); } catch (e) {} }
+      return id ? (users.find(function(u){ return u.id === id; }) || null) : null;
+    }
+
+    function calcAge(dob) {
+      if (!dob) return null;
+      var d = new Date(dob), n = new Date();
+      var a = n.getFullYear() - d.getFullYear();
+      if (n.getMonth() - d.getMonth() < 0 || (n.getMonth() - d.getMonth() === 0 && n.getDate() < d.getDate())) a--;
+      return a;
+    }
+
+    function getInitials(name) {
+      if (!name) return '?';
+      return name.split(' ').slice(0, 2).map(function(w){ return w[0]; }).join('').toUpperCase();
+    }
+
+    function formatDate(ts) {
+      if (!ts) return '-';
+      return new Date(ts).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    function formatTime(ts) {
+      if (!ts) return '';
+      return new Date(ts).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function createConsultation(opts) {
+      var c = {
+        id: genId(),
+        patientId: opts.patientId,
+        nurseId: opts.nurseId,
+        complaint: opts.complaint || '',
+        kategori: opts.kategori || '',
+        status: 'waiting',
+        createdAt: opts.startedAt || Date.now(),
+        messages: []
+      };
+      consultations.push(c);
+      save();
+      return c;
+    }
+
+    function getConsultationMessages(consultId) {
+      var c = consultations.find(function(x){ return x.id === consultId; });
+      return c ? (c.messages || []) : [];
+    }
+
+    function addMessage(consultId, from, text) {
+      var c = consultations.find(function(x){ return x.id === consultId; });
+      if (!c) return;
+      if (!c.messages) c.messages = [];
+      c.messages.push({ id: genId(), from: from, text: text, ts: Date.now() });
+      if (c.status === 'waiting' && from === 'patient') c.status = 'active';
+      save();
+    }
+
+    function markMessagesRead(consultId, readerRole) {
+      var c = consultations.find(function(x){ return x.id === consultId; });
+      if (!c || !c.messages) return;
+      c.messages.forEach(function(m){
+        if (readerRole === 'patient' && m.from === 'nurse') m.readByPatient = true;
+        if (readerRole === 'nurse' && m.from === 'patient') m.readByNurse = true;
+      });
+      save();
+    }
+
+    function logout() {
+      try { sessionStorage.removeItem(SESSION_KEY); } catch(e) {}
+      try { localStorage.removeItem(SESSION_KEY); } catch(e) {}
+      window.location.href = 'auth.html';
+    }
+
+    return {
+      get users()         { return users; },
+      get consultations() { return consultations; },
+      get medNotes()      { return medNotes; },
+      save, reload, genId, getCurrentUser,
+      calcAge, getInitials, formatDate, formatTime,
+      avaColor, createConsultation, getConsultationMessages,
+      addMessage, markMessagesRead, logout
+    };
   })();
 }
 
@@ -861,84 +915,80 @@ var currentUser = null;
 function loadUserData() {
   currentUser = NC.getCurrentUser();
 
-  // Guard: kalau tidak login, redirect ke auth
   if (!currentUser) {
     window.location.href = 'auth.html';
     return;
   }
-
-  // Guard: kalau yang login bukan pasien, redirect
   if (currentUser.role !== 'patient') {
     window.location.href = 'nurse.html';
     return;
   }
 
-  var u = currentUser;
+  var u        = currentUser;
   var initials = NC.getInitials(u.name);
-  var age = u.dob ? NC.calcAge(u.dob) : null;
-  var ageText = age !== null ? age + ' tahun' : '-';
+  var age      = u.dob ? NC.calcAge(u.dob) : null;
+  var ageText  = age !== null ? age + ' tahun' : '-';
   var firstName = u.name ? u.name.split(' ')[0] : 'Pasien';
-  var genderIcon = u.gender === 'Perempuan' ? '👩' : u.gender === 'Laki-laki' ? '👨' : '🧑';
 
-  // ── Sidebar ──
-  document.getElementById('sb-ava').textContent = initials;
+  // Sidebar
+  document.getElementById('sb-ava').textContent  = initials;
   document.getElementById('sb-name').textContent = u.name || '-';
 
-  // ── Welcome banner ──
+  // Welcome banner
   document.getElementById('welcome-greeting').textContent = 'Halo, ' + firstName + '! 👋';
   var subParts = [];
-  if (u.gender) subParts.push(u.gender);
+  if (u.gender)     subParts.push(u.gender);
   if (age !== null) subParts.push(age + ' tahun');
-  if (u.address) subParts.push(u.address);
+  if (u.address)    subParts.push(u.address);
   document.getElementById('welcome-sub').textContent = subParts.length ? subParts.join(' · ') : 'Selamat datang di NurseConnect!';
 
-  // ── Home: profil singkat ──
-  document.getElementById('pi-nama').textContent = u.name || '-';
-  document.getElementById('pi-umur').textContent = ageText;
-  document.getElementById('pi-gender').textContent = u.gender || '-';
-  document.getElementById('pi-phone').textContent = u.phone || '-';
+  // Home: profil singkat
+  document.getElementById('pi-nama').textContent     = u.name     || '-';
+  document.getElementById('pi-umur').textContent     = ageText;
+  document.getElementById('pi-gender').textContent   = u.gender   || '-';
+  document.getElementById('pi-phone').textContent    = u.phone    || '-';
   document.getElementById('pi-religion').textContent = u.religion || '-';
-  document.getElementById('pi-address').textContent = u.address || '-';
+  document.getElementById('pi-address').textContent  = u.address  || '-';
 
-  // ── Consultation: info user di form ──
+  // Consultation: info user di form
   var consultInfoParts = [];
   if (u.name) consultInfoParts.push('<b>' + u.name + '</b>');
-  if (u.gender && age !== null) consultInfoParts.push(u.gender + ', ' + age + ' tahun');
-  else if (u.gender) consultInfoParts.push(u.gender);
-  else if (age !== null) consultInfoParts.push(age + ' tahun');
+  if (u.gender && age !== null)  consultInfoParts.push(u.gender + ', ' + age + ' tahun');
+  else if (u.gender)             consultInfoParts.push(u.gender);
+  else if (age !== null)         consultInfoParts.push(age + ' tahun');
   if (u.phone) consultInfoParts.push('📱 ' + u.phone);
   document.getElementById('consult-user-text').innerHTML = 'Data pasien: ' + (consultInfoParts.join(' · ') || '-');
 
-  // ── Chat: info pasien di panel kanan ──
-  document.getElementById('chat-nama').textContent = u.name || '-';
-  document.getElementById('chat-umur').textContent = ageText;
+  // Chat: panel kanan
+  document.getElementById('chat-nama').textContent   = u.name   || '-';
+  document.getElementById('chat-umur').textContent   = ageText;
   document.getElementById('chat-gender').textContent = u.gender || '-';
-  document.getElementById('chat-phone').textContent = u.phone || '-';
+  document.getElementById('chat-phone').textContent  = u.phone  || '-';
 
-  // ── Profile page ──
-  document.getElementById('prof-ava-lg').innerHTML = initials + '<div class="profile-ava-edit"><i class="fas fa-camera"></i></div>';
-  document.getElementById('prof-name').textContent = u.name || '-';
-  document.getElementById('prof-email').textContent = u.email || '-';
+  // Profile page
+  document.getElementById('prof-ava-lg').innerHTML     = initials + '<div class="profile-ava-edit"><i class="fas fa-camera"></i></div>';
+  document.getElementById('prof-name').textContent     = u.name  || '-';
+  document.getElementById('prof-email').textContent    = u.email || '-';
   document.getElementById('prof-umur-stat').textContent = age !== null ? age : '-';
-  document.getElementById('prof-dob').textContent = u.dob ? new Date(u.dob).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : '-';
-  document.getElementById('prof-gender').textContent = u.gender || '-';
-  document.getElementById('prof-phone').textContent = u.phone || '-';
+  document.getElementById('prof-dob').textContent      = u.dob ? new Date(u.dob).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : '-';
+  document.getElementById('prof-gender').textContent   = u.gender   || '-';
+  document.getElementById('prof-phone').textContent    = u.phone    || '-';
   document.getElementById('prof-religion').textContent = u.religion || '-';
-  document.getElementById('prof-address').textContent = u.address || '-';
-  document.getElementById('prof-created').textContent = u.createdAt ? NC.formatDate(u.createdAt) : '-';
+  document.getElementById('prof-address').textContent  = u.address  || '-';
+  document.getElementById('prof-created').textContent  = u.createdAt ? NC.formatDate(u.createdAt) : '-';
 
-  // ── Profile edit form: pre-fill ──
-  setVal('edit-nama', u.name);
-  setVal('edit-email', u.email);
-  setVal('edit-phone', u.phone);
-  setSelectVal('edit-gender', u.gender);
-  setVal('edit-dob', u.dob);
+  // Profile edit form: pre-fill
+  setVal('edit-nama',    u.name);
+  setVal('edit-email',   u.email);
+  setVal('edit-phone',   u.phone);
+  setSelectVal('edit-gender',   u.gender);
+  setVal('edit-dob',     u.dob);
   setSelectVal('edit-religion', u.religion);
   setVal('edit-address', u.address);
 
-  // ── BMI (jika ada data tinggi & berat) ──
+  // BMI
   if (u.height && u.weight) {
-    var bmi = (u.weight / ((u.height / 100) ** 2)).toFixed(1);
+    var bmi = (u.weight / Math.pow(u.height / 100, 2)).toFixed(1);
     document.getElementById('home-bmi').textContent = bmi;
   }
 }
@@ -947,13 +997,13 @@ function setVal(id, val) {
   var el = document.getElementById(id);
   if (el && val) el.value = val;
 }
+
 function setSelectVal(id, val) {
   var el = document.getElementById(id);
   if (!el || !val) return;
   for (var i = 0; i < el.options.length; i++) {
     if (el.options[i].text === val || el.options[i].value === val) {
-      el.selectedIndex = i;
-      break;
+      el.selectedIndex = i; break;
     }
   }
 }
@@ -963,32 +1013,31 @@ function setSelectVal(id, val) {
 // ─────────────────────────────────────────────────
 function saveProfile() {
   if (!currentUser) return;
-  var nama    = document.getElementById('edit-nama').value.trim();
-  var phone   = document.getElementById('edit-phone').value.trim();
-  var gender  = document.getElementById('edit-gender').value;
-  var dob     = document.getElementById('edit-dob').value;
-  var religion= document.getElementById('edit-religion').value;
-  var address = document.getElementById('edit-address').value.trim();
-  var pass    = document.getElementById('edit-pass').value;
+  var nama     = document.getElementById('edit-nama').value.trim();
+  var phone    = document.getElementById('edit-phone').value.trim();
+  var gender   = document.getElementById('edit-gender').value;
+  var dob      = document.getElementById('edit-dob').value;
+  var religion = document.getElementById('edit-religion').value;
+  var address  = document.getElementById('edit-address').value.trim();
+  var pass     = document.getElementById('edit-pass').value;
 
   if (!nama) { showToast('Nama tidak boleh kosong', true); return; }
+  if (pass && pass.length > 0 && pass.length < 6) { showToast('Password minimal 6 karakter', true); return; }
 
-  // Update di array NC.users
-  var idx = NC.users.findIndex(u => u.id === currentUser.id);
+  var idx = NC.users.findIndex(function(u){ return u.id === currentUser.id; });
   if (idx === -1) { showToast('Gagal menyimpan: user tidak ditemukan', true); return; }
 
-  NC.users[idx].name    = nama;
-  NC.users[idx].phone   = phone;
-  NC.users[idx].gender  = gender;
-  NC.users[idx].dob     = dob;
-  NC.users[idx].religion= religion;
-  NC.users[idx].address = address;
+  NC.users[idx].name     = nama;
+  NC.users[idx].phone    = phone;
+  NC.users[idx].gender   = gender;
+  NC.users[idx].dob      = dob;
+  NC.users[idx].religion = religion;
+  NC.users[idx].address  = address;
   if (pass && pass.length >= 6) NC.users[idx].password = pass;
-  else if (pass && pass.length > 0 && pass.length < 6) { showToast('Password minimal 6 karakter', true); return; }
 
   NC.save();
-  currentUser = NC.users[idx]; // refresh referensi
-  loadUserData();               // re-render semua elemen
+  currentUser = NC.users[idx];
+  loadUserData();
   document.getElementById('edit-pass').value = '';
   showToast('Profil berhasil disimpan ✅');
 }
@@ -997,27 +1046,31 @@ function saveProfile() {
 // PAGE NAVIGATION
 // ─────────────────────────────────────────────────
 var pageTitles = {
-  home: ['Beranda', 'Selamat datang kembali!'],
-  consultation: ['Konsultasi', 'Temukan perawat yang tepat'],
-  chat: ['Chat Perawat', 'Konsultasi real-time'],
-  education: ['Edukasi Kesehatan', 'Tingkatkan pemahaman Anda'],
-  history: ['Riwayat', 'Rekam jejak kesehatan Anda'],
-  profile: ['Profil Saya', 'Kelola informasi akun'],
-  settings: ['Pengaturan', 'Preferensi akun Anda'],
+  home:         ['Beranda',            'Selamat datang kembali!'],
+  consultation: ['Konsultasi',         'Temukan perawat yang tepat'],
+  chat:         ['Chat Perawat',       'Konsultasi real-time'],
+  education:    ['Edukasi Kesehatan',  'Tingkatkan pemahaman Anda'],
+  history:      ['Riwayat',            'Rekam jejak kesehatan Anda'],
+  profile:      ['Profil Saya',        'Kelola informasi akun'],
+  settings:     ['Pengaturan',         'Preferensi akun Anda'],
 };
 
 function showPage(page, el) {
-  document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.page-view').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+
   var target = document.getElementById('page-' + page);
   if (target) target.classList.add('active');
+
   if (el) {
     el.classList.add('active');
   } else {
-    document.querySelectorAll('.nav-item').forEach(n => {
-      if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + page + "'")) n.classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(function(n){
+      var oc = n.getAttribute('onclick') || '';
+      if (oc.indexOf("'" + page + "'") !== -1) n.classList.add('active');
     });
   }
+
   var t = pageTitles[page] || [page, ''];
   document.getElementById('topbar-title').textContent = t[0];
   document.getElementById('topbar-sub').textContent   = t[1];
@@ -1025,175 +1078,341 @@ function showPage(page, el) {
 }
 
 function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
-function closeSidebar() { if (window.innerWidth <= 900) document.getElementById('sidebar').classList.remove('open'); }
-function toggleNotif() { document.getElementById('notifPanel').classList.toggle('show'); }
-function doLogout() { if (window.NC && NC.logout) NC.logout(); else { sessionStorage.clear(); window.location.href='auth.html'; } }
+function closeSidebar()   { if (window.innerWidth <= 900) document.getElementById('sidebar').classList.remove('open'); }
+function toggleNotif()    { document.getElementById('notifPanel').classList.toggle('show'); }
+function doLogout()       { if (window.NC && NC.logout) { NC.logout(); } else { sessionStorage.clear(); window.location.href = 'auth.html'; } }
 
 // ─────────────────────────────────────────────────
 // CONSULTATION HELPERS
 // ─────────────────────────────────────────────────
 function selectCat(el, name) {
-  document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.cat-card').forEach(function(c){ c.classList.remove('selected'); });
   el.classList.add('selected');
 }
+
 function setObat(v) {
-  var noBtn=document.getElementById('obat-no'), yesBtn=document.getElementById('obat-yes'), inp=document.getElementById('obat-input');
-  if (v==='yes') { yesBtn.style.cssText='flex:1;justify-content:center;border-color:var(--gold);background:var(--gold-light);color:var(--gold2)'; noBtn.style.cssText='flex:1;justify-content:center'; inp.style.display='block'; }
-  else { noBtn.style.cssText='flex:1;justify-content:center;border-color:var(--gold);background:var(--gold-light);color:var(--gold2)'; yesBtn.style.cssText='flex:1;justify-content:center'; inp.style.display='none'; }
+  var noBtn  = document.getElementById('obat-no');
+  var yesBtn = document.getElementById('obat-yes');
+  var inp    = document.getElementById('obat-input');
+  if (v === 'yes') {
+    yesBtn.style.cssText = 'flex:1;justify-content:center;border-color:var(--gold);background:var(--gold-light);color:var(--gold2)';
+    noBtn.style.cssText  = 'flex:1;justify-content:center';
+    inp.style.display    = 'block';
+  } else {
+    noBtn.style.cssText  = 'flex:1;justify-content:center;border-color:var(--gold);background:var(--gold-light);color:var(--gold2)';
+    yesBtn.style.cssText = 'flex:1;justify-content:center';
+    inp.style.display    = 'none';
+  }
 }
-function setPain(n, el) { document.querySelectorAll('.pain-btn').forEach((b,i) => b.classList.toggle('active', i<=n)); }
-function setMethod(m) {
-  ['video','chat','voice'].forEach(k => {
-    var btn=document.getElementById('met-'+k); if(!btn)return;
-    if(k===m){btn.className='btn btn-outline btn-sm';btn.style.cssText='flex:1;justify-content:center;background:var(--gold-light)';}
-    else{btn.className='btn btn-ghost btn-sm';btn.style.cssText='flex:1;justify-content:center';}
+
+// FIX: pakai nilai n langsung, tidak perlu parameter el yang tidak terpakai
+var currentPainLevel = 4;
+function setPain(n) {
+  currentPainLevel = n;
+  document.querySelectorAll('.pain-btn').forEach(function(b, i){
+    b.classList.toggle('active', i <= n);
   });
 }
-function selectNurse(el) { document.querySelectorAll('.nurse-select-item').forEach(n=>n.classList.remove('selected')); el.classList.add('selected'); }
 
-// ── VARIABEL KONSULTASI ──────────────────────────────────────────────
-var activeConsultId = null;
-var pollingTimer    = null;
-var lastMsgCount    = 0;
+function setMethod(m) {
+  ['video', 'chat', 'voice'].forEach(function(k){
+    var btn = document.getElementById('met-' + k);
+    if (!btn) return;
+    if (k === m) {
+      btn.className = 'btn btn-outline btn-sm';
+      btn.style.cssText = 'flex:1;justify-content:center;background:var(--gold-light)';
+    } else {
+      btn.className = 'btn btn-ghost btn-sm';
+      btn.style.cssText = 'flex:1;justify-content:center';
+    }
+  });
+}
+
+var activeConsultId  = null;
+var pollingTimer     = null;
+var lastMsgCount     = -1;
+var selectedNurseId  = null;
+
+// ── RENDER NURSE LIST (home) ──────────────────────
+function renderHomeNurseList() {
+  if (typeof NC.reload === 'function') NC.reload();
+  var nurses = NC.users.filter(function(u){ return u.role === 'nurse'; });
+  var el = document.getElementById('homeNurseList');
+  if (!el) return;
+  if (!nurses.length) {
+    el.innerHTML = '<div style="text-align:center;padding:1rem;color:var(--slate2);font-size:.8rem"><i class="fas fa-user-nurse"></i> Belum ada perawat terdaftar</div>';
+    return;
+  }
+  el.innerHTML = nurses.slice(0, 3).map(function(n){
+    var color   = NC.avaColor(n.name);
+    var ini     = NC.getInitials(n.name);
+    var stars   = n.rating ? Math.round(n.rating) : 5;
+    var starStr = '★'.repeat(stars) + '☆'.repeat(5 - stars);
+    var online  = n.isOnline !== false;
+    return '<div class="nurse-item" onclick="showPage(\'consultation\',null)">'
+      + '<div class="nurse-ava" style="background:' + color + ';color:#fff;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;position:relative">'
+      + ini + '<div class="status-dot ' + (online ? 'online' : '') + '" style="position:absolute;bottom:0;right:0;width:9px;height:9px;border:2px solid #fff;border-radius:50%;background:' + (online ? 'var(--green)' : 'var(--slate3)') + '"></div></div>'
+      + '<div class="nurse-info"><div class="nurse-name-sm">' + n.name + '</div>'
+      + '<div class="nurse-spec-sm">' + (n.specialization || 'Perawat Umum') + '</div>'
+      + '<div class="nurse-rating-sm"><span style="color:var(--gold);font-size:.6rem">' + starStr + '</span>'
+      + '<span style="font-size:.65rem;font-weight:700;color:var(--navy);margin-left:2px">' + (n.rating || '-') + '</span></div></div>'
+      + '<div style="flex-shrink:0;text-align:right"><div style="font-size:.62rem;font-weight:700;color:' + (online ? 'var(--green)' : 'var(--slate2)') + '">' + (online ? '● Online' : '○ Offline') + '</div></div>'
+      + '</div>';
+  }).join('');
+}
+
+// ── NURSE SELECTOR (form konsultasi) ─────────────
+function renderNurseSelector(nurses) {
+  var container = document.getElementById('nurseSelector');
+  if (!container) return;
+  if (!nurses.length) {
+    container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--slate2)"><i class="fas fa-user-slash"></i><br>Belum ada perawat terdaftar.</div>';
+    selectedNurseId = null;
+    return;
+  }
+  selectedNurseId = nurses[0].id;
+  // FIX: pakai tanda kutip biasa di string, hindari karakter kutip curly
+  container.innerHTML = nurses.map(function(n, i){
+    var color   = NC.avaColor(n.name);
+    var ini     = NC.getInitials(n.name);
+    var stars   = n.rating ? Math.round(n.rating) : 5;
+    var starStr = '★'.repeat(stars) + '☆'.repeat(5 - stars);
+    var online  = n.isOnline !== false;
+    return '<div class="nurse-select-item' + (i === 0 ? ' selected' : '') + '" onclick="selectNurse(this, \'' + n.id + '\')" data-id="' + n.id + '">'
+      + '<div class="nurse-select-radio"></div>'
+      + '<div style="width:38px;height:38px;background:' + color + ';border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:#fff;font-weight:700;position:relative;flex-shrink:0">' + ini
+      + '<div style="position:absolute;bottom:0;right:0;width:9px;height:9px;border-radius:50%;border:2px solid #fff;background:' + (online ? 'var(--green)' : 'var(--slate3)') + '"></div></div>'
+      + '<div style="flex:1"><div style="font-size:.78rem;font-weight:700;color:var(--navy)">' + n.name + '</div>'
+      + '<div style="font-size:.65rem;color:var(--gold2);font-weight:600">' + (n.specialization || 'Perawat Umum') + '</div>'
+      + '<div style="display:flex;gap:3px;align-items:center;margin-top:1px"><span style="color:var(--gold);font-size:.6rem">' + starStr + '</span>'
+      + '<span style="font-size:.65rem;font-weight:700;color:var(--navy)">' + (n.rating || '-') + '</span></div></div>'
+      + '<div style="text-align:right;font-size:.62rem;flex-shrink:0;color:' + (online ? 'var(--green)' : 'var(--slate2)') + '">' + (online ? '● Online' : '○ Offline') + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+// FIX: selectNurse sekarang menerima nurseId sebagai string biasa
+function selectNurse(el, nurseId) {
+  document.querySelectorAll('.nurse-select-item').forEach(function(n){ n.classList.remove('selected'); });
+  el.classList.add('selected');
+  selectedNurseId = nurseId || (el.dataset && el.dataset.id) || null;
+}
 
 function nextConsultStep() {
-  // Ambil data form
-  var keluhan   = (document.getElementById('keluhan') || {}).value || '';
-  var kategori  = '';
-  var catSelected = document.querySelector('.cat-card.selected');
-  if (catSelected) kategori = catSelected.querySelector('.cat-label') ? catSelected.querySelector('.cat-label').textContent : '';
-
-  // Ambil perawat dari database (online nurses)
-  NC.reload();
+  if (typeof NC.reload === 'function') NC.reload();
   var nurses = NC.users.filter(function(u){ return u.role === 'nurse'; });
 
-  // Render daftar perawat dari database
+  if (!nurses.length) {
+    showToast('Belum ada perawat terdaftar di sistem.', true);
+    renderNurseSelector([]);
+    return;
+  }
+
   renderNurseSelector(nurses);
 
-  // Buat/cari konsultasi yang sudah ada
-  NC.reload();
+  var keluhan  = (document.getElementById('keluhan') || {}).value || 'Konsultasi umum';
+  var catEl    = document.querySelector('.cat-card.selected');
+  var kategori = catEl ? ((catEl.querySelector('.cat-name') || {}).textContent || '') : '';
+  var nurseId  = selectedNurseId || nurses[0].id;
+
+  if (typeof NC.reload === 'function') NC.reload();
+
+  // Cek apakah sudah ada konsultasi aktif dengan perawat ini
   var existing = NC.consultations.find(function(c){
-    return c.patientId === currentUser.id && (c.status === 'waiting' || c.status === 'active');
+    return c.patientId === currentUser.id && c.nurseId === nurseId && (c.status === 'waiting' || c.status === 'active');
   });
 
   if (!existing) {
-    // Pilih perawat pertama yang online, atau nurse pertama
-    var targetNurse = nurses.find(function(n){ return n.isOnline; }) || nurses[0];
-    var nurseId = targetNurse ? targetNurse.id : null;
-
+    // FIX: guard createConsultation agar tidak crash jika tidak ada
+    if (typeof NC.createConsultation !== 'function') {
+      showToast('Fungsi konsultasi tidak tersedia. Pastikan shared.js termuat.', true);
+      return;
+    }
     var c = NC.createConsultation({
-      patientId:  currentUser.id,
-      nurseId:    nurseId,
-      complaint:  keluhan || 'Konsultasi umum',
-      kategori:   kategori,
-      startedAt:  Date.now()
+      patientId: currentUser.id,
+      nurseId:   nurseId,
+      complaint: keluhan,
+      kategori:  kategori,
+      startedAt: Date.now()
     });
     activeConsultId = c.id;
   } else {
     activeConsultId = existing.id;
   }
 
+  lastMsgCount = -1;
   showPage('chat', null);
+  renderPatientChatRooms();
   renderChatMessages();
   startChatPolling();
   updateChatDetail();
 }
 
-function renderNurseSelector(nurses) {
-  var container = document.querySelector('.nurse-selector');
-  if (!container || !nurses.length) return;
-  container.innerHTML = nurses.map(function(n, i){
-    var color = NC.avaColor(n.name);
-    var initials = NC.getInitials(n.name);
-    var stars = n.rating ? Math.round(n.rating) : 5;
-    var starStr = '★'.repeat(stars) + '☆'.repeat(5-stars);
-    return '<div class="nurse-select-item' + (i===0?' selected':'') + '" onclick="selectNurse(this)" data-id="' + n.id + '">'
-      + '<div class="nurse-select-radio"></div>'
-      + '<div class="nurse-ava" style="width:38px;height:38px;background:' + color + ';border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:#fff;font-weight:700;position:relative">' + initials
-      + '<div class="status-dot online" style="width:9px;height:9px;position:absolute;bottom:0;right:0;border:2px solid #fff"></div></div>'
-      + '<div style="flex:1"><div style="font-size:.78rem;font-weight:700;color:var(--navy)">' + n.name + '</div>'
-      + '<div style="font-size:.65rem;color:var(--gold2);font-weight:600">' + (n.specialization||'Perawat Umum') + '</div>'
-      + '<div style="display:flex;gap:3px;align-items:center;margin-top:1px"><span style="color:var(--gold);font-size:.6rem">' + starStr + '</span>'
-      + '<span style="font-size:.65rem;font-weight:700;color:var(--navy)">' + (n.rating||'–') + '</span></div></div></div>';
+// ── PATIENT CHAT ROOMS ────────────────────────────
+function renderPatientChatRooms() {
+  if (typeof NC.reload === 'function') NC.reload();
+  var el = document.getElementById('patientChatRooms');
+  if (!el) return;
+
+  var myConsults = NC.consultations.filter(function(c){
+    return c.patientId === currentUser.id && (c.status === 'waiting' || c.status === 'active');
+  }).sort(function(a, b){ return (b.createdAt || 0) - (a.createdAt || 0); });
+
+  if (!myConsults.length) {
+    el.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--slate2);font-size:.8rem"><i class="fas fa-comment-slash"></i><br><br>Belum ada percakapan aktif</div>';
+    return;
+  }
+
+  el.innerHTML = myConsults.map(function(c){
+    var nurse     = NC.users.find(function(u){ return u.id === c.nurseId; });
+    var nurseName = nurse ? nurse.name : 'Menunggu Perawat';
+    var color     = NC.avaColor(nurseName);
+    var ini       = NC.getInitials(nurseName);
+    var msgs      = c.messages || [];
+    var last      = msgs[msgs.length - 1];
+    var unread    = msgs.filter(function(m){ return m.from === 'nurse' && !m.readByPatient; }).length;
+    var isActive  = c.id === activeConsultId;
+    var timeStr   = typeof NC.formatTime === 'function' ? NC.formatTime(c.createdAt) : '';
+    return '<div class="chat-room-item' + (isActive ? ' active' : '') + '" onclick="openPatientChat(\'' + c.id + '\')">'
+      + '<div class="chat-room-ava" style="background:' + color + ';color:#fff;font-size:.75rem;font-weight:700">' + ini + '</div>'
+      + '<div class="chat-room-info">'
+      + '<div class="chat-room-name">' + nurseName + '</div>'
+      + '<div class="chat-room-last">' + (last ? last.text.substring(0, 35) : 'Keluhan: ' + (c.complaint || '-').substring(0, 30)) + '</div>'
+      + '</div>'
+      + '<div class="chat-room-meta">'
+      + '<div class="chat-room-time">' + timeStr + '</div>'
+      + (unread ? '<div class="chat-room-unread">' + unread + '</div>' : '')
+      + '</div></div>';
   }).join('');
 }
 
-// ── CHAT ──────────────────────────────────────────────────────────────
+function openPatientChat(consultId) {
+  activeConsultId = consultId;
+  lastMsgCount    = -1;
+  if (typeof NC.reload === 'function') NC.reload();
+  var c = NC.consultations.find(function(x){ return x.id === consultId; });
+  if (!c) return;
+  var nurse    = NC.users.find(function(u){ return u.id === c.nurseId; });
+  var nameEl   = document.getElementById('activeChatNurseName');
+  var statusEl = document.getElementById('activeChatNurseStatus');
+  var avaEl    = document.getElementById('activeChatNurseAva');
+  if (nurse) {
+    if (nameEl)   nameEl.textContent   = nurse.name;
+    if (statusEl) statusEl.textContent = (nurse.isOnline !== false ? 'Online' : 'Offline') + ' · ' + (nurse.specialization || 'Perawat');
+    if (avaEl) {
+      avaEl.textContent        = NC.getInitials(nurse.name);
+      avaEl.style.background   = NC.avaColor(nurse.name);
+      avaEl.style.color        = '#fff';
+      avaEl.style.fontWeight   = '700';
+      avaEl.style.fontSize     = '.75rem';
+    }
+  } else {
+    if (nameEl)   nameEl.textContent   = 'Menunggu Perawat';
+    if (statusEl) statusEl.textContent = 'Perawat belum menerima';
+  }
+  var emp = document.getElementById('chatEmptyState');
+  if (emp) emp.style.display = 'none';
+  renderChatMessages();
+  renderPatientChatRooms();
+  updateChatDetail();
+}
+
+// ── CHAT MESSAGES ─────────────────────────────────
 function renderChatMessages() {
   if (!activeConsultId) return;
-  NC.reload();
-  var msgs = NC.getConsultationMessages(activeConsultId);
-  var el   = document.getElementById('chatMessages');
+  if (typeof NC.reload === 'function') NC.reload();
+
+  var msgs = typeof NC.getConsultationMessages === 'function'
+    ? NC.getConsultationMessages(activeConsultId)
+    : [];
+  var el = document.getElementById('chatMessages');
   if (!el) return;
 
-  // Tandai pesan dari nurse sebagai sudah dibaca
-  NC.markMessagesRead(activeConsultId, 'patient');
+  if (typeof NC.markMessagesRead === 'function') NC.markMessagesRead(activeConsultId, 'patient');
 
-  if (msgs.length === lastMsgCount) return; // tidak ada perubahan
+  if (msgs.length === lastMsgCount) return;
   lastMsgCount = msgs.length;
 
-  // Ambil data perawat untuk nama & avatar
-  NC.reload();
-  var consult = NC.consultations.find(function(c){ return c.id === activeConsultId; });
-  var nurse   = consult && consult.nurseId ? NC.users.find(function(u){ return u.id === consult.nurseId; }) : null;
-  var nurseName    = nurse ? nurse.name : 'Perawat';
-  var nurseInitials= NC.getInitials(nurseName);
-  var nurseColor   = NC.avaColor(nurseName);
-  var patInitials  = NC.getInitials(currentUser.name);
+  var consult    = NC.consultations.find(function(c){ return c.id === activeConsultId; });
+  var nurse      = consult && consult.nurseId ? NC.users.find(function(u){ return u.id === consult.nurseId; }) : null;
+  var nurseName  = nurse ? nurse.name : 'Perawat';
+  var nurseIni   = NC.getInitials(nurseName);
+  var nurseColor = NC.avaColor(nurseName);
+  var patIni     = NC.getInitials(currentUser.name);
+
+  var tAva = document.getElementById('typingAva');
+  var tLbl = document.getElementById('typingLabel');
+  if (tAva) { tAva.textContent = nurseIni; tAva.style.background = nurseColor; }
+  if (tLbl) tLbl.textContent = nurseName + ' sedang mengetik...';
+
+  // Update chat header
+  var nameEl   = document.getElementById('activeChatNurseName');
+  var statusEl = document.getElementById('activeChatNurseStatus');
+  var avaEl    = document.getElementById('activeChatNurseAva');
+  if (nurse) {
+    if (nameEl)   nameEl.textContent   = nurse.name;
+    if (statusEl) statusEl.textContent = (nurse.isOnline !== false ? 'Online' : 'Offline') + ' · ' + (nurse.specialization || 'Perawat');
+    if (avaEl) {
+      avaEl.textContent = nurseIni;
+      avaEl.style.background = nurseColor;
+      avaEl.style.color = '#fff';
+      avaEl.style.fontWeight = '700';
+      avaEl.style.fontSize = '.75rem';
+    }
+  }
+
+  // FIX: guard NC.medNotes agar tidak crash jika undefined
+  var noteEl = document.getElementById('chatMedNote');
+  if (noteEl && Array.isArray(NC.medNotes)) {
+    var latestNote = NC.medNotes.filter(function(n){ return n.patientId === currentUser.id; }).slice(-1)[0];
+    if (latestNote) noteEl.textContent = latestNote.diagnosis || latestNote.text || 'Ada catatan dari perawat';
+  }
+
+  var emp = document.getElementById('chatEmptyState');
+  if (emp) emp.style.display = 'none';
 
   var html = '';
   msgs.forEach(function(m){
     var isMe = m.from === 'patient';
-    var time = NC.formatTime(m.ts);
+    var time = typeof NC.formatTime === 'function' ? NC.formatTime(m.ts) : '';
     if (m.type === 'system') {
       html += '<div class="msg-date-divider">' + m.text + '</div>';
       return;
     }
     if (isMe) {
       html += '<div class="msg-group"><div class="msg-row me">'
-        + '<div class="msg-ava-sm" style="background:linear-gradient(135deg,#64748b,#94a3b8);color:#fff;font-size:.6rem;font-weight:700">' + patInitials + '</div>'
+        + '<div class="msg-ava-sm" style="background:linear-gradient(135deg,#64748b,#94a3b8);color:#fff;font-size:.6rem;font-weight:700">' + patIni + '</div>'
         + '<div><div class="msg-bubble me">' + escHtml(m.text) + '</div>'
-        + '<div class="msg-status">✓✓ Terkirim</div></div></div></div>';
+        + '<div class="msg-status">✓✓ Terkirim · ' + time + '</div></div></div></div>';
     } else {
       html += '<div class="msg-group"><div class="msg-row">'
-        + '<div class="msg-ava-sm" style="background:' + nurseColor + ';color:#fff;font-size:.6rem;font-weight:700">' + nurseInitials + '</div>'
+        + '<div class="msg-ava-sm" style="background:' + nurseColor + ';color:#fff;font-size:.6rem;font-weight:700">' + nurseIni + '</div>'
         + '<div><div class="msg-bubble them">' + escHtml(m.text) + '</div>'
         + '<div class="msg-time">' + time + '</div></div></div></div>';
     }
   });
 
-  // Tambah typing indicator di akhir (tetap ada di DOM)
-  html += '<div id="typingIndicator" style="display:none" class="msg-group"><div class="msg-row">'
-    + '<div class="msg-ava-sm" style="background:' + nurseColor + ';color:#fff">' + nurseInitials + '</div>'
-    + '<div class="typing-indicator"><div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>'
-    + '<span class="typing-label">' + nurseName + ' sedang mengetik...</span></div></div></div>';
-
+  var typingEl = document.getElementById('typingIndicator');
   el.innerHTML = html;
+  if (typingEl) el.appendChild(typingEl);
   el.scrollTop = el.scrollHeight;
 
-  // Update nama perawat di header chat
-  if (nurse) {
-    var nameEl = document.querySelector('.chat-nurse-name');
-    var statusEl = document.querySelector('.chat-nurse-status');
-    if (nameEl) nameEl.textContent = nurse.name;
-    if (statusEl) statusEl.textContent = 'Online · ' + (nurse.specialization || 'Perawat');
-  }
+  renderPatientChatRooms();
 }
 
 function escHtml(t) {
-  return String(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return String(t || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 function sendPatientMsg() {
   var input = document.getElementById('chatInputBox');
   var txt   = input ? input.value.trim() : '';
   if (!txt) return;
-  if (!activeConsultId) {
-    showToast('Mulai konsultasi terlebih dahulu.', true);
-    return;
-  }
+  if (!activeConsultId) { showToast('Mulai konsultasi terlebih dahulu.', true); return; }
+  if (typeof NC.addMessage !== 'function') { showToast('Gagal mengirim pesan.', true); return; }
   NC.addMessage(activeConsultId, 'patient', txt);
-  input.value = '';
+  input.value  = '';
+  lastMsgCount = -1;
   renderChatMessages();
 }
 
@@ -1201,147 +1420,214 @@ function startChatPolling() {
   if (pollingTimer) clearInterval(pollingTimer);
   pollingTimer = setInterval(function(){
     if (activeConsultId) renderChatMessages();
+    renderPatientChatRooms();
+    renderHomeNurseList();
   }, 2000);
 }
 
 function updateChatDetail() {
   if (!currentUser) return;
+  var age = currentUser.dob ? NC.calcAge(currentUser.dob) : null;
   var n = document.getElementById('chat-nama');
   var u = document.getElementById('chat-umur');
   var g = document.getElementById('chat-gender');
   var p = document.getElementById('chat-phone');
-  if (n) n.textContent = currentUser.name || '-';
-  if (u) u.textContent = currentUser.dob ? (NC.calcAge(currentUser.dob) + ' tahun') : '-';
+  if (n) n.textContent = currentUser.name   || '-';
+  if (u) u.textContent = age !== null ? age + ' tahun' : '-';
   if (g) g.textContent = currentUser.gender || '-';
   if (p) p.textContent = currentUser.phone  || '-';
 }
 
-// ── RATING ────────────────────────────────────────────────────────────
-var currentRating = 5;
-function openRatingModal() { document.getElementById('ratingOverlay').classList.add('show'); }
-function setRating(n) {
-  currentRating = n;
-  var labels = ['Buruk','Kurang Baik','Cukup','Bagus','Sangat Bagus'];
-  document.getElementById('ratingLabel').textContent = labels[n-1]+' ('+n+'/5)';
-  document.querySelectorAll('.rating-star-btn').forEach((s,i)=>s.classList.toggle('active',i<n));
-}
-function submitRating() {
-  document.getElementById('ratingOverlay').classList.remove('show');
-  if (activeConsultId) {
-    NC.reload();
-    var c = NC.consultations.find(function(x){ return x.id === activeConsultId; });
-    if (c && c.nurseId) {
-      var reviewText = document.getElementById('reviewText') ? document.getElementById('reviewText').value.trim() : '';
-      NC.addRating({
-        nurseId:   c.nurseId,
-        patientId: currentUser.id,
-        consultId: activeConsultId,
-        score:     currentRating,
-        review:    reviewText
-      });
-      NC.updateConsultation(activeConsultId, { status: 'done', endedAt: Date.now() });
-    }
-  }
-  if (pollingTimer) clearInterval(pollingTimer);
-  activeConsultId = null;
-  lastMsgCount    = 0;
-  showToast('Terima kasih! Rating berhasil dikirim ⭐');
-  showPage('history', null);
-}
-
-
 // ─────────────────────────────────────────────────
 // EDUCATION
 // ─────────────────────────────────────────────────
-var currentEduTopic='', currentQuizIdx=0, currentQuizData=null, currentPhase='pre', quizAnswers={}, preScore=0, postScore=0;
+var currentEduTopic = '', currentQuizIdx = 0, currentQuizData = null;
+var currentPhase = 'pre', quizAnswers = {}, preScore = 0, postScore = 0;
+
 var eduData = {
-  'Hipertensi':{
-    preQuiz:[
-      {q:'Berapa nilai tekanan darah yang dianggap hipertensi?',opts:['Di atas 120/80 mmHg','Di atas 130/85 mmHg','Di atas 140/90 mmHg','Di atas 150/100 mmHg'],ans:2},
-      {q:'Gejala umum hipertensi yang sering muncul adalah?',opts:['Sakit pinggang','Sakit kepala dan pusing','Mual dan muntah','Sesak napas berat'],ans:1},
-      {q:'Makanan yang harus dibatasi penderita hipertensi?',opts:['Buah-buahan segar','Sayuran hijau','Makanan tinggi garam','Ikan omega-3'],ans:2}
+  'Hipertensi': {
+    preQuiz: [
+      { q: 'Berapa nilai tekanan darah yang dianggap hipertensi?', opts: ['Di atas 120/80 mmHg', 'Di atas 130/85 mmHg', 'Di atas 140/90 mmHg', 'Di atas 150/100 mmHg'], ans: 2 },
+      { q: 'Gejala umum hipertensi yang sering muncul adalah?',    opts: ['Sakit pinggang', 'Sakit kepala dan pusing', 'Mual dan muntah', 'Sesak napas berat'], ans: 1 },
+      { q: 'Makanan yang harus dibatasi penderita hipertensi?',     opts: ['Buah-buahan segar', 'Sayuran hijau', 'Makanan tinggi garam', 'Ikan omega-3'], ans: 2 }
     ],
-    sections:[
-      {title:'Pengertian',icon:'fa-book',content:'Hipertensi adalah kondisi tekanan darah di arteri ≥140/90 mmHg secara persisten. Disebut "silent killer" karena sering tanpa gejala.'},
-      {title:'Penyebab',icon:'fa-circle-exclamation',content:'Hipertensi primer berkaitan dengan genetik & gaya hidup. Hipertensi sekunder disebabkan penyakit ginjal, gangguan hormon, atau obat-obatan.'},
-      {title:'Gejala',icon:'fa-face-meh',content:'Kebanyakan tanpa gejala. Bila bergejala: sakit kepala, pusing, penglihatan kabur, mimisan, atau rasa berdebar.'},
-      {title:'Faktor Risiko',icon:'fa-triangle-exclamation',content:'Usia >45 tahun, riwayat keluarga, obesitas, kurang aktivitas, diet tinggi garam, merokok, stres kronis.'},
-      {title:'Dampak',icon:'fa-heart-crack',content:'Jika tidak ditangani dapat menyebabkan stroke, serangan jantung, gagal ginjal, dan gangguan penglihatan.'},
-      {title:'Pencegahan',icon:'fa-shield-heart',content:'Batasi garam (<5g/hari), olahraga 30 menit/hari, jaga berat badan, hindari rokok, kelola stres.'},
-      {title:'Pengobatan',icon:'fa-pills',content:'Modifikasi gaya hidup adalah dasar terapi. Obat antihipertensi diberikan sesuai indikasi dokter.'},
-      {title:'Tips Harian',icon:'fa-lightbulb',content:'Ukur tekanan darah setiap pagi. Catat hasilnya. Hindari kafein berlebih. Tidur 7–8 jam sehari.'}
+    sections: [
+      { title: 'Pengertian',     icon: 'fa-book',                 content: 'Hipertensi adalah kondisi tekanan darah di arteri ≥140/90 mmHg secara persisten. Disebut "silent killer" karena sering tanpa gejala.' },
+      { title: 'Penyebab',       icon: 'fa-circle-exclamation',   content: 'Hipertensi primer berkaitan dengan genetik & gaya hidup. Hipertensi sekunder disebabkan penyakit ginjal, gangguan hormon, atau obat-obatan.' },
+      { title: 'Gejala',         icon: 'fa-face-meh',             content: 'Kebanyakan tanpa gejala. Bila bergejala: sakit kepala, pusing, penglihatan kabur, mimisan, atau rasa berdebar.' },
+      { title: 'Faktor Risiko',  icon: 'fa-triangle-exclamation', content: 'Usia >45 tahun, riwayat keluarga, obesitas, kurang aktivitas, diet tinggi garam, merokok, stres kronis.' },
+      { title: 'Dampak',         icon: 'fa-heart-crack',          content: 'Jika tidak ditangani dapat menyebabkan stroke, serangan jantung, gagal ginjal, dan gangguan penglihatan.' },
+      { title: 'Pencegahan',     icon: 'fa-shield-heart',         content: 'Batasi garam (<5g/hari), olahraga 30 menit/hari, jaga berat badan, hindari rokok, kelola stres.' },
+      { title: 'Pengobatan',     icon: 'fa-pills',                content: 'Modifikasi gaya hidup adalah dasar terapi. Obat antihipertensi diberikan sesuai indikasi dokter.' },
+      { title: 'Tips Harian',    icon: 'fa-lightbulb',            content: 'Ukur tekanan darah setiap pagi. Catat hasilnya. Hindari kafein berlebih. Tidur 7-8 jam sehari.' }
     ]
   }
 };
 
 function openEduModal(topic) {
-  currentEduTopic=topic; quizAnswers={}; currentQuizIdx=0;
-  var data=eduData[topic]||{
-    preQuiz:[{q:'Pertanyaan 1 tentang '+topic+'?',opts:['A','B','C','D'],ans:0},{q:'Pertanyaan 2 tentang '+topic+'?',opts:['A','B','C','D'],ans:2},{q:'Pertanyaan 3 tentang '+topic+'?',opts:['A','B','C','D'],ans:1}],
-    sections:[
-      {title:'Pengertian',icon:'fa-book',content:'Penjelasan singkat tentang '+topic+'.'},
-      {title:'Penyebab',icon:'fa-circle-exclamation',content:'Hal-hal yang menyebabkan kondisi ini.'},
-      {title:'Gejala',icon:'fa-face-meh',content:'Tanda atau keluhan yang dirasakan.'},
-      {title:'Faktor Risiko',icon:'fa-triangle-exclamation',content:'Faktor yang meningkatkan kemungkinan.'},
-      {title:'Dampak',icon:'fa-heart-crack',content:'Akibat jika tidak ditangani.'},
-      {title:'Pencegahan',icon:'fa-shield-heart',content:'Langkah pencegahan dan pengendalian.'},
-      {title:'Pengobatan',icon:'fa-pills',content:'Penanganan medis yang tersedia.'},
-      {title:'Tips Harian',icon:'fa-lightbulb',content:'Tips agar kondisi tetap stabil.'}
+  currentEduTopic = topic;
+  quizAnswers     = {};
+  currentQuizIdx  = 0;
+  var data = eduData[topic] || {
+    preQuiz: [
+      { q: 'Pertanyaan 1 tentang ' + topic + '?', opts: ['A', 'B', 'C', 'D'], ans: 0 },
+      { q: 'Pertanyaan 2 tentang ' + topic + '?', opts: ['A', 'B', 'C', 'D'], ans: 2 },
+      { q: 'Pertanyaan 3 tentang ' + topic + '?', opts: ['A', 'B', 'C', 'D'], ans: 1 }
+    ],
+    sections: [
+      { title: 'Pengertian',    icon: 'fa-book',               content: 'Penjelasan singkat tentang ' + topic + '.' },
+      { title: 'Penyebab',      icon: 'fa-circle-exclamation', content: 'Hal-hal yang menyebabkan kondisi ini.' },
+      { title: 'Gejala',        icon: 'fa-face-meh',           content: 'Tanda atau keluhan yang dirasakan.' },
+      { title: 'Faktor Risiko', icon: 'fa-triangle-exclamation', content: 'Faktor yang meningkatkan kemungkinan.' },
+      { title: 'Dampak',        icon: 'fa-heart-crack',        content: 'Akibat jika tidak ditangani.' },
+      { title: 'Pencegahan',    icon: 'fa-shield-heart',       content: 'Langkah pencegahan dan pengendalian.' },
+      { title: 'Pengobatan',    icon: 'fa-pills',              content: 'Penanganan medis yang tersedia.' },
+      { title: 'Tips Harian',   icon: 'fa-lightbulb',         content: 'Tips agar kondisi tetap stabil.' }
     ]
   };
-  renderQuiz(topic,data,'pre');
+  renderQuiz(topic, data, 'pre');
   document.getElementById('eduOverlay').classList.add('show');
 }
 
-function renderQuiz(topic,data,phase) {
-  currentQuizData=data; currentPhase=phase; currentQuizIdx=0; quizAnswers={};
-  var total=data.preQuiz.length, phaseLabel=phase==='pre'?'Pre-Test':'Post-Test', phaseDesc=phase==='pre'?'Uji pemahaman awal sebelum membaca materi':'Uji pemahaman setelah membaca materi';
-  document.getElementById('eduModal').innerHTML='<div class="edu-modal-header"><div><div style="font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--gold2);margin-bottom:.2rem">'+phaseLabel+' — '+topic+'</div><h3 class="serif" style="font-size:1.1rem;color:var(--navy)">'+phaseDesc+'</h3></div><button class="modal-close-btn" onclick="closeEduModal()"><i class="fas fa-times"></i></button></div><div class="edu-modal-body" id="quizBody"><div class="quiz-progress"><div class="quiz-progress-fill" id="quizProg" style="width:0%"></div></div><div id="quizContent"></div></div>';
+function renderQuiz(topic, data, phase) {
+  currentQuizData = data;
+  currentPhase    = phase;
+  currentQuizIdx  = 0;
+  quizAnswers     = {};
+  var phaseLabel = phase === 'pre' ? 'Pre-Test' : 'Post-Test';
+  var phaseDesc  = phase === 'pre' ? 'Uji pemahaman awal sebelum membaca materi' : 'Uji pemahaman setelah membaca materi';
+  document.getElementById('eduModal').innerHTML =
+    '<div class="edu-modal-header"><div><div style="font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--gold2);margin-bottom:.2rem">' + phaseLabel + ' — ' + topic + '</div>'
+    + '<h3 class="serif" style="font-size:1.1rem;color:var(--navy)">' + phaseDesc + '</h3></div>'
+    + '<button class="modal-close-btn" onclick="closeEduModal()"><i class="fas fa-times"></i></button></div>'
+    + '<div class="edu-modal-body" id="quizBody"><div class="quiz-progress"><div class="quiz-progress-fill" id="quizProg" style="width:0%"></div></div>'
+    + '<div id="quizContent"></div></div>';
   renderQuizQuestion();
 }
 
 function renderQuizQuestion() {
-  var q=currentQuizData.preQuiz[currentQuizIdx], total=currentQuizData.preQuiz.length, idx=currentQuizIdx;
-  document.getElementById('quizProg').style.width=((idx/total)*100)+'%';
-  document.getElementById('quizContent').innerHTML='<div style="font-size:.72rem;color:var(--slate2);margin-bottom:.5rem">Pertanyaan '+(idx+1)+' dari '+total+'</div><div class="quiz-question">'+q.q+'</div><div class="quiz-options" id="quizOpts">'+q.opts.map((o,i)=>'<div class="quiz-option" onclick="selectQuizOpt(this,'+i+')" id="opt-'+i+'"><div class="quiz-opt-radio"></div><span>'+o+'</span></div>').join('')+'</div><div style="margin-top:1.25rem;display:flex;justify-content:flex-end"><button class="btn btn-primary" onclick="nextQuizQuestion()" id="nextQuizBtn" style="opacity:.4;pointer-events:none"><i class="fas fa-arrow-right"></i> '+(idx===total-1?'Selesai':'Lanjut')+'</button></div>';
+  var q     = currentQuizData.preQuiz[currentQuizIdx];
+  var total = currentQuizData.preQuiz.length;
+  var idx   = currentQuizIdx;
+  document.getElementById('quizProg').style.width = ((idx / total) * 100) + '%';
+  document.getElementById('quizContent').innerHTML =
+    '<div style="font-size:.72rem;color:var(--slate2);margin-bottom:.5rem">Pertanyaan ' + (idx + 1) + ' dari ' + total + '</div>'
+    + '<div class="quiz-question">' + q.q + '</div>'
+    + '<div class="quiz-options" id="quizOpts">'
+    + q.opts.map(function(o, i){
+        return '<div class="quiz-option" onclick="selectQuizOpt(this,' + i + ')" id="opt-' + i + '"><div class="quiz-opt-radio"></div><span>' + o + '</span></div>';
+      }).join('')
+    + '</div>'
+    + '<div style="margin-top:1.25rem;display:flex;justify-content:flex-end">'
+    + '<button class="btn btn-primary" onclick="nextQuizQuestion()" id="nextQuizBtn" style="opacity:.4;pointer-events:none"><i class="fas fa-arrow-right"></i> '
+    + (idx === total - 1 ? 'Selesai' : 'Lanjut') + '</button></div>';
 }
 
-function selectQuizOpt(el,idx) {
-  document.querySelectorAll('.quiz-option').forEach(o=>o.classList.remove('selected'));
-  el.classList.add('selected'); quizAnswers[currentQuizIdx]=idx;
-  var btn=document.getElementById('nextQuizBtn'); btn.style.opacity='1'; btn.style.pointerEvents='all';
+function selectQuizOpt(el, idx) {
+  document.querySelectorAll('.quiz-option').forEach(function(o){ o.classList.remove('selected'); });
+  el.classList.add('selected');
+  quizAnswers[currentQuizIdx] = idx;
+  var btn = document.getElementById('nextQuizBtn');
+  btn.style.opacity      = '1';
+  btn.style.pointerEvents = 'all';
 }
 
 function nextQuizQuestion() {
   currentQuizIdx++;
-  if (currentQuizIdx<currentQuizData.preQuiz.length) { renderQuizQuestion(); return; }
-  var correct=0; currentQuizData.preQuiz.forEach((q,i)=>{ if(quizAnswers[i]===q.ans)correct++; });
-  var score=Math.round((correct/currentQuizData.preQuiz.length)*100);
-  if(currentPhase==='pre'){preScore=score;renderEduReading();}else{postScore=score;renderEduResult();}
+  if (currentQuizIdx < currentQuizData.preQuiz.length) { renderQuizQuestion(); return; }
+  var correct = 0;
+  currentQuizData.preQuiz.forEach(function(q, i){ if (quizAnswers[i] === q.ans) correct++; });
+  var score = Math.round((correct / currentQuizData.preQuiz.length) * 100);
+  if (currentPhase === 'pre') { preScore = score; renderEduReading(); }
+  else { postScore = score; renderEduResult(); }
 }
 
 function renderEduReading() {
-  var data=currentQuizData;
-  document.getElementById('eduModal').innerHTML='<div class="edu-modal-header"><div><div style="font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--gold2)">Materi Edukasi</div><h3 class="serif" style="font-size:1.1rem;color:var(--navy)">'+currentEduTopic+'</h3></div><button class="modal-close-btn" onclick="closeEduModal()"><i class="fas fa-times"></i></button></div><div class="edu-modal-body"><div style="background:var(--gold-light);border:1.5px solid rgba(245,158,11,.2);border-radius:var(--radius-xs);padding:.85rem 1rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:10px"><i class="fas fa-circle-info" style="color:var(--gold2)"></i><div style="font-size:.78rem;color:var(--gold-deep)">Pre-Test selesai! Skor awal Anda: <b>'+preScore+'%</b>. Baca materi lalu kerjakan Post-Test.</div></div>'+data.sections.slice(0,-1).map(s=>'<div class="edu-section"><div class="edu-section-title"><i class="fas '+s.icon+'"></i> '+s.title+'</div><div class="edu-section-content">'+s.content+'</div></div>').join('')+'<div class="edu-section"><div class="edu-tip-card"><i class="fas fa-lightbulb"></i><div><b>Tips Harian:</b> '+data.sections[data.sections.length-1].content+'</div></div></div><div style="margin-top:1.5rem;text-align:center"><button class="btn btn-primary" style="padding:12px 32px" onclick="renderQuiz(currentEduTopic,currentQuizData,\'post\')"><i class="fas fa-pen-to-square"></i> Mulai Post-Test</button></div></div>';
+  var data = currentQuizData;
+  document.getElementById('eduModal').innerHTML =
+    '<div class="edu-modal-header"><div><div style="font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--gold2)">Materi Edukasi</div>'
+    + '<h3 class="serif" style="font-size:1.1rem;color:var(--navy)">' + currentEduTopic + '</h3></div>'
+    + '<button class="modal-close-btn" onclick="closeEduModal()"><i class="fas fa-times"></i></button></div>'
+    + '<div class="edu-modal-body">'
+    + '<div style="background:var(--gold-light);border:1.5px solid rgba(245,158,11,.2);border-radius:var(--radius-xs);padding:.85rem 1rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:10px">'
+    + '<i class="fas fa-circle-info" style="color:var(--gold2)"></i>'
+    + '<div style="font-size:.78rem;color:var(--gold-deep)">Pre-Test selesai! Skor awal Anda: <b>' + preScore + '%</b>. Baca materi lalu kerjakan Post-Test.</div></div>'
+    + data.sections.slice(0, -1).map(function(s){
+        return '<div class="edu-section"><div class="edu-section-title"><i class="fas ' + s.icon + '"></i> ' + s.title + '</div><div class="edu-section-content">' + s.content + '</div></div>';
+      }).join('')
+    + '<div class="edu-section"><div class="edu-tip-card"><i class="fas fa-lightbulb"></i><div><b>Tips Harian:</b> ' + data.sections[data.sections.length - 1].content + '</div></div></div>'
+    + '<div style="margin-top:1.5rem;text-align:center">'
+    + '<button class="btn btn-primary" style="padding:12px 32px" onclick="renderQuiz(currentEduTopic, currentQuizData, \'post\')"><i class="fas fa-pen-to-square"></i> Mulai Post-Test</button></div></div>';
 }
 
 function renderEduResult() {
-  var imp=postScore-preScore, color=imp>=0?'var(--green)':'var(--red)', icon=imp>=0?'📈':'📉';
-  document.getElementById('eduModal').innerHTML='<div class="edu-modal-header"><div><h3 class="serif" style="font-size:1.1rem;color:var(--navy)">Hasil Edukasi — '+currentEduTopic+'</h3></div><button class="modal-close-btn" onclick="closeEduModal()"><i class="fas fa-times"></i></button></div><div class="edu-modal-body" style="text-align:center"><div style="font-size:3rem;margin-bottom:.75rem">🎉</div><h3 class="serif" style="font-size:1.2rem;color:var(--navy);margin-bottom:.35rem">Edukasi Selesai!</h3><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin:1.25rem 0"><div style="background:var(--off);border-radius:var(--radius-xs);padding:1rem;border:1px solid var(--off2)"><div style="font-size:.65rem;font-weight:800;text-transform:uppercase;color:var(--slate2)">Pre-Test</div><div style="font-size:1.6rem;font-weight:800;color:var(--navy)">'+preScore+'%</div></div><div style="background:var(--off);border-radius:var(--radius-xs);padding:1rem;border:1px solid var(--off2);display:flex;align-items:center;justify-content:center"><div><div style="font-size:1.4rem">'+icon+'</div><div style="font-size:.72rem;font-weight:800;color:'+color+'">'+imp+'%</div></div></div><div style="background:'+(imp>=20?'#dcfce7':'var(--off)')+';border-radius:var(--radius-xs);padding:1rem;border:1px solid '+(imp>=20?'#bbf7d0':'var(--off2)')+'"><div style="font-size:.65rem;font-weight:800;text-transform:uppercase;color:'+(imp>=20?'#15803d':'var(--slate2)')+'">Post-Test</div><div style="font-size:1.6rem;font-weight:800;color:'+(imp>=20?'#15803d':'var(--navy)')+'">'+postScore+'%</div></div></div><div style="font-size:.85rem;color:var(--gold-deep);font-weight:600;padding:.85rem;background:var(--gold-light);border-radius:var(--radius-xs);margin-bottom:1.25rem">'+(imp>=30?'🌟 Luar biasa! Pemahaman meningkat signifikan!':imp>=10?'👍 Bagus! Ada peningkatan yang baik.':'📚 Coba baca ulang materi ini.')+'</div><div style="display:flex;gap:.75rem;justify-content:center"><button class="btn btn-outline" onclick="closeEduModal()"><i class="fas fa-house"></i> Kembali</button><button class="btn btn-primary" onclick="renderQuiz(currentEduTopic,currentQuizData,\'pre\')"><i class="fas fa-rotate-right"></i> Ulangi</button></div></div>';
+  var imp   = postScore - preScore;
+  var color = imp >= 0 ? 'var(--green)' : 'var(--red)';
+  var icon  = imp >= 0 ? '📈' : '📉';
+  document.getElementById('eduModal').innerHTML =
+    '<div class="edu-modal-header"><div><h3 class="serif" style="font-size:1.1rem;color:var(--navy)">Hasil Edukasi — ' + currentEduTopic + '</h3></div>'
+    + '<button class="modal-close-btn" onclick="closeEduModal()"><i class="fas fa-times"></i></button></div>'
+    + '<div class="edu-modal-body" style="text-align:center">'
+    + '<div style="font-size:3rem;margin-bottom:.75rem">🎉</div>'
+    + '<h3 class="serif" style="font-size:1.2rem;color:var(--navy);margin-bottom:.35rem">Edukasi Selesai!</h3>'
+    + '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin:1.25rem 0">'
+    + '<div style="background:var(--off);border-radius:var(--radius-xs);padding:1rem;border:1px solid var(--off2)"><div style="font-size:.65rem;font-weight:800;text-transform:uppercase;color:var(--slate2)">Pre-Test</div><div style="font-size:1.6rem;font-weight:800;color:var(--navy)">' + preScore + '%</div></div>'
+    + '<div style="background:var(--off);border-radius:var(--radius-xs);padding:1rem;border:1px solid var(--off2);display:flex;align-items:center;justify-content:center"><div><div style="font-size:1.4rem">' + icon + '</div><div style="font-size:.72rem;font-weight:800;color:' + color + '">' + imp + '%</div></div></div>'
+    + '<div style="background:' + (imp >= 20 ? '#dcfce7' : 'var(--off)') + ';border-radius:var(--radius-xs);padding:1rem;border:1px solid ' + (imp >= 20 ? '#bbf7d0' : 'var(--off2)') + '"><div style="font-size:.65rem;font-weight:800;text-transform:uppercase;color:' + (imp >= 20 ? '#15803d' : 'var(--slate2)') + '">Post-Test</div><div style="font-size:1.6rem;font-weight:800;color:' + (imp >= 20 ? '#15803d' : 'var(--navy)') + '">' + postScore + '%</div></div>'
+    + '</div>'
+    + '<div style="font-size:.85rem;color:var(--gold-deep);font-weight:600;padding:.85rem;background:var(--gold-light);border-radius:var(--radius-xs);margin-bottom:1.25rem">'
+    + (imp >= 30 ? '🌟 Luar biasa! Pemahaman meningkat signifikan!' : imp >= 10 ? '👍 Bagus! Ada peningkatan yang baik.' : '📚 Coba baca ulang materi ini.') + '</div>'
+    + '<div style="display:flex;gap:.75rem;justify-content:center">'
+    + '<button class="btn btn-outline" onclick="closeEduModal()"><i class="fas fa-house"></i> Kembali</button>'
+    + '<button class="btn btn-primary" onclick="renderQuiz(currentEduTopic, currentQuizData, \'pre\')"><i class="fas fa-rotate-right"></i> Ulangi</button>'
+    + '</div></div>';
 }
 
 function closeEduModal() { document.getElementById('eduOverlay').classList.remove('show'); }
-function filterHistory(t,el) { document.querySelectorAll('#page-history .tab').forEach(x=>x.classList.remove('active')); el.classList.add('active'); }
-function filterEdu(t,el) { document.querySelectorAll('#page-education .tab').forEach(x=>x.classList.remove('active')); el.classList.add('active'); }
+
+function filterHistory(t, el) {
+  document.querySelectorAll('#page-history .tab').forEach(function(x){ x.classList.remove('active'); });
+  el.classList.add('active');
+}
+
+function filterEdu(t, el) {
+  document.querySelectorAll('#page-education .tab').forEach(function(x){ x.classList.remove('active'); });
+  el.classList.add('active');
+}
+
+// ─────────────────────────────────────────────────
+// RATING
+// ─────────────────────────────────────────────────
+var currentRating = 5;
+
+function openRatingModal() {
+  document.getElementById('ratingOverlay').classList.add('show');
+}
+
+function setRating(n) {
+  currentRating = n;
+  var labels = ['', 'Kurang', 'Cukup', 'Baik', 'Sangat Bagus', 'Sempurna'];
+  document.querySelectorAll('.rating-star-btn').forEach(function(btn, i){
+    btn.classList.toggle('active', i < n);
+  });
+  var lbl = document.getElementById('ratingLabel');
+  if (lbl) lbl.textContent = (labels[n] || '') + ' (' + n + '/5)';
+}
+
+function submitRating() {
+  document.getElementById('ratingOverlay').classList.remove('show');
+  showToast('Terima kasih atas penilaian Anda! ⭐');
+}
 
 // ─────────────────────────────────────────────────
 // TOAST
 // ─────────────────────────────────────────────────
 function showToast(msg, isError) {
-  var t=document.createElement('div');
-  t.style.cssText='position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:'+(isError?'var(--red)':'var(--navy)')+';color:#fff;padding:12px 24px;border-radius:999px;font-size:.82rem;font-weight:600;z-index:999;box-shadow:var(--shadow-lg);animation:fadeIn .3s ease';
-  t.textContent=msg; document.body.appendChild(t);
-  setTimeout(()=>t.remove(),3000);
+  var t = document.createElement('div');
+  t.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:' + (isError ? 'var(--red)' : 'var(--navy)') + ';color:#fff;padding:12px 24px;border-radius:999px;font-size:.82rem;font-weight:600;z-index:999;box-shadow:var(--shadow-lg);animation:fadeIn .3s ease';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(function(){ t.remove(); }, 3000);
 }
 
 // ─────────────────────────────────────────────────
@@ -1349,6 +1635,13 @@ function showToast(msg, isError) {
 // ─────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function() {
   loadUserData();
+  renderHomeNurseList();
+  renderPatientChatRooms();
+  setInterval(function(){
+    renderHomeNurseList();
+    renderPatientChatRooms();
+    if (activeConsultId) renderChatMessages();
+  }, 3000);
 });
 </script>
 </body>
