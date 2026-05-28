@@ -61,13 +61,11 @@ nav{height:64px;display:flex;align-items:center;padding:0 5%;justify-content:spa
 .form-input{width:100%;padding:10px 14px;background:var(--off);border:1.5px solid var(--off2);border-radius:var(--radius-sm);color:var(--navy);font-size:.88rem;outline:none;transition:all .22s;font-family:'DM Sans',sans-serif}
 .form-input:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(245,158,11,.1)}
 .form-input::placeholder{color:var(--slate3)}
-/* FIX: input invalid state */
 .form-input.invalid{border-color:var(--red);background:#fff9f9}
 select.form-input option{background:#fff}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
 .btn-submit{width:100%;padding:13px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;border:none;border-radius:var(--radius-sm);font-size:.95rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .22s;box-shadow:0 4px 14px rgba(245,158,11,.3);margin-top:.5rem}
 .btn-submit:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(245,158,11,.4)}
-/* FIX: disabled state for submit button */
 .btn-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
 .form-divider{text-align:center;font-size:.78rem;color:var(--slate2);margin:.75rem 0;position:relative}
 .form-divider::before,.form-divider::after{content:'';position:absolute;top:50%;width:42%;height:1px;background:var(--off2)}
@@ -80,8 +78,6 @@ select.form-input option{background:#fff}
 .pass-toggle{position:relative}
 .pass-toggle input{padding-right:42px}
 .pass-eye{position:absolute;right:13px;top:50%;transform:translateY(-50%);cursor:pointer;color:var(--slate2);font-size:.85rem;background:none;border:none;padding:0}
-
-/* FIX: field error hint text */
 .field-error{font-size:.72rem;color:var(--red);margin-top:.25rem;display:none}
 .field-error.show{display:block}
 
@@ -103,7 +99,7 @@ select.form-input option{background:#fff}
 <div class="auth-wrap">
   <div class="auth-card">
     <div class="auth-header">
-      <div class="auth-logo">🏥</div>
+      <div class="auth-logo"><i class="fa-solid fa-hospital"></i></div>
       <h1 class="auth-title">NurseConnect</h1>
       <p class="auth-sub">Platform Telenursing #1 Indonesia</p>
     </div>
@@ -124,7 +120,6 @@ select.form-input option{background:#fff}
         </div>
         <div class="form-group">
           <label class="form-label">Email</label>
-          <!-- FIX: added id to wrapper for validation -->
           <input type="email" class="form-input" id="login-email" placeholder="email@contoh.com" autocomplete="email">
           <div class="field-error" id="err-login-email">Masukkan email yang valid</div>
         </div>
@@ -147,12 +142,12 @@ select.form-input option{background:#fff}
         <div class="alert" id="reg-alert"></div>
         <div class="role-select">
           <div class="role-btn active" id="role-patient" onclick="setRole('patient')">
-            <div class="role-icon">🧑</div>
+            <div class="role-icon"><i class="fa-solid fa-hospital-user"></i></div>
             <div class="role-title">Saya Pasien</div>
             <div class="role-desc">Cari & konsultasi perawat</div>
           </div>
           <div class="role-btn" id="role-nurse" onclick="setRole('nurse')">
-            <div class="role-icon">👩‍⚕️</div>
+            <div class="role-icon"><i class="fa-solid fa-user-nurse"></i></div>
             <div class="role-title">Saya Perawat</div>
             <div class="role-desc">Berikan layanan konsultasi</div>
           </div>
@@ -167,7 +162,6 @@ select.form-input option{background:#fff}
             </div>
             <div class="form-group">
               <label class="form-label">Nomor HP *</label>
-              <!-- FIX: type="tel" + pattern untuk validasi nomor Indonesia -->
               <input type="tel" class="form-input" id="r-phone" placeholder="08xxxxxxxxxx" pattern="^0[0-9]{8,13}$" autocomplete="tel">
               <div class="field-error" id="err-r-phone">Format: 08xxxxxxxxxx</div>
             </div>
@@ -196,7 +190,6 @@ select.form-input option{background:#fff}
             </div>
             <div class="form-group">
               <label class="form-label">Tanggal Lahir *</label>
-              <!-- FIX: max date agar tidak bisa pilih masa depan -->
               <input type="date" class="form-input" id="r-dob">
             </div>
           </div>
@@ -283,15 +276,10 @@ select.form-input option{background:#fff}
   </div>
 </div>
 
-<!-- ============================================================
-     FALLBACK: shared.js inline — dipakai jika shared.js gagal load
-     Jika shared.js sudah ada, blok ini akan ditimpa oleh NC dari file tersebut
-     ============================================================ -->
 <script>
-// FIX: NC fallback — mencegah crash jika shared.js tidak tersedia
+// ── FALLBACK NC (dipakai jika shared.js tidak ada) ──────────────────
 window.NC = window.NC || (function() {
   const STORAGE_KEY = 'nc_data';
-
   const defaultData = {
     users: [
       {
@@ -331,7 +319,6 @@ window.NC = window.NC || (function() {
       const raw = localStorage.getItem(STORAGE_KEY);
       return raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(defaultData));
     } catch(e) {
-      console.warn('NC: gagal parse storage, pakai data default', e);
       return JSON.parse(JSON.stringify(defaultData));
     }
   }
@@ -339,30 +326,25 @@ window.NC = window.NC || (function() {
   function save() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({ users, consultations, messages }));
-    } catch(e) {
-      console.error('NC: gagal simpan data', e);
-    }
+    } catch(e) {}
   }
 
-  // FIX: genId yang benar-benar unik
   function genId() {
     return 'u_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 7);
   }
 
   const data = load();
   const { users, consultations, messages } = data;
-
   return { users, consultations, messages, save, genId, load };
 })();
 </script>
 
-<!-- Load shared.js — jika file ada, NC sudah terdefinisi dan akan ditimpa/digabung -->
 <script src="shared.js" onerror="console.warn('shared.js tidak ditemukan, menggunakan fallback NC')"></script>
 
 <script>
 let currentRole = 'patient';
 
-// FIX: set max date untuk field tanggal lahir
+// Set max date untuk field tanggal lahir
 (function setMaxDate() {
   const today = new Date().toISOString().split('T')[0];
   ['r-dob','n-dob'].forEach(id => {
@@ -371,12 +353,10 @@ let currentRole = 'patient';
   });
 })();
 
-// FIX: validasi format email
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-// FIX: validasi nomor HP Indonesia
 function isValidPhone(phone) {
   return /^0[0-9]{8,13}$/.test(phone.replace(/\s|-/g,''));
 }
@@ -386,12 +366,10 @@ function switchTab(t) {
     document.getElementById(x+'-form').style.display = x===t ? 'block' : 'none';
     document.getElementById('tab-'+x).className = 'auth-tab' + (x===t ? ' active' : '');
   });
-  // FIX: reset semua alert saat pindah tab
   ['login-alert','reg-alert'].forEach(id => {
     const el = document.getElementById(id);
     if(el) el.classList.remove('show');
   });
-  // FIX: hapus state invalid dari semua input
   document.querySelectorAll('.form-input.invalid').forEach(el => el.classList.remove('invalid'));
   document.querySelectorAll('.field-error.show').forEach(el => el.classList.remove('show'));
 }
@@ -399,12 +377,11 @@ function switchTab(t) {
 function setRole(r) {
   currentRole = r;
   document.getElementById('role-patient').className = 'role-btn' + (r==='patient' ? ' active' : '');
-  document.getElementById('role-nurse').className = 'role-btn' + (r==='nurse' ? ' active' : '');
+  document.getElementById('role-nurse').className   = 'role-btn' + (r==='nurse'   ? ' active' : '');
   document.getElementById('patient-fields').style.display = r==='patient' ? 'block' : 'none';
-  document.getElementById('nurse-fields').style.display = r==='nurse' ? 'block' : 'none';
-  // FIX: reset alert & invalid state saat ganti role
-  const alert = document.getElementById('reg-alert');
-  if(alert) alert.classList.remove('show');
+  document.getElementById('nurse-fields').style.display   = r==='nurse'   ? 'block' : 'none';
+  const alertEl = document.getElementById('reg-alert');
+  if(alertEl) alertEl.classList.remove('show');
   document.querySelectorAll('.form-input.invalid').forEach(el => el.classList.remove('invalid'));
   document.querySelectorAll('.field-error.show').forEach(el => el.classList.remove('show'));
 }
@@ -422,19 +399,17 @@ function showAlert(id, msg, type='error') {
   if(!el) return;
   el.textContent = msg;
   el.className = 'alert ' + type + ' show';
-  // FIX: auto-hide lebih lama untuk success, lebih pendek untuk error
   const delay = type === 'success' ? 3000 : 4000;
   setTimeout(() => el.classList.remove('show'), delay);
 }
 
-// FIX: helper untuk tandai field invalid
 function markInvalid(id, errId) {
   const inp = document.getElementById(id);
   const err = errId ? document.getElementById(errId) : null;
   if(inp) inp.classList.add('invalid');
   if(err) err.classList.add('show');
-  return false;
 }
+
 function clearInvalid(id, errId) {
   const inp = document.getElementById(id);
   const err = errId ? document.getElementById(errId) : null;
@@ -442,7 +417,6 @@ function clearInvalid(id, errId) {
   if(err) err.classList.remove('show');
 }
 
-// FIX: setLoading untuk prevent double-submit
 function setLoading(btnId, loading) {
   const btn = document.getElementById(btnId);
   if(!btn) return;
@@ -455,19 +429,24 @@ function setLoading(btnId, loading) {
   }
 }
 
+// ── SIMPAN SESSION ────────────────────────────────────────────────────
+// Fungsi terpusat agar tidak terlewat di mana pun
+function saveSession(userId) {
+  try { sessionStorage.setItem('nc_current_user', userId); } catch(e) {}
+  try { localStorage.setItem('nc_current_user', userId);   } catch(e) {}
+}
+
+// ── LOGIN ─────────────────────────────────────────────────────────────
 function doLogin() {
-  // FIX: clear state sebelumnya
   clearInvalid('login-email','err-login-email');
 
   const email = document.getElementById('login-email').value.trim().toLowerCase();
   const pass  = document.getElementById('login-pass').value;
 
-  // FIX: validasi per-field dengan pesan spesifik
   if (!email) { showAlert('login-alert','Email tidak boleh kosong'); markInvalid('login-email'); return; }
   if (!isValidEmail(email)) { showAlert('login-alert','Format email tidak valid'); markInvalid('login-email','err-login-email'); return; }
-  if (!pass) { showAlert('login-alert','Password tidak boleh kosong'); return; }
+  if (!pass)  { showAlert('login-alert','Password tidak boleh kosong'); return; }
 
-  // FIX: guard — pastikan NC & NC.users ada
   if (!window.NC || !Array.isArray(NC.users)) {
     showAlert('login-alert','Sistem belum siap, coba muat ulang halaman');
     return;
@@ -475,7 +454,6 @@ function doLogin() {
 
   setLoading('btn-login', true);
 
-  // FIX: simulasi async agar UI tidak freeze (sekaligus bisa diganti fetch ke API)
   setTimeout(() => {
     const user = NC.users.find(u =>
       u.email && u.email.toLowerCase() === email && u.password === pass
@@ -483,25 +461,20 @@ function doLogin() {
     setLoading('btn-login', false);
     if (!user) { showAlert('login-alert','Email atau password salah'); return; }
 
-    // FIX: pakai localStorage agar session tidak hilang saat tab baru
-    try {
-      sessionStorage.setItem('nc_current_user', user.id);
-    } catch(e) {
-      console.warn('sessionStorage tidak tersedia:', e);
-    }
+    // ✅ PERBAIKAN: simpan ke sessionStorage DAN localStorage
+    saveSession(user.id);
 
     window.location.href = user.role === 'nurse' ? 'nurse.html' : 'patient.html';
   }, 300);
 }
 
+// ── REGISTER ──────────────────────────────────────────────────────────
 function doRegister() {
-  // FIX: guard
   if (!window.NC || !Array.isArray(NC.users)) {
     showAlert('reg-alert','Sistem belum siap, coba muat ulang halaman');
     return;
   }
 
-  // Reset semua invalid state
   document.querySelectorAll('.form-input.invalid').forEach(el => el.classList.remove('invalid'));
   document.querySelectorAll('.field-error.show').forEach(el => el.classList.remove('show'));
 
@@ -509,27 +482,25 @@ function doRegister() {
   let user;
 
   if (currentRole === 'patient') {
-    const nama    = document.getElementById('r-nama').value.trim();
-    const email   = document.getElementById('r-email').value.trim().toLowerCase();
-    const pass    = document.getElementById('r-pass').value;
-    const gender  = document.getElementById('r-gender').value;
-    const dob     = document.getElementById('r-dob').value;
-    const phone   = document.getElementById('r-phone').value.trim();
-    const religion= document.getElementById('r-religion').value;
-    const address = document.getElementById('r-address').value.trim();
+    const nama     = document.getElementById('r-nama').value.trim();
+    const email    = document.getElementById('r-email').value.trim().toLowerCase();
+    const pass     = document.getElementById('r-pass').value;
+    const gender   = document.getElementById('r-gender').value;
+    const dob      = document.getElementById('r-dob').value;
+    const phone    = document.getElementById('r-phone').value.trim();
+    const religion = document.getElementById('r-religion').value;
+    const address  = document.getElementById('r-address').value.trim();
 
-    // FIX: validasi satu per satu dengan highlight field
-    if (!nama) { showAlert('reg-alert','Nama lengkap wajib diisi'); markInvalid('r-nama'); return; }
+    if (!nama)  { showAlert('reg-alert','Nama lengkap wajib diisi'); markInvalid('r-nama'); return; }
     if (!phone) { showAlert('reg-alert','Nomor HP wajib diisi'); markInvalid('r-phone','err-r-phone'); return; }
     if (!isValidPhone(phone)) { showAlert('reg-alert','Format nomor HP tidak valid (contoh: 08123456789)'); markInvalid('r-phone','err-r-phone'); return; }
     if (!email) { showAlert('reg-alert','Email wajib diisi'); markInvalid('r-email','err-r-email'); return; }
     if (!isValidEmail(email)) { showAlert('reg-alert','Format email tidak valid'); markInvalid('r-email','err-r-email'); return; }
-    if (!pass) { showAlert('reg-alert','Password wajib diisi'); markInvalid('r-pass','err-r-pass'); return; }
+    if (!pass)  { showAlert('reg-alert','Password wajib diisi'); markInvalid('r-pass','err-r-pass'); return; }
     if (pass.length < 6) { showAlert('reg-alert','Password minimal 6 karakter'); markInvalid('r-pass','err-r-pass'); return; }
     if (!gender) { showAlert('reg-alert','Jenis kelamin wajib dipilih'); markInvalid('r-gender'); return; }
-    if (!dob) { showAlert('reg-alert','Tanggal lahir wajib diisi'); markInvalid('r-dob'); return; }
+    if (!dob)   { showAlert('reg-alert','Tanggal lahir wajib diisi'); markInvalid('r-dob'); return; }
 
-    // FIX: cek duplikat email case-insensitive
     if (NC.users.find(u => u.email && u.email.toLowerCase() === email)) {
       showAlert('reg-alert','Email sudah terdaftar, silakan masuk atau gunakan email lain');
       markInvalid('r-email','err-r-email');
@@ -544,21 +515,21 @@ function doRegister() {
 
   } else {
     // NURSE
-    const nama   = document.getElementById('n-nama').value.trim();
-    const email  = document.getElementById('n-email').value.trim().toLowerCase();
-    const pass   = document.getElementById('n-pass').value;
-    const spec   = document.getElementById('n-spec').value;
-    const str    = document.getElementById('n-str').value.trim();
-    const dob    = document.getElementById('n-dob').value;
-    const gender = document.getElementById('n-gender').value;
-    const address= document.getElementById('n-address').value.trim();
+    const nama    = document.getElementById('n-nama').value.trim();
+    const email   = document.getElementById('n-email').value.trim().toLowerCase();
+    const pass    = document.getElementById('n-pass').value;
+    const spec    = document.getElementById('n-spec').value;
+    const str     = document.getElementById('n-str').value.trim();
+    const dob     = document.getElementById('n-dob').value;
+    const gender  = document.getElementById('n-gender').value;
+    const address = document.getElementById('n-address').value.trim();
 
-    if (!nama) { showAlert('reg-alert','Nama lengkap wajib diisi'); markInvalid('n-nama'); return; }
+    if (!nama)  { showAlert('reg-alert','Nama lengkap wajib diisi'); markInvalid('n-nama'); return; }
     if (!email) { showAlert('reg-alert','Email wajib diisi'); markInvalid('n-email','err-n-email'); return; }
     if (!isValidEmail(email)) { showAlert('reg-alert','Format email tidak valid'); markInvalid('n-email','err-n-email'); return; }
-    if (!pass) { showAlert('reg-alert','Password wajib diisi'); markInvalid('n-pass','err-n-pass'); return; }
+    if (!pass)  { showAlert('reg-alert','Password wajib diisi'); markInvalid('n-pass','err-n-pass'); return; }
     if (pass.length < 6) { showAlert('reg-alert','Password minimal 6 karakter'); markInvalid('n-pass','err-n-pass'); return; }
-    if (!spec) { showAlert('reg-alert','Spesialisasi wajib dipilih'); markInvalid('n-spec'); return; }
+    if (!spec)  { showAlert('reg-alert','Spesialisasi wajib dipilih'); markInvalid('n-spec'); return; }
 
     if (NC.users.find(u => u.email && u.email.toLowerCase() === email)) {
       showAlert('reg-alert','Email sudah terdaftar, silakan masuk atau gunakan email lain');
@@ -581,11 +552,8 @@ function doRegister() {
     NC.users.push(user);
     NC.save();
 
-    try {
-      sessionStorage.setItem('nc_current_user', id);
-    } catch(e) {
-      console.warn('sessionStorage tidak tersedia:', e);
-    }
+    // ✅ PERBAIKAN: simpan ke sessionStorage DAN localStorage
+    saveSession(id);
 
     setLoading('btn-register', false);
     showAlert('reg-alert','Akun berhasil dibuat! Mengalihkan...','success');
@@ -595,7 +563,7 @@ function doRegister() {
   }, 300);
 }
 
-// FIX: Enter key support untuk form login
+// Enter key support
 document.getElementById('login-pass').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') doLogin();
 });
@@ -603,12 +571,11 @@ document.getElementById('login-email').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') doLogin();
 });
 
-// FIX: clear invalid state saat user mulai mengetik
+// Clear invalid state saat mengetik
 document.querySelectorAll('.form-input').forEach(function(el) {
   el.addEventListener('input', function() {
     this.classList.remove('invalid');
-    const errId = 'err-' + this.id;
-    const errEl = document.getElementById(errId);
+    const errEl = document.getElementById('err-' + this.id);
     if(errEl) errEl.classList.remove('show');
   });
 });

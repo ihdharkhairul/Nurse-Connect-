@@ -843,7 +843,7 @@ if (!window.NC) {
     function load() { try { const r=localStorage.getItem(KEY); return r?JSON.parse(r):JSON.parse(JSON.stringify(defaults)); } catch(e){return JSON.parse(JSON.stringify(defaults));} }
     function save() { try { localStorage.setItem(KEY, JSON.stringify({users,consultations,messages})); } catch(e){} }
     function genId() { return 'u_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7); }
-    function getCurrentUser() { const id=sessionStorage.getItem(SESSION_KEY); return id ? users.find(u=>u.id===id)||null : null; }
+    function getCurrentUser() { let id=null; try{id=sessionStorage.getItem(SESSION_KEY);}catch(e){} if(!id){try{id=localStorage.getItem(SESSION_KEY);}catch(e){}} return id ? users.find(u=>u.id===id)||null : null; }
     function calcAge(dob) { if(!dob)return null; const d=new Date(dob),n=new Date(); let a=n.getFullYear()-d.getFullYear(); if(n.getMonth()-d.getMonth()<0||(n.getMonth()-d.getMonth()===0&&n.getDate()<d.getDate()))a--; return a; }
     function getInitials(name) { if(!name)return'?'; return name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase(); }
     function formatDate(ts) { if(!ts)return'-'; return new Date(ts).toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}); }
@@ -1050,44 +1050,173 @@ function setMethod(m) {
   });
 }
 function selectNurse(el) { document.querySelectorAll('.nurse-select-item').forEach(n=>n.classList.remove('selected')); el.classList.add('selected'); }
-function nextConsultStep() { showPage('chat', null); }
 
-// ─────────────────────────────────────────────────
-// CHAT
-// ─────────────────────────────────────────────────
-var botReplies = ['Baik, saya mengerti. Apakah ada gejala lain?','Saya sarankan untuk memantau kondisi 24 jam ke depan.','Apakah suhu tubuh sudah diukur kembali?','Jika tidak membaik, segera ke fasilitas kesehatan terdekat.','Semoga segera pulih! 🌸'];
-var replyIdx = 0;
+// ── VARIABEL KONSULTASI ──────────────────────────────────────────────
+var activeConsultId = null;
+var pollingTimer    = null;
+var lastMsgCount    = 0;
+
+function nextConsultStep() {
+  // Ambil data form
+  var keluhan   = (document.getElementById('keluhan') || {}).value || '';
+  var kategori  = '';
+  var catSelected = document.querySelector('.cat-card.selected');
+  if (catSelected) kategori = catSelected.querySelector('.cat-label') ? catSelected.querySelector('.cat-label').textContent : '';
+
+  // Ambil perawat dari database (online nurses)
+  NC.reload();
+  var nurses = NC.users.filter(function(u){ return u.role === 'nurse'; });
+
+  // Render daftar perawat dari database
+  renderNurseSelector(nurses);
+
+  // Buat/cari konsultasi yang sudah ada
+  NC.reload();
+  var existing = NC.consultations.find(function(c){
+    return c.patientId === currentUser.id && (c.status === 'waiting' || c.status === 'active');
+  });
+
+  if (!existing) {
+    // Pilih perawat pertama yang online, atau nurse pertama
+    var targetNurse = nurses.find(function(n){ return n.isOnline; }) || nurses[0];
+    var nurseId = targetNurse ? targetNurse.id : null;
+
+    var c = NC.createConsultation({
+      patientId:  currentUser.id,
+      nurseId:    nurseId,
+      complaint:  keluhan || 'Konsultasi umum',
+      kategori:   kategori,
+      startedAt:  Date.now()
+    });
+    activeConsultId = c.id;
+  } else {
+    activeConsultId = existing.id;
+  }
+
+  showPage('chat', null);
+  renderChatMessages();
+  startChatPolling();
+  updateChatDetail();
+}
+
+function renderNurseSelector(nurses) {
+  var container = document.querySelector('.nurse-selector');
+  if (!container || !nurses.length) return;
+  container.innerHTML = nurses.map(function(n, i){
+    var color = NC.avaColor(n.name);
+    var initials = NC.getInitials(n.name);
+    var stars = n.rating ? Math.round(n.rating) : 5;
+    var starStr = '★'.repeat(stars) + '☆'.repeat(5-stars);
+    return '<div class="nurse-select-item' + (i===0?' selected':'') + '" onclick="selectNurse(this)" data-id="' + n.id + '">'
+      + '<div class="nurse-select-radio"></div>'
+      + '<div class="nurse-ava" style="width:38px;height:38px;background:' + color + ';border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:#fff;font-weight:700;position:relative">' + initials
+      + '<div class="status-dot online" style="width:9px;height:9px;position:absolute;bottom:0;right:0;border:2px solid #fff"></div></div>'
+      + '<div style="flex:1"><div style="font-size:.78rem;font-weight:700;color:var(--navy)">' + n.name + '</div>'
+      + '<div style="font-size:.65rem;color:var(--gold2);font-weight:600">' + (n.specialization||'Perawat Umum') + '</div>'
+      + '<div style="display:flex;gap:3px;align-items:center;margin-top:1px"><span style="color:var(--gold);font-size:.6rem">' + starStr + '</span>'
+      + '<span style="font-size:.65rem;font-weight:700;color:var(--navy)">' + (n.rating||'–') + '</span></div></div></div>';
+  }).join('');
+}
+
+// ── CHAT ──────────────────────────────────────────────────────────────
+function renderChatMessages() {
+  if (!activeConsultId) return;
+  NC.reload();
+  var msgs = NC.getConsultationMessages(activeConsultId);
+  var el   = document.getElementById('chatMessages');
+  if (!el) return;
+
+  // Tandai pesan dari nurse sebagai sudah dibaca
+  NC.markMessagesRead(activeConsultId, 'patient');
+
+  if (msgs.length === lastMsgCount) return; // tidak ada perubahan
+  lastMsgCount = msgs.length;
+
+  // Ambil data perawat untuk nama & avatar
+  NC.reload();
+  var consult = NC.consultations.find(function(c){ return c.id === activeConsultId; });
+  var nurse   = consult && consult.nurseId ? NC.users.find(function(u){ return u.id === consult.nurseId; }) : null;
+  var nurseName    = nurse ? nurse.name : 'Perawat';
+  var nurseInitials= NC.getInitials(nurseName);
+  var nurseColor   = NC.avaColor(nurseName);
+  var patInitials  = NC.getInitials(currentUser.name);
+
+  var html = '';
+  msgs.forEach(function(m){
+    var isMe = m.from === 'patient';
+    var time = NC.formatTime(m.ts);
+    if (m.type === 'system') {
+      html += '<div class="msg-date-divider">' + m.text + '</div>';
+      return;
+    }
+    if (isMe) {
+      html += '<div class="msg-group"><div class="msg-row me">'
+        + '<div class="msg-ava-sm" style="background:linear-gradient(135deg,#64748b,#94a3b8);color:#fff;font-size:.6rem;font-weight:700">' + patInitials + '</div>'
+        + '<div><div class="msg-bubble me">' + escHtml(m.text) + '</div>'
+        + '<div class="msg-status">✓✓ Terkirim</div></div></div></div>';
+    } else {
+      html += '<div class="msg-group"><div class="msg-row">'
+        + '<div class="msg-ava-sm" style="background:' + nurseColor + ';color:#fff;font-size:.6rem;font-weight:700">' + nurseInitials + '</div>'
+        + '<div><div class="msg-bubble them">' + escHtml(m.text) + '</div>'
+        + '<div class="msg-time">' + time + '</div></div></div></div>';
+    }
+  });
+
+  // Tambah typing indicator di akhir (tetap ada di DOM)
+  html += '<div id="typingIndicator" style="display:none" class="msg-group"><div class="msg-row">'
+    + '<div class="msg-ava-sm" style="background:' + nurseColor + ';color:#fff">' + nurseInitials + '</div>'
+    + '<div class="typing-indicator"><div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>'
+    + '<span class="typing-label">' + nurseName + ' sedang mengetik...</span></div></div></div>';
+
+  el.innerHTML = html;
+  el.scrollTop = el.scrollHeight;
+
+  // Update nama perawat di header chat
+  if (nurse) {
+    var nameEl = document.querySelector('.chat-nurse-name');
+    var statusEl = document.querySelector('.chat-nurse-status');
+    if (nameEl) nameEl.textContent = nurse.name;
+    if (statusEl) statusEl.textContent = 'Online · ' + (nurse.specialization || 'Perawat');
+  }
+}
+
+function escHtml(t) {
+  return String(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
 
 function sendPatientMsg() {
   var input = document.getElementById('chatInputBox');
-  var msgs  = document.getElementById('chatMessages');
-  var txt   = input.value.trim();
+  var txt   = input ? input.value.trim() : '';
   if (!txt) return;
-  var senderInitials = currentUser ? NC.getInitials(currentUser.name) : '?';
-  var row = document.createElement('div');
-  row.className = 'msg-group';
-  row.innerHTML = '<div class="msg-row me"><div class="msg-ava-sm" style="background:linear-gradient(135deg,#64748b,#94a3b8);color:#fff;font-size:.6rem;font-weight:700">'+senderInitials+'</div><div><div class="msg-bubble me">'+txt+'</div><div class="msg-status">✓✓ Terkirim</div></div></div>';
-  msgs.appendChild(row);
+  if (!activeConsultId) {
+    showToast('Mulai konsultasi terlebih dahulu.', true);
+    return;
+  }
+  NC.addMessage(activeConsultId, 'patient', txt);
   input.value = '';
-  msgs.scrollTop = msgs.scrollHeight;
-  var typing = document.getElementById('typingIndicator');
-  typing.style.display = 'flex';
-  msgs.scrollTop = msgs.scrollHeight;
-  setTimeout(function() {
-    typing.style.display = 'none';
-    var botRow = document.createElement('div');
-    botRow.className = 'msg-group';
-    var now = new Date();
-    botRow.innerHTML = '<div class="msg-row"><div class="msg-ava-sm" style="background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff"><i class="fas fa-user-nurse" style="font-size:.65rem"></i></div><div><div class="msg-bubble them">'+botReplies[replyIdx%botReplies.length]+'</div><div class="msg-time">'+now.getHours()+':'+String(now.getMinutes()).padStart(2,'0')+'</div></div></div>';
-    msgs.appendChild(botRow);
-    replyIdx++;
-    msgs.scrollTop = msgs.scrollHeight;
-  }, 1400);
+  renderChatMessages();
 }
 
-// ─────────────────────────────────────────────────
-// RATING
-// ─────────────────────────────────────────────────
+function startChatPolling() {
+  if (pollingTimer) clearInterval(pollingTimer);
+  pollingTimer = setInterval(function(){
+    if (activeConsultId) renderChatMessages();
+  }, 2000);
+}
+
+function updateChatDetail() {
+  if (!currentUser) return;
+  var n = document.getElementById('chat-nama');
+  var u = document.getElementById('chat-umur');
+  var g = document.getElementById('chat-gender');
+  var p = document.getElementById('chat-phone');
+  if (n) n.textContent = currentUser.name || '-';
+  if (u) u.textContent = currentUser.dob ? (NC.calcAge(currentUser.dob) + ' tahun') : '-';
+  if (g) g.textContent = currentUser.gender || '-';
+  if (p) p.textContent = currentUser.phone  || '-';
+}
+
+// ── RATING ────────────────────────────────────────────────────────────
 var currentRating = 5;
 function openRatingModal() { document.getElementById('ratingOverlay').classList.add('show'); }
 function setRating(n) {
@@ -1098,9 +1227,28 @@ function setRating(n) {
 }
 function submitRating() {
   document.getElementById('ratingOverlay').classList.remove('show');
+  if (activeConsultId) {
+    NC.reload();
+    var c = NC.consultations.find(function(x){ return x.id === activeConsultId; });
+    if (c && c.nurseId) {
+      var reviewText = document.getElementById('reviewText') ? document.getElementById('reviewText').value.trim() : '';
+      NC.addRating({
+        nurseId:   c.nurseId,
+        patientId: currentUser.id,
+        consultId: activeConsultId,
+        score:     currentRating,
+        review:    reviewText
+      });
+      NC.updateConsultation(activeConsultId, { status: 'done', endedAt: Date.now() });
+    }
+  }
+  if (pollingTimer) clearInterval(pollingTimer);
+  activeConsultId = null;
+  lastMsgCount    = 0;
   showToast('Terima kasih! Rating berhasil dikirim ⭐');
   showPage('history', null);
 }
+
 
 // ─────────────────────────────────────────────────
 // EDUCATION

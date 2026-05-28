@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NurseConnect — Dashboard Perawat</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --white:#fff;--off:#fffdf5;--off2:#fff8e1;
+  --gold:#f59e0b;--gold2:#d97706;--gold3:#fef3c7;--gold-light:#fffbeb;--gold-deep:#92400e;
+  --navy:#1a1a2e;--navy2:#16213e;
+  --slate:#5c5c6e;--slate2:#9ca3af;--slate3:#d1d5db;
+  --red:#ef4444;--green:#10b981;--blue:#3b82f6;--purple:#8b5cf6;--amber:#f59e0b;
+  --radius:16px;--radius-sm:10px;--radius-xs:8px;
+  --shadow:0 4px 24px rgba(26,26,46,.07);
+  --shadow-md:0 8px 40px rgba(26,26,46,.11);
+  --shadow-lg:0 20px 60px rgba(26,26,46,.15);
+  --sidebar:260px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:#f4f6fb;color:var(--navy);overflow-x:hidden}
+h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--gold3);border-radius:2px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideInRight{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes notifPop{0%{transform:scale(0);opacity:0}70%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+@keyframes loadBar{from{width:0}to{width:100%}}
+
+/* LOADING */
+#loadingScreen{position:fixed;inset:0;background:var(--navy);display:flex;align-items:center;justify-content:center;z-index:9999;flex-direction:column;gap:1rem}
+.loading-logo{display:flex;align-items:center;gap:10px}
+.loading-logo-icon{width:48px;height:48px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:14px;display:flex;align-items:center;justify-content:center}
+.loading-logo-icon i{color:#fff;font-size:1.2rem}
+.loading-logo-text{font-family:'DM Serif Display',serif;font-size:1.5rem;color:#fff}
+.loading-logo-text span{color:var(--gold)}
+.loading-bar{width:180px;height:3px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden}
+.loading-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:2px;animation:loadBar 1s ease forwards}
+.loading-text{font-size:.78rem;color:#64748b}
+
+/* APP */
+#appShell{display:flex;min-height:100vh}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar);flex-shrink:0;background:var(--navy);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:50;overflow-y:auto;transition:transform .3s cubic-bezier(.22,1,.36,1)}
+.sidebar-logo{padding:1.5rem 1.5rem 1rem;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0}
+.sidebar-logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sidebar-logo-icon i{color:#fff;font-size:.9rem}
+.sidebar-logo-text{font-family:'DM Serif Display',serif;font-size:1.1rem;color:#fff}
+.sidebar-logo-text span{color:var(--gold)}
+.sidebar-nurse-card{margin:.75rem;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.15);border-radius:var(--radius-sm);padding:.85rem 1rem;display:flex;align-items:center;gap:10px}
+.sb-ava{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:.82rem;color:#fff;font-weight:700;flex-shrink:0;position:relative}
+.sb-online-ring{position:absolute;bottom:-1px;right:-1px;width:10px;height:10px;background:#22c55e;border-radius:50%;border:2px solid var(--navy);transition:background .3s}
+.sb-name{font-size:.8rem;font-weight:700;color:#e2e8f0;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px}
+.sb-spec{font-size:.65rem;color:#64748b;margin-top:1px}
+.sidebar-section{padding:.6rem 1.5rem .3rem;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#334155;margin-top:.5rem}
+.nav-item{display:flex;align-items:center;gap:11px;padding:.7rem 1.25rem;margin:1px .75rem;border-radius:var(--radius-xs);cursor:pointer;color:#64748b;font-size:.85rem;font-weight:500;transition:all .2s;text-decoration:none;position:relative}
+.nav-item:hover{background:rgba(255,255,255,.05);color:#94a3b8}
+.nav-item.active{background:rgba(245,158,11,.12);color:var(--gold);border:1px solid rgba(245,158,11,.18)}
+.nav-item i{width:18px;text-align:center;font-size:.88rem;color:#475569;transition:color .2s;flex-shrink:0}
+.nav-item:hover i,.nav-item.active i{color:var(--gold)}
+.nav-badge{margin-left:auto;background:var(--red);color:#fff;font-size:.58rem;font-weight:800;padding:2px 7px;border-radius:999px;min-width:18px;text-align:center;animation:notifPop .3s ease}
+.sidebar-footer{margin-top:auto;padding:.75rem;border-top:1px solid rgba(255,255,255,.05);flex-shrink:0}
+.sidebar-logout-btn{display:flex;align-items:center;gap:8px;padding:.65rem .85rem;border-radius:var(--radius-xs);cursor:pointer;color:#475569;font-size:.8rem;font-weight:500;transition:all .2s;width:100%;background:none;border:none;font-family:'DM Sans',sans-serif}
+.sidebar-logout-btn:hover{background:rgba(239,68,68,.08);color:var(--red)}
+
+/* MAIN */
+.main-area{margin-left:var(--sidebar);flex:1;display:flex;flex-direction:column;min-height:100vh}
+
+/* TOPBAR */
+.topbar{height:62px;background:#fff;border-bottom:1px solid rgba(245,158,11,.1);display:flex;align-items:center;padding:0 2rem;justify-content:space-between;position:sticky;top:0;z-index:40;box-shadow:0 2px 16px rgba(26,26,46,.04)}
+.topbar-left{display:flex;align-items:center;gap:12px}
+.hamburger-btn{display:none;background:none;border:none;cursor:pointer;color:var(--slate);font-size:1.1rem;padding:4px}
+.topbar-title{font-size:1rem;font-weight:700;color:var(--navy)}
+.topbar-sub{font-size:.75rem;color:var(--slate2);margin-top:1px}
+.topbar-right{display:flex;align-items:center;gap:.65rem}
+.topbar-btn{width:38px;height:38px;border-radius:10px;background:var(--off);border:1px solid var(--off2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--slate);font-size:.85rem;transition:all .2s;position:relative}
+.topbar-btn:hover{background:var(--gold-light);color:var(--gold2);border-color:rgba(245,158,11,.3)}
+.notif-dot{position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid #fff;display:none}
+.status-toggle{display:flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;border:1.5px solid;cursor:pointer;font-size:.78rem;font-weight:700;transition:all .25s}
+.status-toggle.online{background:#f0fdf4;border-color:#86efac;color:#16a34a}
+.status-toggle.offline{background:#fef2f2;border-color:#fca5a5;color:#dc2626}
+.status-indicator{width:8px;height:8px;border-radius:50%;flex-shrink:0;transition:background .3s}
+.status-toggle.online .status-indicator{background:#22c55e}
+.status-toggle.offline .status-indicator{background:#ef4444}
+
+/* PAGE CONTENT */
+.page-content{padding:2rem;flex:1;display:none}
+.page-content.active{display:block;animation:fadeUp .35s cubic-bezier(.22,1,.36,1) both}
+
+/* CARDS */
+.card{background:#fff;border-radius:var(--radius);border:1.5px solid rgba(245,158,11,.08);box-shadow:var(--shadow)}
+.card-header{padding:1.15rem 1.5rem;border-bottom:1px solid var(--off2);display:flex;align-items:center;justify-content:space-between;gap:.75rem}
+.card-title{font-size:.88rem;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:8px}
+.card-body{padding:1.5rem}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-bottom:1.5rem}
+.stat-card{background:#fff;border-radius:var(--radius);padding:1.4rem;border:1.5px solid rgba(245,158,11,.06);box-shadow:var(--shadow);transition:all .25s;position:relative;overflow:hidden}
+.stat-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
+.stat-card::after{content:'';position:absolute;top:0;right:0;width:90px;height:90px;border-radius:50%;opacity:.06;transform:translate(25px,-25px)}
+.stat-card.gold::after{background:var(--gold)}.stat-card.green::after{background:var(--green)}.stat-card.red::after{background:var(--red)}.stat-card.purple::after{background:var(--purple)}
+.stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:1rem}
+.stat-icon.gold{background:#fef3c7;color:var(--gold2)}.stat-icon.green{background:#dcfce7;color:#16a34a}.stat-icon.red{background:#fee2e2;color:var(--red)}.stat-icon.purple{background:#ede9fe;color:#7c3aed}
+.stat-num{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--navy);line-height:1}
+.stat-label{font-size:.77rem;color:var(--slate2);margin-top:.3rem}
+.stat-change{font-size:.7rem;font-weight:700;margin-top:.5rem;display:flex;align-items:center;gap:4px}
+.stat-change.up{color:var(--green)}.stat-change.neutral{color:var(--slate2)}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:999px;font-size:.66rem;font-weight:700}
+.badge-waiting{background:#fef9c3;color:#854d0e}.badge-active{background:#f0fdf4;color:#15803d}.badge-done{background:#f1f5f9;color:#475569}
+.badge-gold{background:var(--gold3);color:var(--gold-deep)}.badge-blue{background:#dbeafe;color:#1d4ed8}.badge-green{background:#dcfce7;color:#15803d}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:999px;font-size:.8rem;font-weight:600;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .22s}
+.btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;box-shadow:0 3px 10px rgba(245,158,11,.3)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 5px 16px rgba(245,158,11,.4)}
+.btn-ghost{background:var(--off);color:var(--slate);border:1px solid var(--off2)}.btn-ghost:hover{background:var(--off2)}
+.btn-outline{background:transparent;color:var(--gold2);border:1.5px solid var(--gold)}.btn-outline:hover{background:var(--gold-light)}
+.btn-danger{background:#fee2e2;color:var(--red);border:1px solid #fecaca}.btn-danger:hover{background:#fecaca}
+.btn-sm{padding:6px 14px;font-size:.75rem}.btn-xs{padding:4px 10px;font-size:.7rem;border-radius:8px}
+
+/* PATIENT ROWS */
+.patient-row{display:flex;align-items:center;gap:12px;padding:1rem 1.5rem;border-bottom:1px solid var(--off2);transition:background .18s;cursor:pointer}
+.patient-row:last-child{border-bottom:none}
+.patient-row:hover{background:var(--gold-light)}
+.p-ava{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;color:#fff;font-weight:700;flex-shrink:0}
+.p-name{font-size:.87rem;font-weight:700;color:var(--navy)}
+.p-meta{font-size:.73rem;color:var(--slate2);margin-top:2px}
+
+/* CHAT */
+.chat-layout{display:grid;grid-template-columns:300px 1fr 260px;gap:0;height:calc(100vh - 62px - 4rem);background:#fff;border-radius:var(--radius);border:1.5px solid rgba(245,158,11,.08);overflow:hidden;box-shadow:var(--shadow)}
+.chat-rooms-panel{border-right:1px solid var(--off2);display:flex;flex-direction:column}
+.chat-rooms-header{padding:1rem 1.1rem;border-bottom:1px solid var(--off2);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.chat-rooms-title{font-size:.86rem;font-weight:700;color:var(--navy)}
+.chat-search-box{display:flex;align-items:center;gap:6px;margin:.6rem;background:var(--off);border:1px solid var(--off2);border-radius:999px;padding:6px 12px}
+.chat-search-box input{background:none;border:none;outline:none;font-size:.75rem;font-family:'DM Sans',sans-serif;color:var(--navy);width:100%}
+.chat-search-box i{color:var(--slate3);font-size:.7rem;flex-shrink:0}
+.chat-rooms-list{flex:1;overflow-y:auto}
+.chat-room-item{display:flex;align-items:center;gap:10px;padding:.8rem 1.1rem;border-bottom:1px solid var(--off2);cursor:pointer;transition:background .18s}
+.chat-room-item:hover{background:var(--off)}
+.chat-room-item.active{background:var(--gold-light);border-left:3px solid var(--gold)}
+.chat-room-ava{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.88rem;color:#fff;font-weight:700;flex-shrink:0;position:relative}
+.chat-room-online{position:absolute;bottom:-1px;right:-1px;width:10px;height:10px;background:#22c55e;border-radius:50%;border:2px solid #fff}
+.chat-room-name{font-size:.81rem;font-weight:700;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-room-preview{font-size:.71rem;color:var(--slate2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.chat-room-time{font-size:.63rem;color:var(--slate3);flex-shrink:0}
+.chat-room-unread{background:var(--gold);color:#fff;font-size:.58rem;font-weight:800;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-left:auto}
+.chat-main-panel{display:flex;flex-direction:column;border-right:1px solid var(--off2)}
+.chat-empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--slate2);gap:.85rem}
+.chat-empty-state i{font-size:2.5rem;color:var(--slate3)}
+.chat-empty-state p{font-size:.85rem}
+.chat-main-header{padding:.85rem 1.25rem;border-bottom:1px solid var(--off2);display:flex;align-items:center;gap:12px;flex-shrink:0;background:#fff}
+.chat-main-ava{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;color:#fff;font-weight:700;flex-shrink:0;position:relative}
+.chat-main-name{font-size:.87rem;font-weight:700;color:var(--navy)}
+.chat-main-status{font-size:.68rem;color:var(--green);display:flex;align-items:center;gap:4px;margin-top:1px}
+.chat-main-status::before{content:'';width:6px;height:6px;background:var(--green);border-radius:50%}
+.chat-header-btns{margin-left:auto;display:flex;gap:.5rem}
+.chat-hdr-btn{padding:7px 14px;border-radius:8px;font-size:.75rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;border:1.5px solid var(--off2);background:var(--off);color:var(--slate);display:flex;align-items:center;gap:5px}
+.chat-hdr-btn:hover{background:var(--gold-light);border-color:rgba(245,158,11,.3);color:var(--gold2)}
+.chat-hdr-btn.danger{background:#fee2e2;color:var(--red);border-color:#fecaca}.chat-hdr-btn.danger:hover{background:#fecaca}
+.chat-messages-area{flex:1;overflow-y:auto;padding:1.25rem;display:flex;flex-direction:column;gap:.8rem;background:#fafaf8}
+.msg-date{text-align:center;font-size:.65rem;color:var(--slate3);margin:.25rem 0;display:flex;align-items:center;gap:.5rem}
+.msg-date::before,.msg-date::after{content:'';flex:1;height:1px;background:var(--off2)}
+.msg-system-bubble{text-align:center;font-size:.7rem;color:var(--slate2);background:var(--off2);border-radius:999px;padding:4px 14px;margin:0 auto;display:table}
+.msg-row{display:flex;gap:8px;align-items:flex-end}
+.msg-row.me{flex-direction:row-reverse}
+.msg-ava-xs{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.62rem;color:#fff;font-weight:700}
+.msg-bubble{max-width:70%;padding:10px 14px;border-radius:16px;font-size:.82rem;line-height:1.55;animation:msgIn .2s ease both;word-break:break-word}
+.msg-bubble.them{background:#fff;color:var(--navy);border-radius:4px 16px 16px 16px;border:1px solid var(--off2);box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.msg-bubble.me{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;border-radius:16px 4px 16px 16px}
+.msg-bubble.note-bubble{background:linear-gradient(135deg,#fef9c3,#fde68a);border:1.5px solid rgba(245,158,11,.3);border-radius:12px;max-width:80%}
+.msg-note-title{font-weight:700;color:var(--gold-deep);font-size:.78rem;margin-bottom:.4rem;display:flex;align-items:center;gap:5px}
+.msg-time{font-size:.6rem;color:var(--slate3);margin-top:2px}
+.msg-row.me .msg-time{text-align:right}
+.typing-indicator{display:flex;gap:3px;padding:10px 14px;background:#fff;border-radius:4px 16px 16px 16px;border:1px solid var(--off2);align-self:flex-start;width:fit-content}
+.t-dot{width:7px;height:7px;border-radius:50%;background:var(--slate3);animation:pulse .8s infinite}
+.t-dot:nth-child(2){animation-delay:.15s}.t-dot:nth-child(3){animation-delay:.3s}
+.chat-input-area{padding:.85rem 1.1rem;border-top:1px solid var(--off2);background:#fff;flex-shrink:0}
+.quick-replies{display:flex;gap:.4rem;margin-bottom:.6rem;flex-wrap:wrap}
+.qr-btn{padding:5px 11px;border-radius:999px;background:var(--off);border:1px solid var(--off2);font-size:.68rem;color:var(--slate);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.qr-btn:hover{background:var(--gold-light);color:var(--gold2);border-color:rgba(245,158,11,.3)}
+.chat-input-row{display:flex;gap:.65rem;align-items:flex-end}
+.chat-input-attach{width:34px;height:34px;border-radius:8px;background:var(--off);border:1px solid var(--off2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--slate2);font-size:.8rem;flex-shrink:0;transition:all .2s}
+.chat-input-attach:hover{border-color:rgba(245,158,11,.3);color:var(--gold2)}
+.chat-input-box{flex:1;background:var(--off);border:1.5px solid var(--off2);border-radius:14px;padding:.6rem 1rem;transition:all .2s}
+.chat-input-box:focus-within{border-color:var(--gold);background:#fff}
+.chat-textarea{width:100%;background:none;border:none;outline:none;font-size:.83rem;color:var(--navy);font-family:'DM Sans',sans-serif;resize:none;max-height:100px;line-height:1.5}
+.chat-textarea::placeholder{color:var(--slate3)}
+.chat-send-btn{width:40px;height:40px;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;border-radius:12px;cursor:pointer;color:#fff;font-size:.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;box-shadow:0 3px 10px rgba(245,158,11,.3)}
+.chat-send-btn:hover{opacity:.9;transform:scale(1.05)}
+.chat-detail-panel{display:flex;flex-direction:column;overflow-y:auto}
+.chat-detail-hdr{padding:1rem;border-bottom:1px solid var(--off2);flex-shrink:0}
+.chat-detail-title{font-size:.82rem;font-weight:700;color:var(--navy)}
+.chat-detail-sub{font-size:.68rem;color:var(--slate2);margin-top:2px}
+.chat-detail-section{padding:.85rem 1rem;border-bottom:1px solid var(--off2)}
+.cds-title{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--slate2);margin-bottom:.6rem}
+.info-row{display:flex;justify-content:space-between;align-items:flex-start;padding:.28rem 0;font-size:.77rem;gap:.5rem}
+.info-label{color:var(--slate2);flex-shrink:0}
+.info-val{font-weight:600;color:var(--navy);text-align:right}
+.complaint-card{background:var(--off);border-radius:var(--radius-xs);padding:.75rem;font-size:.77rem;color:var(--slate);line-height:1.65;border-left:3px solid var(--gold)}
+
+/* PATIENT PANEL */
+.patient-panel{position:fixed;top:0;right:0;bottom:0;width:380px;background:#fff;border-left:1.5px solid var(--off2);z-index:200;transform:translateX(100%);transition:transform .3s cubic-bezier(.22,1,.36,1);overflow-y:auto;box-shadow:-8px 0 32px rgba(26,26,46,.1)}
+.patient-panel.open{transform:translateX(0)}
+.panel-header{padding:1.15rem 1.5rem;border-bottom:1px solid var(--off2);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#fff;z-index:1}
+.panel-close-btn{width:30px;height:30px;border-radius:50%;background:var(--off);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--slate);font-size:.78rem;transition:all .2s}
+.panel-close-btn:hover{background:var(--off2)}
+.panel-body{padding:1.25rem}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(26,26,46,.6);backdrop-filter:blur(6px);z-index:300;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .3s}
+.modal-overlay.show{opacity:1;pointer-events:all}
+.modal-box{background:#fff;border-radius:22px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;transform:scale(.96) translateY(10px);transition:all .32s cubic-bezier(.22,1,.36,1);box-shadow:var(--shadow-lg)}
+.modal-overlay.show .modal-box{transform:scale(1) translateY(0)}
+.modal-header{padding:1.4rem 1.75rem 1.1rem;border-bottom:1px solid var(--off2);display:flex;align-items:flex-start;justify-content:space-between}
+.modal-close{width:30px;height:30px;border-radius:50%;background:var(--off);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--slate);font-size:.78rem;transition:all .2s;flex-shrink:0}
+.modal-close:hover{background:var(--off2)}
+.modal-body{padding:1.4rem 1.75rem 1.75rem}
+.form-group{margin-bottom:1.05rem}
+.form-label{display:block;font-size:.71rem;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.4rem}
+.form-input{width:100%;padding:10px 13px;background:var(--off);border:1.5px solid var(--off2);border-radius:var(--radius-xs);color:var(--navy);font-size:.87rem;outline:none;transition:all .22s;font-family:'DM Sans',sans-serif}
+.form-input:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(245,158,11,.1)}
+.form-input::placeholder{color:var(--slate3)}
+select.form-input option{background:#fff}
+textarea.form-input{resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
+
+/* HISTORY */
+.history-item{display:flex;align-items:flex-start;gap:12px;padding:1rem 1.5rem;border-bottom:1px solid var(--off2);transition:background .18s}
+.history-item:last-child{border-bottom:none}
+.history-item:hover{background:var(--off)}
+.history-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.88rem;flex-shrink:0}
+.history-title{font-size:.84rem;font-weight:700;color:var(--navy)}
+.history-sub{font-size:.73rem;color:var(--slate2);margin-top:2px;line-height:1.5}
+.history-date{font-size:.68rem;color:var(--slate3);flex-shrink:0;margin-left:auto}
+
+/* ANALYTICS */
+.analytics-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:1.25rem}
+.chart-bar-item{display:flex;align-items:center;gap:.75rem;margin-bottom:.55rem}
+.chart-bar-label{width:68px;color:var(--slate);font-size:.73rem;text-align:right;flex-shrink:0}
+.chart-bar-track{flex:1;height:10px;background:var(--off2);border-radius:999px;overflow:hidden}
+.chart-bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width 1s cubic-bezier(.22,1,.36,1)}
+.chart-bar-val{width:28px;font-size:.7rem;font-weight:700;color:var(--navy);flex-shrink:0}
+
+/* PROFILE */
+.profile-grid{display:grid;grid-template-columns:280px 1fr;gap:1.5rem;align-items:start}
+.profile-left-card{background:#fff;border-radius:var(--radius);border:1.5px solid rgba(245,158,11,.08);padding:2rem;text-align:center;box-shadow:var(--shadow)}
+.profile-big-ava{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:#fff;font-weight:700;margin:0 auto 1rem;position:relative;box-shadow:0 8px 24px rgba(245,158,11,.3)}
+.profile-online-ring{position:absolute;bottom:3px;right:3px;width:14px;height:14px;background:#22c55e;border-radius:50%;border:2px solid #fff;transition:background .3s}
+.profile-str-badge{display:inline-flex;align-items:center;gap:6px;background:var(--gold3);color:var(--gold-deep);border-radius:999px;padding:5px 14px;font-size:.72rem;font-weight:700;margin-top:.75rem}
+
+/* NOTIF PANEL */
+.notif-panel{position:fixed;top:62px;right:0;width:340px;background:#fff;border-left:1.5px solid var(--off2);border-bottom-left-radius:16px;z-index:150;transform:translateX(100%);transition:transform .3s cubic-bezier(.22,1,.36,1);box-shadow:-6px 6px 24px rgba(26,26,46,.1);max-height:70vh;overflow-y:auto}
+.notif-panel.open{transform:translateX(0)}
+.notif-panel-header{padding:.9rem 1.25rem;border-bottom:1px solid var(--off2);font-weight:700;color:var(--navy);font-size:.86rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#fff}
+.notif-item{padding:.85rem 1.25rem;border-bottom:1px solid var(--off2);display:flex;gap:10px;cursor:pointer;transition:background .18s}
+.notif-item:hover{background:var(--gold-light)}
+.notif-item-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.82rem;flex-shrink:0}
+.notif-item-title{font-size:.8rem;font-weight:700;color:var(--navy)}
+.notif-item-sub{font-size:.71rem;color:var(--slate2);margin-top:2px;line-height:1.4}
+.notif-item-time{font-size:.63rem;color:var(--slate3);margin-top:3px}
+
+/* TOAST */
+.toast-container{position:fixed;bottom:1.5rem;right:1.5rem;z-index:500;display:flex;flex-direction:column;gap:.6rem;pointer-events:none}
+.toast{background:#fff;border-radius:12px;padding:.85rem 1.1rem;box-shadow:var(--shadow-lg);border-left:4px solid var(--green);display:flex;align-items:center;gap:.75rem;font-size:.8rem;pointer-events:all;animation:slideInRight .3s cubic-bezier(.22,1,.36,1) both;max-width:300px}
+.toast.warning{border-left-color:var(--amber)}.toast.error{border-left-color:var(--red)}
+.toast-icon{font-size:.95rem;flex-shrink:0}
+.toast-close{margin-left:auto;background:none;border:none;cursor:pointer;color:var(--slate3);font-size:.78rem;padding:2px}
+
+/* UTILS */
+.empty-state{text-align:center;padding:2.5rem 1.5rem;color:var(--slate2)}
+.empty-state i{font-size:2rem;color:var(--slate3);margin-bottom:.85rem;display:block}
+.empty-state p{font-size:.85rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.mt-2{margin-top:1rem}.mb-2{margin-bottom:1rem}
+
+/* RESPONSIVE */
+@media(max-width:1100px){.chat-layout{grid-template-columns:260px 1fr}.chat-detail-panel{display:none}}
+@media(max-width:900px){.sidebar{transform:translateX(-260px);width:260px}.sidebar.open{transform:translateX(0)}.main-area{margin-left:0}.hamburger-btn{display:flex}.stats-row{grid-template-columns:repeat(2,1fr)}.analytics-grid{grid-template-columns:1fr}.profile-grid{grid-template-columns:1fr}.chat-layout{grid-template-columns:1fr;height:auto}.chat-rooms-panel{display:none}}
+@media(max-width:600px){.stats-row{grid-template-columns:1fr 1fr}.page-content{padding:1.1rem}.form-row{grid-template-columns:1fr}.patient-panel{width:100%}.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="loadingScreen">
+  <div class="loading-logo">
+    <div class="loading-logo-icon"><i class="fas fa-heartbeat"></i></div>
+    <span class="loading-logo-text">Nurse<span>Connect</span></span>
+  </div>
+  <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+  <div class="loading-text" id="loadingText">Memuat dashboard perawat...</div>
+</div>
+
+<div id="appShell" style="display:none">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon"><i class="fas fa-heartbeat"></i></div>
+      <span class="sidebar-logo-text">Nurse<span>Connect</span></span>
+    </div>
+    <div class="sidebar-nurse-card">
+      <div class="sb-ava" id="sbAva">?
+        <div class="sb-online-ring" id="sbRing"></div>
+      </div>
+      <div>
+        <div class="sb-name" id="sbName">Memuat...</div>
+        <div class="sb-spec" id="sbSpec">Perawat</div>
+      </div>
+    </div>
+    <div class="sidebar-section">Utama</div>
+    <a class="nav-item active" onclick="showPage('dashboard',this)" href="#">
+      <i class="fas fa-th-large"></i> Dashboard
+    </a>
+    <a class="nav-item" onclick="showPage('patients',this)" href="#">
+      <i class="fas fa-users"></i> Daftar Pasien
+      <span class="nav-badge" id="newPatBadge" style="display:none">0</span>
+    </a>
+    <a class="nav-item" onclick="showPage('consultation',this)" href="#">
+      <i class="fas fa-comments"></i> Konsultasi
+      <span class="nav-badge" id="chatBadgeSb" style="display:none">0</span>
+    </a>
+    <div class="sidebar-section">Manajemen</div>
+    <a class="nav-item" onclick="showPage('notes',this)" href="#"><i class="fas fa-file-medical"></i> Catatan Medis</a>
+    <a class="nav-item" onclick="showPage('history',this)" href="#"><i class="fas fa-clock-rotate-left"></i> Riwayat</a>
+    <a class="nav-item" onclick="showPage('analytics',this)" href="#"><i class="fas fa-chart-bar"></i> Analitik</a>
+    <div class="sidebar-section">Akun</div>
+    <a class="nav-item" onclick="showPage('profile',this)" href="#"><i class="fas fa-circle-user"></i> Profil Saya</a>
+    <div class="sidebar-footer">
+      <a class="nav-item" href="index.html" style="color:#64748b"><i class="fas fa-house"></i> Landing Page</a>
+      <button class="sidebar-logout-btn" onclick="doLogout()"><i class="fas fa-right-from-bracket"></i> Keluar</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main-area">
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="hamburger-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+        <div>
+          <div class="topbar-title" id="pageTitle">Dashboard</div>
+          <div class="topbar-sub" id="pageDate"></div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="status-toggle online" id="statusToggle" onclick="toggleStatus()">
+          <div class="status-indicator"></div>
+          <span id="statusText">Online</span>
+        </div>
+        <div class="topbar-btn" onclick="toggleNotif()" id="notifBtn">
+          <i class="fas fa-bell"></i>
+          <div class="notif-dot" id="notifDot"></div>
+        </div>
+        <div class="topbar-btn" onclick="showPage('profile',null)"><i class="fas fa-circle-user"></i></div>
+      </div>
+    </header>
+
+    <!-- NOTIF PANEL -->
+    <div class="notif-panel" id="notifPanel">
+      <div class="notif-panel-header">
+        <span><i class="fas fa-bell" style="color:var(--gold);margin-right:6px"></i>Notifikasi</span>
+        <button onclick="clearNotifs()" style="background:none;border:none;font-size:.72rem;color:var(--slate2);cursor:pointer;font-family:'DM Sans',sans-serif">Hapus semua</button>
+      </div>
+      <div id="notifList">
+        <div class="empty-state" style="padding:1.5rem">
+          <i class="fas fa-bell-slash"></i><p>Tidak ada notifikasi</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── DASHBOARD ── -->
+    <div class="page-content active" id="page-dashboard">
+      <div class="stats-row">
+        <div class="stat-card gold">
+          <div class="stat-icon gold"><i class="fas fa-calendar-check"></i></div>
+          <div class="stat-num" id="statToday">0</div>
+          <div class="stat-label">Konsultasi Hari Ini</div>
+          <div class="stat-change up"><i class="fas fa-arrow-up"></i> <span id="statTodayTxt">hari ini</span></div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-icon green"><i class="fas fa-users"></i></div>
+          <div class="stat-num" id="statPatients">0</div>
+          <div class="stat-label">Total Pasien</div>
+          <div class="stat-change up"><i class="fas fa-circle-check"></i> Terdaftar</div>
+        </div>
+        <div class="stat-card red">
+          <div class="stat-icon red"><i class="fas fa-comment-dots"></i></div>
+          <div class="stat-num" id="statUnread">0</div>
+          <div class="stat-label">Pesan Belum Dibaca</div>
+          <div class="stat-change neutral"><i class="fas fa-minus"></i> Perlu dibalas</div>
+        </div>
+        <div class="stat-card purple">
+          <div class="stat-icon purple"><i class="fas fa-star"></i></div>
+          <div class="stat-num" id="statRating">–</div>
+          <div class="stat-label">Rating Rata-rata</div>
+          <div class="stat-change up"><i class="fas fa-star"></i> Dari pasien</div>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title"><i class="fas fa-hourglass-half" style="color:var(--gold)"></i>Antrian Menunggu</span>
+            <span class="badge badge-waiting" id="queueBadge">0 menunggu</span>
+          </div>
+          <div id="queueList">
+            <div class="empty-state"><i class="fas fa-circle-check" style="color:var(--green)"></i><p>Tidak ada antrian saat ini</p></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title"><i class="fas fa-clock" style="color:var(--gold)"></i>Aktivitas Terbaru</span>
+            <button class="btn btn-ghost btn-sm" onclick="showPage('history',null)">Lihat Semua</button>
+          </div>
+          <div id="recentActivity">
+            <div class="empty-state"><i class="fas fa-inbox"></i><p>Belum ada aktivitas</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PATIENTS ── -->
+    <div class="page-content" id="page-patients">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title"><i class="fas fa-users" style="color:var(--gold)"></i>Daftar Pasien</span>
+          <input type="text" class="form-input" id="patSearch" placeholder="Cari nama pasien..."
+            style="padding:7px 12px;font-size:.8rem;width:200px;border-radius:999px" oninput="renderPatients()">
+        </div>
+        <div id="patientList">
+          <div class="empty-state"><i class="fas fa-user-slash"></i><p>Belum ada pasien</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CONSULTATION ── -->
+    <div class="page-content" id="page-consultation">
+      <div class="chat-layout">
+        <div class="chat-rooms-panel">
+          <div class="chat-rooms-header">
+            <span class="chat-rooms-title"><i class="fas fa-comments" style="color:var(--gold);margin-right:5px"></i>Konsultasi</span>
+            <span class="badge badge-gold" id="activeChatBadge">0 aktif</span>
+          </div>
+          <div class="chat-search-box">
+            <i class="fas fa-search"></i>
+            <input id="chatSearchInput" placeholder="Cari pasien..." oninput="renderChatRooms()">
+          </div>
+          <div class="chat-rooms-list" id="chatRoomsList">
+            <div class="empty-state" style="padding:2rem">
+              <i class="fas fa-comment-slash"></i><p>Belum ada konsultasi</p>
+            </div>
+          </div>
+        </div>
+        <div class="chat-main-panel" id="chatMainPanel">
+          <div class="chat-empty-state" id="chatEmptyState">
+            <i class="fas fa-comment-medical"></i>
+            <p>Pilih konsultasi untuk memulai</p>
+            <small>Pasien yang mengirim permintaan akan muncul di kiri</small>
+          </div>
+          <div id="chatActiveArea" style="display:none;flex-direction:column;height:100%">
+            <div class="chat-main-header">
+              <div class="chat-main-ava" id="activeChatAva">?</div>
+              <div>
+                <div class="chat-main-name" id="activeChatName">–</div>
+                <div class="chat-main-status" id="activeChatStatus">Konsultasi Aktif</div>
+              </div>
+              <div class="chat-header-btns">
+                <button class="chat-hdr-btn" onclick="openPatientPanel()"><i class="fas fa-circle-user"></i> Data Pasien</button>
+                <button class="chat-hdr-btn" onclick="openNoteModal()"><i class="fas fa-notes-medical"></i> Catatan</button>
+                <button class="chat-hdr-btn danger" onclick="endConsultation()"><i class="fas fa-circle-check"></i> Selesaikan</button>
+              </div>
+            </div>
+            <div class="chat-messages-area" id="chatMsgsArea"></div>
+            <div class="chat-input-area">
+              <div class="quick-replies">
+                <button class="qr-btn" onclick="sendQuickReply('Baik, mohon tunggu sebentar ya 😊')"><i class="fas fa-bolt" style="font-size:.6rem"></i> Tunggu sebentar</button>
+                <button class="qr-btn" onclick="sendQuickReply('Selamat datang! Ada yang bisa saya bantu hari ini?')"><i class="fas fa-bolt" style="font-size:.6rem"></i> Sambutan</button>
+                <button class="qr-btn" onclick="sendQuickReply('Baik, saya catat. Apakah ada keluhan lain?')"><i class="fas fa-bolt" style="font-size:.6rem"></i> Catat keluhan</button>
+                <button class="qr-btn" onclick="sendQuickReply('Konsultasi selesai. Semoga lekas sembuh! 🙏')"><i class="fas fa-bolt" style="font-size:.6rem"></i> Penutup</button>
+              </div>
+              <div class="chat-input-row">
+                <div class="chat-input-attach" onclick="openNoteModal()" title="Catatan medis"><i class="fas fa-notes-medical"></i></div>
+                <div class="chat-input-box">
+                  <textarea class="chat-textarea" id="nurseInput"
+                    placeholder="Tulis pesan... (Enter kirim, Shift+Enter baris baru)" rows="2"
+                    onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendNurseMsg()}"></textarea>
+                </div>
+                <button class="chat-send-btn" onclick="sendNurseMsg()"><i class="fas fa-paper-plane"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="chat-detail-panel" id="chatDetailPanel">
+          <div class="chat-detail-hdr">
+            <div class="chat-detail-title">Info Konsultasi</div>
+            <div class="chat-detail-sub" id="chatDetailSub">Pilih konsultasi</div>
+          </div>
+          <div class="chat-detail-section" id="chatDetailPatient">
+            <div class="cds-title">Data Pasien</div>
+            <div class="empty-state" style="padding:1rem"><i class="fas fa-user"></i><p style="font-size:.75rem">Pilih konsultasi dulu</p></div>
+          </div>
+          <div class="chat-detail-section" id="chatDetailComplaint">
+            <div class="cds-title">Keluhan</div>
+            <div style="font-size:.78rem;color:var(--slate2)">–</div>
+          </div>
+          <div class="chat-detail-section" id="chatDetailNotes">
+            <div class="cds-title">Catatan Medis Terakhir</div>
+            <div style="font-size:.78rem;color:var(--slate2)">Belum ada catatan</div>
+          </div>
+          <div style="padding:.85rem">
+            <button class="btn btn-outline" style="width:100%;justify-content:center;font-size:.78rem" onclick="openNoteModal()">
+              <i class="fas fa-plus"></i> Tambah Catatan
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── NOTES ── -->
+    <div class="page-content" id="page-notes">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title"><i class="fas fa-file-medical" style="color:var(--gold)"></i>Catatan Medis</span>
+          <button class="btn btn-primary btn-sm" onclick="openNoteModal()"><i class="fas fa-plus"></i> Tambah</button>
+        </div>
+        <div id="notesList">
+          <div class="empty-state"><i class="fas fa-file-medical-alt"></i><p>Belum ada catatan medis</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── HISTORY ── -->
+    <div class="page-content" id="page-history">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title"><i class="fas fa-clock-rotate-left" style="color:var(--gold)"></i>Riwayat Konsultasi</span>
+          <span style="font-size:.8rem;font-weight:700;color:var(--gold2)" id="historyTotal">0 konsultasi</span>
+        </div>
+        <div id="historyList">
+          <div class="empty-state"><i class="fas fa-folder-open"></i><p>Belum ada riwayat</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ANALYTICS ── -->
+    <div class="page-content" id="page-analytics">
+      <div class="stats-row">
+        <div class="stat-card gold"><div class="stat-icon gold"><i class="fas fa-chart-line"></i></div><div class="stat-num" id="aTotal">0</div><div class="stat-label">Total Konsultasi Selesai</div></div>
+        <div class="stat-card green"><div class="stat-icon green"><i class="fas fa-star"></i></div><div class="stat-num" id="aRating">–</div><div class="stat-label">Rating Rata-rata</div></div>
+        <div class="stat-card red"><div class="stat-icon red"><i class="fas fa-file-alt"></i></div><div class="stat-num" id="aNotes">0</div><div class="stat-label">Catatan Medis</div></div>
+        <div class="stat-card purple"><div class="stat-icon purple"><i class="fas fa-users"></i></div><div class="stat-num" id="aPatients">0</div><div class="stat-label">Pasien Dilayani</div></div>
+      </div>
+      <div class="analytics-grid">
+        <div class="card">
+          <div class="card-header"><span class="card-title"><i class="fas fa-chart-bar" style="color:var(--gold)"></i>Konsultasi per Kategori</span></div>
+          <div class="card-body"><div id="specChart"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-title"><i class="fas fa-star" style="color:var(--gold)"></i>Distribusi Rating</span></div>
+          <div class="card-body"><div id="ratingChart"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PROFILE ── -->
+    <div class="page-content" id="page-profile">
+      <div class="profile-grid">
+        <div class="profile-left-card">
+          <div class="profile-big-ava">
+            <span id="profAvaInitials" style="font-size:1.8rem;font-weight:700;color:#fff">?</span>
+            <div class="profile-online-ring" id="profOnlineRing"></div>
+          </div>
+          <div style="font-size:1rem;font-weight:700;color:var(--navy)" id="profName">–</div>
+          <div style="font-size:.8rem;color:var(--slate2);margin-top:2px" id="profSpec">–</div>
+          <div style="font-size:.75rem;color:var(--gold);margin:.4rem 0" id="profStars">–</div>
+          <div style="font-size:.75rem;color:var(--slate2)" id="profStats">–</div>
+          <div class="profile-str-badge" id="profStrBadge"><i class="fas fa-certificate"></i> STR: –</div>
+          <div style="margin-top:1.25rem;display:flex;flex-direction:column;gap:.6rem">
+            <div class="status-toggle online" id="profStatusToggle" onclick="toggleStatus()" style="justify-content:center">
+              <div class="status-indicator"></div>
+              <span id="profStatusText">Online</span>
+            </div>
+            <button class="btn btn-danger" style="width:100%;justify-content:center" onclick="doLogout()">
+              <i class="fas fa-right-from-bracket"></i> Keluar
+            </button>
+          </div>
+        </div>
+        <div>
+          <div class="card mb-2">
+            <div class="card-header">
+              <span class="card-title"><i class="fas fa-id-card" style="color:var(--gold)"></i>Edit Profil</span>
+              <button class="btn btn-primary btn-sm" onclick="saveProfile()"><i class="fas fa-floppy-disk"></i> Simpan</button>
+            </div>
+            <div class="card-body">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Nama Lengkap</label>
+                  <input type="text" class="form-input" id="editNama">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-input" id="editEmail" disabled style="opacity:.6;cursor:not-allowed">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Spesialisasi</label>
+                  <select class="form-input" id="editSpec">
+                    <option>Keperawatan Umum</option>
+                    <option>Keperawatan Medikal Bedah</option>
+                    <option>Keperawatan Anak &amp; Maternitas</option>
+                    <option>Kesehatan Jiwa &amp; Psikiatri</option>
+                    <option>Keperawatan Geriatri</option>
+                    <option>Manajemen Penyakit Kronik</option>
+                    <option>Keperawatan Kritis &amp; ICU</option>
+                    <option>Perawatan Luka</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Nomor STR</label>
+                  <input type="text" class="form-input" id="editStr" placeholder="STR-XXXXX-YYYY">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Jenis Kelamin</label>
+                  <select class="form-input" id="editGender">
+                    <option value="">Pilih...</option>
+                    <option>Laki-laki</option>
+                    <option>Perempuan</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Alamat / Kota</label>
+                  <input type="text" class="form-input" id="editAddress" placeholder="Kota, Provinsi">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Password Baru (kosongkan jika tidak ingin ubah)</label>
+                <input type="password" class="form-input" id="editPass" placeholder="Min. 6 karakter" autocomplete="new-password">
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title"><i class="fas fa-star" style="color:var(--gold)"></i>Ulasan Pasien</span>
+            </div>
+            <div id="reviewsList">
+              <div class="empty-state"><i class="fas fa-star"></i><p>Belum ada ulasan</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main-area -->
+</div><!-- /appShell -->
+
+<!-- PATIENT DETAIL PANEL -->
+<div class="patient-panel" id="patientPanel">
+  <div class="panel-header">
+    <span style="font-size:.9rem;font-weight:700;color:var(--navy)">Data Pasien</span>
+    <button class="panel-close-btn" onclick="closePatientPanel()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="panel-body" id="patientPanelBody">
+    <div class="empty-state"><i class="fas fa-user"></i><p>Pilih pasien untuk melihat data</p></div>
+  </div>
+</div>
+
+<!-- MEDICAL NOTE MODAL -->
+<div class="modal-overlay" id="noteModalOverlay" onclick="if(event.target===this)closeNoteModal()">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <h3 class="serif" style="font-size:1.1rem;color:var(--navy)">Catatan Medis</h3>
+        <p style="font-size:.77rem;color:var(--slate2);margin-top:3px">Tambahkan catatan keperawatan</p>
+      </div>
+      <button class="modal-close" onclick="closeNoteModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Pasien *</label>
+        <select class="form-input" id="notePatient"><option value="">Pilih pasien...</option></select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Diagnosis / Keluhan Utama</label>
+        <input type="text" class="form-input" id="noteDiagnosis" placeholder="Misal: Hipertensi grade II">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tanda-tanda Vital</label>
+        <div class="form-row">
+          <input type="text" class="form-input" id="noteTD" placeholder="Tekanan Darah (mmHg)">
+          <input type="text" class="form-input" id="noteNadi" placeholder="Nadi (bpm)">
+        </div>
+        <div class="form-row" style="margin-top:.5rem">
+          <input type="text" class="form-input" id="noteSuhu" placeholder="Suhu Tubuh (°C)">
+          <input type="text" class="form-input" id="noteRR" placeholder="Frekuensi Napas (/mnt)">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Catatan Keperawatan *</label>
+        <textarea class="form-input" rows="3" id="noteText" placeholder="Rencana asuhan, intervensi, observasi..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Anjuran / Tindak Lanjut</label>
+        <textarea class="form-input" rows="2" id="noteAnjuran" placeholder="Anjuran kepada pasien dan keluarga..."></textarea>
+      </div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;padding:12px;border-radius:var(--radius-sm)" onclick="saveMedNote()">
+        <i class="fas fa-floppy-disk"></i> Simpan Catatan Medis
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- shared.js WAJIB dimuat dulu -->
+<script src="shared.js"></script>
+<script>
+'use strict';
+
+// ─────────────────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────────────────
+var currentNurse  = null;
+var isOnline      = true;
+var activeConsult = null; // { patientId, consultId }
+var pollingTimer  = null;
+var notifiedIds   = {};
+
+// ─────────────────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────────────────
+function esc(t) {
+  return String(t || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function fmtTime(ts)  { return NC.formatTime(ts); }
+function fmtDate(ts)  { return NC.formatDate(ts); }
+function timeAgo(ts)  { return NC.timeAgo(ts); }
+function initials(n)  { return NC.getInitials(n); }
+function avaColor(n)  { return NC.avaColor(n); }
+function calcAge(dob) { var a = NC.calcAge(dob); return a !== null ? a : '–'; }
+
+// ─────────────────────────────────────────────────────────
+// TOAST
+// ─────────────────────────────────────────────────────────
+function showToast(msg, type, dur) {
+  type = type || 'success'; dur = dur || 3500;
+  var icons  = { success:'fas fa-circle-check', warning:'fas fa-triangle-exclamation', error:'fas fa-circle-xmark' };
+  var colors = { success:'var(--green)', warning:'var(--amber)', error:'var(--red)' };
+  var tc = document.getElementById('toastContainer');
+  var t  = document.createElement('div');
+  t.className = 'toast' + (type !== 'success' ? ' ' + type : '');
+  t.innerHTML = '<i class="' + icons[type] + ' toast-icon" style="color:' + colors[type] + '"></i>'
+    + '<span>' + esc(msg) + '</span>'
+    + '<button class="toast-close" onclick="this.closest(\'.toast\').remove()"><i class="fas fa-times"></i></button>';
+  tc.appendChild(t);
+  setTimeout(function(){ if (t.parentNode) t.remove(); }, dur);
+}
+
+// ─────────────────────────────────────────────────────────
+// STARTUP
+// ─────────────────────────────────────────────────────────
+(function init() {
+  var user = NC.getCurrentUser();
+
+  if (!user) {
+    document.getElementById('loadingText').textContent = 'Sesi tidak ditemukan, mengalihkan...';
+    setTimeout(function(){ window.location.href = 'auth.html?role=nurse'; }, 800);
+    return;
+  }
+  if (user.role !== 'nurse') {
+    document.getElementById('loadingText').textContent = 'Akun Anda adalah pasien, mengalihkan...';
+    setTimeout(function(){ window.location.href = 'patient.html'; }, 800);
+    return;
+  }
+
+  currentNurse = user;
+  NC.updateUser(currentNurse.id, { isOnline: true });
+  isOnline = true;
+
+  setTimeout(function() {
+    document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('appShell').style.display = 'flex';
+    bootApp();
+  }, 1000);
+})();
+
+function bootApp() {
+  document.getElementById('sbAva').innerHTML = esc(initials(currentNurse.name)) + '<div class="sb-online-ring" id="sbRing"></div>';
+  document.getElementById('sbName').textContent = (currentNurse.name || '').split(' ').slice(0,3).join(' ');
+  document.getElementById('sbSpec').textContent  = currentNurse.specialization || 'Perawat';
+  document.getElementById('pageDate').textContent = new Date().toLocaleDateString('id-ID',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+  syncStatusUI();
+  renderAll();
+  startPolling();
+
+  document.addEventListener('click', function(e) {
+    var np = document.getElementById('notifPanel');
+    var nb = document.getElementById('notifBtn');
+    if (np.classList.contains('open') && !np.contains(e.target) && !nb.contains(e.target)) {
+      np.classList.remove('open');
+    }
+    var pp = document.getElementById('patientPanel');
+    if (pp.classList.contains('open') && !pp.contains(e.target)) {
+      var triggers = document.querySelectorAll('[onclick*="openPatientPanel"], [onclick*="viewPatient"]');
+      var hit = Array.from(triggers).some(function(el){ return el.contains(e.target); });
+      if (!hit) pp.classList.remove('open');
+    }
+  });
+}
+
+function renderAll() {
+  renderDashboard();
+  renderPatients();
+  renderChatRooms();
+  renderNotesList();
+  renderHistory();
+  renderAnalytics();
+  renderProfile();
+  fillPatientDropdown();
+}
+
+// ─────────────────────────────────────────────────────────
+// DATA GETTERS
+// ─────────────────────────────────────────────────────────
+function getPatients() {
+  NC.reload();
+  return NC.users.filter(function(u){ return u.role === 'patient'; });
+}
+function getMyConsults() {
+  NC.reload();
+  return NC.consultations.filter(function(c){ return c.nurseId === currentNurse.id; });
+}
+function getMyNotes() {
+  NC.reload();
+  return NC.medNotes.filter(function(n){ return n.nurseId === currentNurse.id; });
+}
+function getMyRatings() {
+  NC.reload();
+  return NC.ratings.filter(function(r){ return r.nurseId === currentNurse.id; });
+}
+
+// ─────────────────────────────────────────────────────────
+// AUTH
+// ─────────────────────────────────────────────────────────
+function doLogout() {
+  if (!confirm('Yakin ingin keluar?')) return;
+  NC.updateUser(currentNurse.id, { isOnline: false });
+  if (pollingTimer) clearInterval(pollingTimer);
+  NC.logout();
+}
+
+// ─────────────────────────────────────────────────────────
+// NAVIGATION
+// ─────────────────────────────────────────────────────────
+var PAGE_TITLES = {
+  dashboard:'Dashboard', patients:'Daftar Pasien', consultation:'Konsultasi',
+  notes:'Catatan Medis', history:'Riwayat Konsultasi', analytics:'Analitik', profile:'Profil Saya'
+};
+
+function showPage(name, navEl) {
+  document.querySelectorAll('.page-content').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+  var el = document.getElementById('page-' + name);
+  if (el) el.classList.add('active');
+  if (navEl) {
+    navEl.classList.add('active');
+  } else {
+    document.querySelectorAll('.nav-item').forEach(function(n){
+      if (n.getAttribute('onclick') && n.getAttribute('onclick').indexOf("'" + name + "'") !== -1) n.classList.add('active');
+    });
+  }
+  document.getElementById('pageTitle').textContent = PAGE_TITLES[name] || name;
+  var refresh = {
+    dashboard: renderDashboard, patients: renderPatients,
+    consultation: renderChatRooms, notes: renderNotesList,
+    history: renderHistory, analytics: renderAnalytics, profile: renderProfile
+  };
+  if (refresh[name]) refresh[name]();
+  closeSidebar();
+}
+
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+function closeSidebar()   { if (window.innerWidth <= 900) document.getElementById('sidebar').classList.remove('open'); }
+
+// ─────────────────────────────────────────────────────────
+// STATUS
+// ─────────────────────────────────────────────────────────
+function toggleStatus() {
+  isOnline = !isOnline;
+  NC.updateUser(currentNurse.id, { isOnline: isOnline });
+  syncStatusUI();
+  showToast(isOnline ? 'Status: Online — siap menerima konsultasi' : 'Status: Offline', isOnline ? 'success' : 'warning');
+}
+function syncStatusUI() {
+  var cls = isOnline ? 'online' : 'offline';
+  ['statusToggle','profStatusToggle'].forEach(function(id){
+    var el = document.getElementById(id);
+    if (el) { el.className = 'status-toggle ' + cls; }
+  });
+  var st = document.getElementById('statusText');
+  if (st) st.textContent = isOnline ? 'Online' : 'Offline';
+  var pst = document.getElementById('profStatusText');
+  if (pst) pst.textContent = isOnline ? 'Online' : 'Offline';
+  var ringColor = isOnline ? '#22c55e' : '#ef4444';
+  ['sbRing','profOnlineRing'].forEach(function(id){
+    var r = document.getElementById(id);
+    if (r) r.style.background = ringColor;
+  });
+}
+
+// ─────────────────────────────────────────────────────────
+// NOTIFICATIONS
+// ─────────────────────────────────────────────────────────
+function toggleNotif() {
+  var np = document.getElementById('notifPanel');
+  np.classList.toggle('open');
+  if (np.classList.contains('open')) {
+    document.getElementById('notifDot').style.display = 'none';
+  }
+}
+function clearNotifs() {
+  document.getElementById('notifList').innerHTML =
+    '<div class="empty-state" style="padding:1.5rem"><i class="fas fa-bell-slash"></i><p>Tidak ada notifikasi</p></div>';
+  document.getElementById('notifPanel').classList.remove('open');
+  document.getElementById('notifDot').style.display = 'none';
+}
+function addNotif(title, sub, iconCls, iconBg, iconColor) {
+  var list = document.getElementById('notifList');
+  var empty = list.querySelector('.empty-state');
+  if (empty) empty.remove();
+  var item = document.createElement('div');
+  item.className = 'notif-item';
+  item.innerHTML = '<div class="notif-item-icon" style="background:' + iconBg + '">'
+    + '<i class="' + iconCls + '" style="color:' + iconColor + '"></i></div>'
+    + '<div><div class="notif-item-title">' + esc(title) + '</div>'
+    + '<div class="notif-item-sub">' + esc(sub) + '</div>'
+    + '<div class="notif-item-time">Baru saja</div></div>';
+  list.insertBefore(item, list.firstChild);
+  document.getElementById('notifDot').style.display = 'block';
+}
+
+// ─────────────────────────────────────────────────────────
+// DASHBOARD
+// ─────────────────────────────────────────────────────────
+function renderDashboard() {
+  NC.reload();
+  var patients   = getPatients();
+  var myConsults = NC.consultations.filter(function(c){ return c.nurseId === currentNurse.id; });
+  var today      = myConsults.filter(function(c){
+    return new Date(c.startedAt || c.createdAt || Date.now()).toDateString() === new Date().toDateString();
+  });
+
+  var unread = 0;
+  NC.consultations.filter(function(c){
+    return c.nurseId === currentNurse.id || c.status === 'waiting';
+  }).forEach(function(c){
+    (c.messages || []).forEach(function(m){ if (m.from === 'patient' && !m.readByNurse) unread++; });
+  });
+
+  var myRatings = getMyRatings();
+  var avg = myRatings.length
+    ? (myRatings.reduce(function(s,r){ return s+r.score; }, 0) / myRatings.length).toFixed(1)
+    : '–';
+
+  document.getElementById('statToday').textContent    = today.length;
+  document.getElementById('statTodayTxt').textContent = today.length + ' hari ini';
+  document.getElementById('statPatients').textContent = patients.length;
+  document.getElementById('statUnread').textContent   = unread;
+  document.getElementById('statRating').textContent   = avg;
+
+  // Queue
+  var waiting = NC.consultations.filter(function(c){ return c.status === 'waiting'; });
+  document.getElementById('queueBadge').textContent = waiting.length + ' menunggu';
+  var qEl = document.getElementById('queueList');
+  if (!waiting.length) {
+    qEl.innerHTML = '<div class="empty-state"><i class="fas fa-circle-check" style="color:var(--green)"></i><p>Tidak ada antrian saat ini</p></div>';
+  } else {
+    qEl.innerHTML = waiting.slice(0,5).map(function(c){
+      var p = patients.find(function(x){ return x.id === c.patientId; });
+      var pName = p ? p.name : 'Pasien';
+      return '<div class="patient-row" onclick="acceptConsult(\'' + c.id + '\')">'
+        + '<div class="p-ava" style="background:' + avaColor(pName) + '">' + esc(initials(pName)) + '</div>'
+        + '<div style="flex:1"><div class="p-name">' + esc(pName) + '</div>'
+        + '<div class="p-meta">' + esc((c.complaint || c.keluhan || '–').substring(0,60)) + '</div></div>'
+        + '<div style="display:flex;align-items:center;gap:8px">'
+        + '<span class="badge badge-waiting">Menunggu</span>'
+        + '<button class="btn btn-primary btn-xs" onclick="event.stopPropagation();acceptConsult(\'' + c.id + '\')"><i class="fas fa-check"></i> Terima</button>'
+        + '</div></div>';
+    }).join('');
+  }
+
+  // Recent activity
+  var allMy = myConsults.slice().sort(function(a,b){ return (b.startedAt||0)-(a.startedAt||0); });
+  var aEl = document.getElementById('recentActivity');
+  if (!allMy.length) {
+    aEl.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>Belum ada aktivitas</p></div>';
+  } else {
+    aEl.innerHTML = allMy.slice(0,5).map(function(c){
+      var p = patients.find(function(x){ return x.id === c.patientId; });
+      var pName = p ? p.name : 'Pasien';
+      var cls = c.status === 'active' ? 'badge-active' : c.status === 'done' ? 'badge-done' : 'badge-waiting';
+      var lbl = c.status === 'active' ? 'Aktif' : c.status === 'done' ? 'Selesai' : 'Menunggu';
+      return '<div class="patient-row">'
+        + '<div class="p-ava" style="background:' + avaColor(pName) + '">' + esc(initials(pName)) + '</div>'
+        + '<div style="flex:1"><div class="p-name">' + esc(pName) + '</div>'
+        + '<div class="p-meta">' + esc((c.complaint || c.keluhan || '–').substring(0,50)) + '</div></div>'
+        + '<div style="display:flex;align-items:center;gap:8px">'
+        + '<span class="badge ' + cls + '">' + lbl + '</span>'
+        + '<span style="font-size:.65rem;color:var(--slate3)">' + timeAgo(c.startedAt || c.createdAt || Date.now()) + '</span>'
+        + '</div></div>';
+    }).join('');
+  }
+  updateBadges(unread);
+}
+
+function updateBadges(unread) {
+  var cb = document.getElementById('chatBadgeSb');
+  if (!cb) return;
+  if (unread > 0) { cb.style.display = 'inline-flex'; cb.textContent = unread; }
+  else { cb.style.display = 'none'; }
+}
+
+// ─────────────────────────────────────────────────────────
+// PATIENTS
+// ─────────────────────────────────────────────────────────
+function renderPatients() {
+  var patients = getPatients();
+  var qEl = document.getElementById('patSearch');
+  var q   = qEl ? qEl.value : '';
+  if (q) patients = patients.filter(function(p){ return (p.name||'').toLowerCase().indexOf(q.toLowerCase()) !== -1; });
+  var el = document.getElementById('patientList');
+  if (!patients.length) {
+    el.innerHTML = '<div class="empty-state"><i class="fas fa-user-slash"></i><p>Belum ada pasien terdaftar</p></div>';
+    return;
+  }
+  NC.reload();
+  var consults = NC.consultations;
+  el.innerHTML = patients.map(function(p){
+    var age = calcAge(p.dob);
+    var cnt = consults.filter(function(c){ return c.patientId === p.id; }).length;
+    return '<div class="patient-row" onclick="viewPatient(\'' + p.id + '\')">'
+      + '<div class="p-ava" style="background:' + avaColor(p.name) + '">' + esc(initials(p.name)) + '</div>'
+      + '<div style="flex:1"><div class="p-name">' + esc(p.name) + '</div>'
+      + '<div class="p-meta">' + age + ' th · ' + esc(p.gender || '–') + ' · ' + esc(p.address || '–') + '</div></div>'
+      + '<div style="display:flex;align-items:center;gap:8px">'
+      + '<span style="font-size:.72rem;color:var(--slate2)">' + cnt + ' konsultasi</span>'
+      + '<button class="btn btn-primary btn-xs" onclick="event.stopPropagation();startChatWith(\'' + p.id + '\')"><i class="fas fa-comment"></i> Chat</button>'
+      + '</div></div>';
+  }).join('');
+}
+
+// ─────────────────────────────────────────────────────────
+// CHAT / CONSULTATION
+// ─────────────────────────────────────────────────────────
+function renderChatRooms() {
+  NC.reload();
+  var q        = (document.getElementById('chatSearchInput') || {}).value || '';
+  var patients = getPatients();
+  var consults = NC.consultations.filter(function(c){
+    return c.status === 'waiting' || (c.status === 'active' && c.nurseId === currentNurse.id);
+  });
+  if (q) consults = consults.filter(function(c){
+    var p = patients.find(function(x){ return x.id === c.patientId; });
+    return p && (p.name||'').toLowerCase().indexOf(q.toLowerCase()) !== -1;
+  });
+  var activeCount = consults.filter(function(c){ return c.status === 'active'; }).length;
+  document.getElementById('activeChatBadge').textContent = activeCount + ' aktif';
+  var el = document.getElementById('chatRoomsList');
+  if (!consults.length) {
+    el.innerHTML = '<div class="empty-state" style="padding:2rem"><i class="fas fa-comment-slash"></i><p>Belum ada konsultasi</p></div>';
+    return;
+  }
+  el.innerHTML = consults.slice().sort(function(a,b){ return (b.createdAt||0)-(a.createdAt||0); }).map(function(c){
+    var p     = patients.find(function(x){ return x.id === c.patientId; });
+    var pName = p ? p.name : 'Pasien';
+    var msgs  = c.messages || [];
+    var lastMsg = msgs[msgs.length - 1];
+    var unread  = msgs.filter(function(m){ return m.from === 'patient' && !m.readByNurse; }).length;
+    var isAct   = activeConsult && activeConsult.consultId === c.id;
+    return '<div class="chat-room-item' + (isAct ? ' active' : '') + '" onclick="openChat(\'' + c.patientId + '\',\'' + c.id + '\')">'
+      + '<div class="chat-room-ava" style="background:' + avaColor(pName) + '">' + esc(initials(pName))
+      + (c.status === 'active' ? '<div class="chat-room-online"></div>' : '')
+      + '</div>'
+      + '<div style="flex:1;min-width:0">'
+      + '<div style="display:flex;justify-content:space-between;align-items:center;gap:4px">'
+      + '<div class="chat-room-name">' + esc(pName) + '</div>'
+      + '<div class="chat-room-time">' + fmtTime(c.createdAt || Date.now()) + '</div>'
+      + '</div>'
+      + '<div class="chat-room-preview">' + esc(lastMsg ? lastMsg.text.substring(0,40) : 'Keluhan: ' + (c.complaint || c.keluhan || '–').substring(0,40)) + '</div>'
+      + '</div>'
+      + (unread ? '<div class="chat-room-unread">' + unread + '</div>' : '')
+      + '</div>';
+  }).join('');
+}
+
+function openChat(patientId, consultId) {
+  NC.reload();
+  activeConsult = { patientId: patientId, consultId: consultId };
+  var patients = getPatients();
+  var p = patients.find(function(x){ return x.id === patientId; });
+  var c = NC.consultations.find(function(x){ return x.id === consultId; });
+  if (!p || !c) { showToast('Data konsultasi tidak ditemukan.','error'); return; }
+
+  if (c.status === 'waiting') {
+    NC.updateConsultation(consultId, { status: 'active', nurseId: currentNurse.id, acceptedAt: Date.now() });
+    NC.addMessage(consultId, 'nurse', 'Selamat datang! Saya ' + currentNurse.name + ', siap membantu Anda. 😊');
+    // Reload c setelah update
+    c = NC.consultations.find(function(x){ return x.id === consultId; });
+  }
+  NC.markMessagesRead(consultId, 'nurse');
+
+  document.getElementById('chatEmptyState').style.display    = 'none';
+  var aa = document.getElementById('chatActiveArea');
+  aa.style.display = 'flex';
+
+  var avaEl = document.getElementById('activeChatAva');
+  avaEl.textContent       = initials(p.name);
+  avaEl.style.background  = avaColor(p.name);
+  document.getElementById('activeChatName').textContent   = p.name;
+  document.getElementById('activeChatStatus').textContent = 'Konsultasi Aktif';
+
+  renderChatMessages();
+  renderChatRooms();
+  if (c) updateChatDetailPanel(p, c);
+}
+
+function renderChatMessages() {
+  if (!activeConsult) return;
+  NC.reload();
+  var msgs     = NC.getConsultationMessages(activeConsult.consultId);
+  var patients = getPatients();
+  var p        = patients.find(function(x){ return x.id === activeConsult.patientId; });
+  var el       = document.getElementById('chatMsgsArea');
+
+  if (!msgs.length) {
+    el.innerHTML = '<div class="msg-date">Konsultasi dimulai</div>';
+    el.scrollTop = el.scrollHeight;
+    return;
+  }
+
+  el.innerHTML = msgs.map(function(m){
+    if (m.type === 'system') {
+      return '<div class="msg-system-bubble">' + esc(m.text) + '</div>';
+    }
+    var isNurse    = m.from === 'nurse';
+    var avatarBg   = isNurse ? avaColor(currentNurse.name) : avaColor(p ? p.name : '');
+    var avatarInit = isNurse ? initials(currentNurse.name) : initials(p ? p.name : 'P');
+
+    if (m.type === 'note') {
+      return '<div class="msg-row ' + (isNurse ? 'me' : 'other') + '">'
+        + '<div class="msg-ava-xs" style="background:' + avatarBg + '">' + esc(avatarInit) + '</div>'
+        + '<div><div class="msg-bubble note-bubble"><div class="msg-note-title"><i class="fas fa-file-medical"></i> Catatan Medis</div>'
+        + '<pre style="white-space:pre-wrap;font-family:inherit;font-size:.78rem;color:var(--slate)">' + esc(m.text) + '</pre></div>'
+        + '<div class="msg-time">' + fmtTime(m.ts) + '</div></div></div>';
+    }
+    return '<div class="msg-row ' + (isNurse ? 'me' : 'other') + '">'
+      + '<div class="msg-ava-xs" style="background:' + avatarBg + '">' + esc(avatarInit) + '</div>'
+      + '<div><div class="msg-bubble ' + (isNurse ? 'me' : 'them') + '">' + esc(m.text) + '</div>'
+      + '<div class="msg-time">' + fmtTime(m.ts) + '</div></div></div>';
+  }).join('');
+
+  el.scrollTop = el.scrollHeight;
+}
+
+function updateChatDetailPanel(p, c) {
+  if (!p) return;
+  document.getElementById('chatDetailSub').textContent = 'Sesi aktif sejak ' + fmtTime(c.createdAt || Date.now());
+  document.getElementById('chatDetailPatient').innerHTML =
+    '<div class="cds-title">Data Pasien</div>'
+    + '<div class="info-row"><span class="info-label">Nama</span><span class="info-val">' + esc(p.name) + '</span></div>'
+    + '<div class="info-row"><span class="info-label">Umur</span><span class="info-val">' + calcAge(p.dob) + ' tahun</span></div>'
+    + '<div class="info-row"><span class="info-label">Jenis Kelamin</span><span class="info-val">' + esc(p.gender || '–') + '</span></div>'
+    + '<div class="info-row"><span class="info-label">Agama</span><span class="info-val">' + esc(p.religion || '–') + '</span></div>'
+    + '<div class="info-row"><span class="info-label">No. HP</span><span class="info-val">' + esc(p.phone || '–') + '</span></div>'
+    + '<div class="info-row"><span class="info-label">Alamat</span><span class="info-val">' + esc(p.address || '–') + '</span></div>';
+
+  var complaint = c.complaint || c.keluhan || '–';
+  document.getElementById('chatDetailComplaint').innerHTML =
+    '<div class="cds-title">Keluhan</div>'
+    + '<div class="complaint-card">' + esc(complaint)
+    + (c.riwayat ? '<br><br><b>Riwayat:</b> ' + esc(c.riwayat) : '')
+    + (c.obat    ? '<br><b>Obat:</b> ' + esc(c.obat) : '')
+    + (c.tingkatNyeri !== undefined ? '<br><b>Nyeri:</b> ' + c.tingkatNyeri + '/10' : '')
+    + '</div>';
+
+  NC.reload();
+  var myNotes = NC.medNotes.filter(function(n){ return n.patientId === p.id && n.nurseId === currentNurse.id; });
+  if (myNotes.length) {
+    var latest = myNotes[myNotes.length - 1];
+    document.getElementById('chatDetailNotes').innerHTML =
+      '<div class="cds-title">Catatan Medis Terakhir</div>'
+      + '<div class="complaint-card"><b>' + esc(latest.diagnosis || '–') + '</b><br>'
+      + esc(latest.catatan || '')
+      + (latest.anjuran ? '<br><span style="color:var(--gold2)">→ ' + esc(latest.anjuran) + '</span>' : '')
+      + '</div>';
+  }
+}
+
+function acceptConsult(consultId) {
+  NC.reload();
+  NC.updateConsultation(consultId, { status: 'active', nurseId: currentNurse.id, acceptedAt: Date.now() });
+  var c = NC.consultations.find(function(x){ return x.id === consultId; });
+  if (c) {
+    NC.addMessage(consultId, 'nurse', 'Selamat datang! Saya ' + currentNurse.name + ', siap membantu. 😊');
+    showPage('consultation', null);
+    openChat(c.patientId, consultId);
+    showToast('Konsultasi diterima!');
+  }
+  renderDashboard();
+}
+
+function startChatWith(patientId) {
+  NC.reload();
+  var ex = NC.consultations.find(function(c){
+    return c.patientId === patientId && (c.status === 'active' || c.status === 'waiting');
+  });
+  if (ex) {
+    showPage('consultation', null);
+    openChat(patientId, ex.id);
+  } else {
+    showToast('Pasien belum memulai konsultasi.', 'warning');
+  }
+}
+
+function sendNurseMsg() {
+  var inp = document.getElementById('nurseInput');
+  var txt = inp.value.trim();
+  if (!txt || !activeConsult) return;
+  NC.addMessage(activeConsult.consultId, 'nurse', txt);
+  inp.value = '';
+  renderChatMessages();
+  renderChatRooms();
+}
+
+function sendQuickReply(txt) {
+  if (!activeConsult) { showToast('Pilih konsultasi terlebih dahulu.', 'warning'); return; }
+  NC.addMessage(activeConsult.consultId, 'nurse', txt);
+  renderChatMessages();
+  renderChatRooms();
+}
+
+function endConsultation() {
+  if (!activeConsult) return;
+  if (!confirm('Selesaikan konsultasi ini?')) return;
+  NC.updateConsultation(activeConsult.consultId, { status: 'done', endedAt: Date.now() });
+  NC.addMessage(activeConsult.consultId, 'nurse', 'Konsultasi selesai. Semoga lekas sembuh! Jika ada pertanyaan, hubungi kembali. 🙏', 'system');
+  NC.updateUser(currentNurse.id, { totalConsultations: (currentNurse.totalConsultations || 0) + 1 });
+  currentNurse = NC.getCurrentUser() || currentNurse;
+  activeConsult = null;
+  document.getElementById('chatEmptyState').style.display = 'flex';
+  document.getElementById('chatActiveArea').style.display = 'none';
+  renderChatRooms();
+  renderDashboard();
+  renderHistory();
+  showToast('Konsultasi berhasil diselesaikan!');
+}
+
+// ─────────────────────────────────────────────────────────
+// PATIENT PANEL
+// ─────────────────────────────────────────────────────────
+function viewPatient(id) {
+  var p = getPatients().find(function(x){ return x.id === id; });
+  if (p) showPatientPanel(p);
+}
+function openPatientPanel() {
+  if (!activeConsult) return;
+  var p = getPatients().find(function(x){ return x.id === activeConsult.patientId; });
+  if (p) showPatientPanel(p);
+}
+function showPatientPanel(p) {
+  NC.reload();
+  var age      = calcAge(p.dob);
+  var consults = NC.consultations.filter(function(c){ return c.patientId === p.id; }).slice().sort(function(a,b){ return (b.startedAt||0)-(a.startedAt||0); });
+  var notes    = NC.medNotes.filter(function(n){ return n.patientId === p.id; });
+
+  var html = '<div style="background:var(--gold-light);border:1.5px solid rgba(245,158,11,.2);border-radius:var(--radius);padding:1.25rem;margin-bottom:1rem;text-align:center">'
+    + '<div style="width:60px;height:60px;border-radius:50%;background:' + avaColor(p.name) + ';display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#fff;font-weight:700;margin:0 auto .65rem">' + esc(initials(p.name)) + '</div>'
+    + '<div style="font-size:.95rem;font-weight:700;color:var(--navy)">' + esc(p.name) + '</div>'
+    + '<div style="font-size:.75rem;color:var(--slate2);margin-top:2px">' + esc(p.email || '–') + '</div>'
+    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.85rem">'
+    + '<div style="background:#fff;border-radius:8px;padding:.55rem .75rem"><div style="font-size:.6rem;font-weight:800;text-transform:uppercase;color:var(--slate3)">Umur</div><div style="font-size:.8rem;font-weight:700;color:var(--navy);margin-top:.15rem">' + age + ' tahun</div></div>'
+    + '<div style="background:#fff;border-radius:8px;padding:.55rem .75rem"><div style="font-size:.6rem;font-weight:800;text-transform:uppercase;color:var(--slate3)">Jenis Kelamin</div><div style="font-size:.8rem;font-weight:700;color:var(--navy);margin-top:.15rem">' + esc(p.gender || '–') + '</div></div>'
+    + '<div style="background:#fff;border-radius:8px;padding:.55rem .75rem"><div style="font-size:.6rem;font-weight:800;text-transform:uppercase;color:var(--slate3)">Agama</div><div style="font-size:.8rem;font-weight:700;color:var(--navy);margin-top:.15rem">' + esc(p.religion || '–') + '</div></div>'
+    + '<div style="background:#fff;border-radius:8px;padding:.55rem .75rem"><div style="font-size:.6rem;font-weight:800;text-transform:uppercase;color:var(--slate3)">No. HP</div><div style="font-size:.8rem;font-weight:700;color:var(--navy);margin-top:.15rem">' + esc(p.phone || '–') + '</div></div>'
+    + '</div>'
+    + (p.address ? '<div style="margin-top:.65rem;font-size:.75rem;color:var(--slate);background:#fff;border-radius:8px;padding:.45rem .75rem;text-align:left"><i class="fas fa-map-marker-alt" style="color:var(--gold);margin-right:4px"></i>' + esc(p.address) + '</div>' : '')
+    + '</div>';
+
+  html += '<div style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--slate2);margin:.9rem 0 .5rem">Riwayat Konsultasi</div>';
+  if (consults.length) {
+    html += consults.slice(0,4).map(function(c){
+      var cls = c.status === 'done' ? 'badge-done' : c.status === 'active' ? 'badge-active' : 'badge-waiting';
+      var lbl = c.status === 'done' ? 'Selesai' : c.status === 'active' ? 'Aktif' : 'Menunggu';
+      return '<div class="complaint-card" style="margin-bottom:.5rem">'
+        + '<div style="display:flex;justify-content:space-between;margin-bottom:.25rem"><span class="badge ' + cls + '">' + lbl + '</span>'
+        + '<span style="font-size:.63rem;color:var(--slate3)">' + fmtDate(c.startedAt||c.createdAt||Date.now()) + '</span></div>'
+        + esc((c.complaint || c.keluhan || '–').substring(0,80)) + '</div>';
+    }).join('');
+  } else {
+    html += '<p style="font-size:.78rem;color:var(--slate2)">Belum ada riwayat konsultasi.</p>';
+  }
+
+  html += '<div style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--slate2);margin:.9rem 0 .5rem">Catatan Medis</div>';
+  if (notes.length) {
+    html += notes.slice(0,3).map(function(n){
+      return '<div class="complaint-card" style="margin-bottom:.5rem">'
+        + '<b style="font-size:.78rem;color:var(--navy)">' + esc(n.diagnosis || '–') + '</b><br>'
+        + '<span style="font-size:.75rem;color:var(--slate)">' + esc(n.catatan || '') + '</span>'
+        + (n.anjuran ? '<br><span style="font-size:.72rem;color:var(--gold2)">→ ' + esc(n.anjuran) + '</span>' : '')
+        + '</div>';
+    }).join('');
+  } else {
+    html += '<p style="font-size:.78rem;color:var(--slate2)">Belum ada catatan medis.</p>';
+  }
+
+  document.getElementById('patientPanelBody').innerHTML = html;
+  document.getElementById('patientPanel').classList.add('open');
+}
+function closePatientPanel() { document.getElementById('patientPanel').classList.remove('open'); }
+
+// ─────────────────────────────────────────────────────────
+// MEDICAL NOTES
+// ─────────────────────────────────────────────────────────
+function fillPatientDropdown() {
+  var patients = getPatients();
+  var sel = document.getElementById('notePatient');
+  if (!sel) return;
+  sel.innerHTML = '<option value="">Pilih pasien...</option>'
+    + patients.map(function(p){ return '<option value="' + p.id + '">' + esc(p.name) + '</option>'; }).join('');
+}
+function openNoteModal() {
+  fillPatientDropdown();
+  if (activeConsult) document.getElementById('notePatient').value = activeConsult.patientId;
+  document.getElementById('noteModalOverlay').classList.add('show');
+}
+function closeNoteModal() {
+  document.getElementById('noteModalOverlay').classList.remove('show');
+}
+function saveMedNote() {
+  var pid  = document.getElementById('notePatient').value;
+  var diag = document.getElementById('noteDiagnosis').value.trim();
+  var td   = document.getElementById('noteTD').value.trim();
+  var nadi = document.getElementById('noteNadi').value.trim();
+  var suhu = document.getElementById('noteSuhu').value.trim();
+  var rr   = document.getElementById('noteRR').value.trim();
+  var cat  = document.getElementById('noteText').value.trim();
+  var anj  = document.getElementById('noteAnjuran').value.trim();
+  if (!pid) { showToast('Pilih pasien terlebih dahulu.', 'warning'); return; }
+  if (!cat) { showToast('Catatan keperawatan tidak boleh kosong.', 'warning'); return; }
+  NC.addMedNote({
+    nurseId: currentNurse.id, nurseName: currentNurse.name,
+    patientId: pid, consultId: activeConsult ? activeConsult.consultId : null,
+    diagnosis: diag, td: td, nadi: nadi, suhu: suhu, rr: rr,
+    catatan: cat, anjuran: anj
+  });
+  if (activeConsult) {
+    var summary = '📋 Catatan Medis'
+      + '\nDiagnosis: ' + (diag || '–')
+      + (td   ? '\nTD: ' + td + ' mmHg'     : '')
+      + (nadi ? ' | Nadi: ' + nadi + ' bpm' : '')
+      + (suhu ? '\nSuhu: ' + suhu + '°C'    : '')
+      + (rr   ? ' | Napas: ' + rr + '/mnt'  : '')
+      + '\nCatatan: ' + cat
+      + (anj  ? '\nAnjuran: ' + anj         : '');
+    NC.addMessage(activeConsult.consultId, 'nurse', summary, 'note');
+    renderChatMessages();
+  }
+  closeNoteModal();
+  ['noteDiagnosis','noteTD','noteNadi','noteSuhu','noteRR','noteText','noteAnjuran'].forEach(function(id){
+    document.getElementById(id).value = '';
+  });
+  showToast('Catatan medis berhasil disimpan!');
+  renderNotesList();
+  renderAnalytics();
+  if (activeConsult) {
+    var p2 = getPatients().find(function(x){ return x.id === activeConsult.patientId; });
+    var c2 = NC.consultations.find(function(x){ return x.id === activeConsult.consultId; });
+    if (p2 && c2) updateChatDetailPanel(p2, c2);
+  }
+}
+function renderNotesList() {
+  var notes    = getMyNotes().slice().sort(function(a,b){ return b.createdAt - a.createdAt; });
+  var patients = getPatients();
+  var el = document.getElementById('notesList');
+  if (!notes.length) {
+    el.innerHTML = '<div class="empty-state"><i class="fas fa-file-medical-alt"></i><p>Belum ada catatan medis</p></div>';
+    return;
+  }
+  el.innerHTML = notes.map(function(n){
+    var p = patients.find(function(x){ return x.id === n.patientId; });
+    return '<div class="history-item">'
+      + '<div class="history-icon" style="background:var(--gold3)"><i class="fas fa-file-medical" style="color:var(--gold2)"></i></div>'
+      + '<div style="flex:1"><div class="history-title">' + esc(p ? p.name : 'Pasien') + '</div>'
+      + '<div class="history-sub">Diagnosis: ' + esc(n.diagnosis || '–') + (n.td ? ' · TD: ' + n.td : '') + (n.suhu ? ' · Suhu: ' + n.suhu : '') + '</div>'
+      + '<div style="font-size:.72rem;color:var(--slate);margin-top:2px">' + esc(n.catatan || '') + '</div>'
+      + (n.anjuran ? '<div style="font-size:.7rem;color:var(--gold2);margin-top:2px">→ ' + esc(n.anjuran) + '</div>' : '')
+      + '</div><div class="history-date">' + fmtDate(n.createdAt) + '</div></div>';
+  }).join('');
+}
+
+// ─────────────────────────────────────────────────────────
+// HISTORY
+// ─────────────────────────────────────────────────────────
+function renderHistory() {
+  NC.reload();
+  var done = NC.consultations.filter(function(c){ return c.nurseId === currentNurse.id && c.status === 'done'; })
+    .slice().sort(function(a,b){ return (b.endedAt||0)-(a.endedAt||0); });
+  var patients = getPatients();
+  document.getElementById('historyTotal').textContent = done.length + ' konsultasi';
+  var el = document.getElementById('historyList');
+  if (!done.length) {
+    el.innerHTML = '<div class="empty-state"><i class="fas fa-folder-open"></i><p>Belum ada riwayat</p></div>';
+    return;
+  }
+  el.innerHTML = done.map(function(c){
+    var p = patients.find(function(x){ return x.id === c.patientId; });
+    var r = NC.ratings.find(function(x){ return x.consultId === c.id; });
+    return '<div class="history-item">'
+      + '<div class="history-icon" style="background:#dcfce7"><i class="fas fa-circle-check" style="color:var(--green)"></i></div>'
+      + '<div style="flex:1"><div class="history-title">' + esc(p ? p.name : 'Pasien') + '</div>'
+      + '<div class="history-sub">' + esc((c.complaint || c.keluhan || '–').substring(0,60)) + '</div>'
+      + (r ? '<div style="font-size:.7rem;color:var(--gold);margin-top:2px">' + '★'.repeat(r.score) + '☆'.repeat(5-r.score)
+           + (r.review ? '<span style="color:var(--slate2);margin-left:4px">"' + esc(r.review) + '"</span>' : '') + '</div>' : '')
+      + '</div><div class="history-date">' + fmtDate(c.endedAt || c.startedAt || Date.now()) + '</div></div>';
+  }).join('');
+}
+
+// ─────────────────────────────────────────────────────────
+// ANALYTICS
+// ─────────────────────────────────────────────────────────
+function renderAnalytics() {
+  NC.reload();
+  var myC     = NC.consultations.filter(function(c){ return c.nurseId === currentNurse.id; });
+  var done    = myC.filter(function(c){ return c.status === 'done'; });
+  var notes   = getMyNotes();
+  var ratings = getMyRatings();
+  var avg     = ratings.length
+    ? (ratings.reduce(function(s,r){ return s+r.score; },0)/ratings.length).toFixed(1)
+    : '–';
+  var uniquePats = new Set(myC.map(function(c){ return c.patientId; })).size;
+
+  document.getElementById('aTotal').textContent    = done.length;
+  document.getElementById('aRating').textContent   = avg;
+  document.getElementById('aNotes').textContent    = notes.length;
+  document.getElementById('aPatients').textContent = uniquePats;
+
+  var cats      = ['Hipertensi','Diabetes','Anak','Jiwa','Umum'];
+  var catCounts = cats.map(function(cat){
+    return myC.filter(function(c){ return (c.complaint||c.keluhan||c.kategori||'').toLowerCase().indexOf(cat.toLowerCase()) !== -1; }).length;
+  });
+  var hasData = catCounts.some(function(n){ return n>0; });
+  if (!hasData && done.length) catCounts = [Math.ceil(done.length*.35),Math.ceil(done.length*.25),Math.ceil(done.length*.2),Math.ceil(done.length*.12),Math.ceil(done.length*.08)];
+  var maxCat = Math.max.apply(null, catCounts) || 1;
+  document.getElementById('specChart').innerHTML = cats.map(function(cat,i){
+    return '<div class="chart-bar-item"><div class="chart-bar-label">' + cat + '</div>'
+      + '<div class="chart-bar-track"><div class="chart-bar-fill" style="width:' + (catCounts[i]/maxCat*100) + '%"></div></div>'
+      + '<div class="chart-bar-val">' + catCounts[i] + '</div></div>';
+  }).join('');
+
+  var rDist = [5,4,3,2,1].map(function(s){ return ratings.filter(function(r){ return r.score===s; }).length; });
+  var maxR  = Math.max.apply(null, rDist) || 1;
+  document.getElementById('ratingChart').innerHTML = [5,4,3,2,1].map(function(s,i){
+    return '<div class="chart-bar-item"><div class="chart-bar-label">' + '★'.repeat(s) + '</div>'
+      + '<div class="chart-bar-track"><div class="chart-bar-fill" style="width:' + (rDist[i]/maxR*100) + '%"></div></div>'
+      + '<div class="chart-bar-val">' + rDist[i] + '</div></div>';
+  }).join('');
+}
+
+// ─────────────────────────────────────────────────────────
+// PROFILE
+// ─────────────────────────────────────────────────────────
+function renderProfile() {
+  NC.reload();
+  var n = NC.users.find(function(x){ return x.id === currentNurse.id; }) || currentNurse;
+  var ratings = getMyRatings();
+  var avg     = ratings.length
+    ? (ratings.reduce(function(s,r){ return s+r.score; },0)/ratings.length).toFixed(1)
+    : '–';
+  var stars = avg !== '–'
+    ? '★'.repeat(Math.round(parseFloat(avg))) + '☆'.repeat(5-Math.round(parseFloat(avg)))
+    : '–';
+
+  document.getElementById('profAvaInitials').textContent = initials(n.name);
+  document.getElementById('profName').textContent  = n.name || '–';
+  document.getElementById('profSpec').textContent  = n.specialization || 'Perawat';
+  document.getElementById('profStars').textContent = avg !== '–' ? stars + ' ' + avg + '/5.0 (' + ratings.length + ' ulasan)' : 'Belum ada ulasan';
+  document.getElementById('profStats').textContent = (n.totalConsultations || 0) + ' konsultasi total';
+  document.getElementById('profStrBadge').innerHTML = '<i class="fas fa-certificate"></i> STR: ' + esc(n.strNumber || n.str || '–');
+
+  document.getElementById('editNama').value   = n.name    || '';
+  document.getElementById('editEmail').value  = n.email   || '';
+  document.getElementById('editStr').value    = n.strNumber || n.str || '';
+  document.getElementById('editAddress').value= n.address || '';
+
+  var specSel = document.getElementById('editSpec');
+  for (var i = 0; i < specSel.options.length; i++) {
+    if (specSel.options[i].text === (n.specialization||'')) { specSel.selectedIndex = i; break; }
+  }
+  var gSel = document.getElementById('editGender');
+  for (var j = 0; j < gSel.options.length; j++) {
+    if (gSel.options[j].text === (n.gender||'')) { gSel.selectedIndex = j; break; }
+  }
+
+  var patients = getPatients();
+  var revEl = document.getElementById('reviewsList');
+  if (!ratings.length) {
+    revEl.innerHTML = '<div class="empty-state"><i class="fas fa-star"></i><p>Belum ada ulasan</p></div>';
+    return;
+  }
+  revEl.innerHTML = ratings.slice().sort(function(a,b){ return b.ts-a.ts; }).slice(0,8).map(function(r){
+    var p = patients.find(function(x){ return x.id === r.patientId; });
+    return '<div class="history-item">'
+      + '<div class="history-icon" style="background:var(--gold3)"><i class="fas fa-star" style="color:var(--gold2)"></i></div>'
+      + '<div style="flex:1"><div class="history-title">' + esc(p ? p.name : 'Pasien') + '</div>'
+      + '<div style="color:var(--gold);font-size:.85rem">' + '★'.repeat(r.score) + '<span style="color:var(--slate3)">' + '☆'.repeat(5-r.score) + '</span></div>'
+      + (r.review ? '<div class="history-sub">"' + esc(r.review) + '"</div>' : '')
+      + '</div><div class="history-date">' + timeAgo(r.ts) + '</div></div>';
+  }).join('');
+}
+
+function saveProfile() {
+  var nama    = document.getElementById('editNama').value.trim();
+  var spec    = document.getElementById('editSpec').value;
+  var str     = document.getElementById('editStr').value.trim();
+  var gender  = document.getElementById('editGender').value;
+  var address = document.getElementById('editAddress').value.trim();
+  var pass    = document.getElementById('editPass').value;
+  if (!nama) { showToast('Nama tidak boleh kosong.', 'warning'); return; }
+  if (pass && pass.length < 6) { showToast('Password minimal 6 karakter.', 'warning'); return; }
+  var fields = { name: nama, specialization: spec, strNumber: str, gender: gender, address: address };
+  if (pass) fields.password = pass;
+  var updated = NC.updateUser(currentNurse.id, fields);
+  if (updated) {
+    currentNurse = updated;
+    document.getElementById('sbAva').innerHTML = esc(initials(currentNurse.name)) + '<div class="sb-online-ring" id="sbRing" style="background:' + (isOnline ? '#22c55e' : '#ef4444') + '"></div>';
+    document.getElementById('sbName').textContent = (currentNurse.name || '').split(' ').slice(0,3).join(' ');
+    document.getElementById('sbSpec').textContent = currentNurse.specialization || 'Perawat';
+    document.getElementById('editPass').value = '';
+  }
+  renderProfile();
+  showToast('Profil berhasil diperbarui!');
+}
+
+// ─────────────────────────────────────────────────────────
+// POLLING
+// ─────────────────────────────────────────────────────────
+function startPolling() {
+  pollingTimer = setInterval(function() {
+    try {
+      NC.reload();
+      var waiting = NC.consultations.filter(function(c){ return c.status === 'waiting' && !notifiedIds[c.id]; });
+      waiting.forEach(function(c){
+        notifiedIds[c.id] = true;
+        var p = NC.users.find(function(x){ return x.id === c.patientId; });
+        addNotif(
+          '🔔 Pasien Baru!',
+          (p ? p.name : 'Pasien') + ': ' + (c.complaint || c.keluhan || '–').substring(0,60),
+          'fas fa-user-plus', 'var(--gold3)', 'var(--gold2)'
+        );
+        renderDashboard();
+      });
+      var unread = 0;
+      NC.consultations.filter(function(c){ return c.nurseId === currentNurse.id; }).forEach(function(c){
+        (c.messages||[]).forEach(function(m){ if (m.from==='patient' && !m.readByNurse) unread++; });
+      });
+      updateBadges(unread);
+      var su = document.getElementById('statUnread');
+      if (su) su.textContent = unread;
+      if (activeConsult) renderChatMessages();
+      renderChatRooms();
+    } catch(e) { /* polling tidak boleh crash halaman */ }
+  }, 2500);
+}
+</script>
+</body>
+</html>
